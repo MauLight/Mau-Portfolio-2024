@@ -6,7 +6,12 @@ export default {
   ],
   theme: {
     extend: {
-    },
+      fontFamily: {
+        'light': ['FUTURA_LIGHT', 'sans-serif'],
+        'body': ['FUTURA_BOOK', 'sans-serif'],
+        'heading': ['FUTURA_BOLD', 'sans-serif']
+      },
+    }
   },
   plugins: [],
 }

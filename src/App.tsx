@@ -1,26 +1,20 @@
+import Layout from './Layout'
+import bg from './assets/bg_2.jpg'
+import { motion } from 'framer-motion'
+import { useFollowPointer } from './utils/useFollowPointer'
+import { useRef } from 'react'
+import Topbar from './components/Topbar/Topbar'
 
 const App = () => {
+  const ref = useRef(null)
+  const { x, y } = useFollowPointer(ref)
+
   return (
-    <div className="bg-gray-300 min-h-screen">
-      <div className="bg-gray-100 flex">
-        <div className={'boxLayout lg:w-1/2 h-[50vh] py-10 px-5 lg:py:15 lg:px-12 border'}>
-          <div className="xl:max-w-2xl xl:ml-auto h-full border">
-            <div className="flex flex-col gap-y-2 sm:gap-y-4 h-full justify-center">
-              <h1
-                className="w-full text-3xl sm:text-5xl xl:text-6xl font-semibold text-gray-800 leading-tight text-balance text-start"
-              >
-            If you can imagine it,
-                <br className="inline" />
-                <span className="text-indigo-500">You can make it real.</span>
-              </h1>
-              <p className="text-gray-600 text-md sm:text-2xl text-balance text-start">
-            My goal is to bring your ideas and ambitions into concrete projects that solve problems in a creative and stilized way.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="hidden lg:block lg:w-1/2"></div>
-      </div>
+    <div className="w-screen flex flex-col items-center justify-center border">
+      <Topbar />
+      <Layout />
+      <img src={bg} className='w-screen h-screen fixed top-0 left-0 object-cover opacity-100 -z-10' />
+      <motion.div ref={ref} className='absolute w-[200px] z-0 h-[200px] rounded-full bg-[#ff0066]' style={{ x, y }}></motion.div>
     </div>
   )
 }

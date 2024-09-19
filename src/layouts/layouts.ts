@@ -1,1 +1,0 @@
-export const boxWidth = 'max-w-md sm:max-w-xl lg:max-w-full mx-auto'
