@@ -1,10 +1,9 @@
-import { boxWidth } from './layouts/layouts'
 
 const App = () => {
   return (
     <div className="bg-gray-300 min-h-screen">
       <div className="bg-gray-100 flex">
-        <div className={`${boxWidth} lg:w-1/2 h-[50vh] py-10 px-5 lg:py:15 lg:px-12 border`}>
+        <div className={'boxLayout lg:w-1/2 h-[50vh] py-10 px-5 lg:py:15 lg:px-12 border'}>
           <div className="xl:max-w-2xl xl:ml-auto h-full border">
             <div className="flex flex-col gap-y-2 sm:gap-y-4 h-full justify-center">
               <h1
