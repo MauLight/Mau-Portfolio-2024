@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { TitleText } from '../Common/TitleText'
 import html2canvas from 'html2canvas'
 import { Agent } from '@/utils/classes'
-import { randRange } from '@/utils/functions'
+import { fadeIn, randRange } from '@/utils/functions'
+import { format } from 'date-fns'
+import { motion } from 'framer-motion'
 //import { degToRad, randRange } from '@/utils/functions'
 
 const Home = () => {
@@ -126,11 +128,26 @@ const Home = () => {
 
   return (
     <div className="min-h-screen h-full grid grid-cols-3">
-      <div className="flex items-center gap-x-2">
-        <TitleText text="M" />
-        <TitleText text="Light" />
+      <div className="flex flex-col justify-center pb-[100px]">
+        <motion.div
+          variants={fadeIn('right', 0.4)}
+          initial={'hidden'}
+          whileInView={'show'}
+          viewport={{ once: false, amount: 0.1 }}
+          className="flex items-center gap-x-2">
+          <TitleText text="M" />
+          <TitleText text="Light" />
+        </motion.div>
+        <div className="border-b-2 border-gray-500"></div>
       </div>
-      <div className="relative col-span-2 flex justify-center items-center">
+      <div className="relative col-span-2 flex flex-col justify-center items-end">
+        <motion.p
+          variants={fadeIn('left', 0.4)}
+          initial={'hidden'}
+          whileInView={'show'}
+          viewport={{ once: false, amount: 0.1 }}
+          className='font-body text-[18px] text-[#10100e]'>{format(new Date(), 'PPPP')}</motion.p>
+        <div className="w-full border-b-2 border-gray-500"></div>
         <canvas className='absolute top-0 right-0 p-10' onClick={handleDownloadImage} ref={printRef} width={width} height={height} id='animation' />
       </div>
     </div>

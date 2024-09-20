@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 
-export const FlipLink = ({ children, href, textSize, fontColor }: { children: string, href: string, textSize: string, fontColor: string }) => {
+interface FlipLinkProps { children: string, href: string, textSize: string, fontColor: string, onClick?: () => void }
+
+export const FlipLink = ({ children, href, textSize, fontColor, onClick }: FlipLinkProps) => {
   const DURATION = 0.25
   const STAGGER = 0.025
   return (
@@ -8,7 +10,8 @@ export const FlipLink = ({ children, href, textSize, fontColor }: { children: st
       initial='initial'
       whileHover='hover'
       href={href}
-      className={`relative block overflow-hidden whitespace-nowrap ${textSize} ${fontColor} uppercase font-bold z-20`}
+      onClick={onClick}
+      className={`relative block overflow-hidden whitespace-nowrap ${textSize} ${fontColor} uppercase font-body z-20`}
       style={{
         lineHeight: 0.94
       }}

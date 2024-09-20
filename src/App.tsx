@@ -1,7 +1,7 @@
 import Layout from './Layout'
 import bg from './assets/bg_2.jpg'
 import { motion } from 'framer-motion'
-import { useFollowPointer } from './utils/useFollowPointer'
+import { useFollowPointer } from './hooks/useFollowPointer'
 import { useRef } from 'react'
 import Topbar from './components/Topbar/Topbar'
 import video from '@/assets/end of time.mp4'
