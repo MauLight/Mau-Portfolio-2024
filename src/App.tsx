@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { useFollowPointer } from './utils/useFollowPointer'
 import { useRef } from 'react'
 import Topbar from './components/Topbar/Topbar'
+import video from '@/assets/end of time.mp4'
 
 const App = () => {
   const ref = useRef(null)
@@ -14,7 +15,9 @@ const App = () => {
       <Topbar />
       <Layout />
       <img src={bg} className='w-screen h-screen fixed top-0 left-0 object-cover opacity-100 -z-10' />
-      <motion.div ref={ref} className='absolute w-[200px] z-0 h-[200px] rounded-full bg-[#ff0066]' style={{ x, y }}></motion.div>
+      <motion.div ref={ref} className='absolute w-[200px] z-0 h-[200px] rounded-full overflow-hidden' style={{ x, y }}>
+        <video src={video} autoPlay loop muted className='w-full h-full object-cover' />
+      </motion.div>
     </div>
   )
 }
