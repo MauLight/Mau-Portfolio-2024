@@ -1,45 +1,108 @@
 import { useEffect, useRef, useState } from 'react'
 import { TitleText } from '../Common/TitleText'
 import html2canvas from 'html2canvas'
-
+import { Agent } from '@/utils/classes'
+import { randRange } from '@/utils/functions'
+//import { degToRad, randRange } from '@/utils/functions'
 
 const Home = () => {
-  const [width, setWidth] = useState(1080)
-  const [height, setHeight] = useState(1080)
+  const [width] = useState(850)
+  const [height] = useState(850)
   const printRef = useRef(null)
 
+  //   useEffect(() => {
+  //     const canvas = document.querySelector('canvas') as HTMLCanvasElement
+  //     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+
+  //     ctx.fillStyle = 'black'
+
+  //     const cx = width * 0.5
+  //     const cy = height * 0.5
+
+  //     const w = width * 0.01
+  //     const h = height * 0.1
+  //     let x, y
+
+  //     const num = 22
+  //     const radius = width * 0.3
+
+  //     for (let i = 0; i < num; i++) {
+  //       const slice = degToRad(360 / num)
+  //       const angle = slice * i
+
+  //       x = cx + radius * Math.sin(angle)
+  //       y = cy + radius * Math.cos(angle)
+
+  //       ctx.save()
+  //       ctx.translate(x, y)
+  //       ctx.rotate(-angle)
+  //       ctx.scale(randRange(0.1, 2), randRange(0.1, 0.6))
+
+  //       ctx.beginPath()
+  //       ctx.rect( -w * 0.5, randRange(0, -h * 0.2), w, h)
+  //       ctx.fill()
+  //       ctx.restore()
+
+  //       ctx.save()
+  //       ctx.translate(cx, cy)
+  //       ctx.rotate(-angle)
+
+  //       ctx.lineWidth = randRange(2, 28)
+
+  //       ctx.beginPath()
+  //       ctx.arc(0, 0, radius * randRange(0.2, 1.8), slice * randRange(1, 2), slice * randRange(1, 4))
+  //       ctx.stroke()
+
+  //       ctx.restore()
+  //     }
+  //   })
+
+  const agents: Agent[] = []
+
+  for (let i = 0; i < 40; i++) {
+    const x = randRange(0, width)
+    const y = randRange(0, height)
+    agents.push(new Agent(x, y))
+  }
+
   useEffect(() => {
+    console.log('agents', agents)
     const canvas = document.querySelector('canvas') as HTMLCanvasElement
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
 
-    const w = width * 0.1
-    const h = height * 0.1
-    const gap = width * 0.03
-    const ix = width * 0.17
-    const iy = height * 0.17
-    const off = width * 0.02
-    let x, y
+    const render = () => {
+      ctx.clearRect(0, 0, width, height)
 
-    for (let i = 0; i < 5; i++) {
-      for (let j = 0; j < 5; j++) {
-        x = ix + (w + gap) * i
-        y = iy + (h + gap) * j
+      for (let i = 0; i < agents.length; i++) {
+        const agent = agents[i]
 
-        ctx.beginPath()
-        ctx.lineWidth = width * 0.01
-        ctx.lineWidth = 6
-        ctx.rect(x, y, w, h)
-        ctx.stroke()
+        for (let j = i + 1; j < agents.length; j++) {
+          const other = agents[j]
+          const dist = agent.pos.getDistance(other.pos)
+          if (dist > 200) continue
 
-        if (Math.random() > 0.5) {
+          ctx.lineWidth = 1 - dist / 200
           ctx.beginPath()
-          ctx.rect(x + off / 2, y + off / 2, w - off, h - off)
+          ctx.moveTo(agent.pos.x, agent.pos.y)
+          ctx.lineTo(other.pos.x, other.pos.y)
           ctx.stroke()
+          //console.log('other', other.x)
         }
-
       }
+
+      agents.forEach(agent => {
+        agent.update()
+        agent.draw(ctx)
+        agent.bounce(width, height)
+      })
     }
 
+    const loop = () => {
+      render()
+      requestAnimationFrame(loop)
+    }
+    loop()
+    return () => ctx.clearRect(0, 0, width, height)
   })
 
   const handleDownloadImage = async () => {
@@ -63,11 +126,13 @@ const Home = () => {
 
   return (
     <div className="min-h-screen h-full grid grid-cols-3">
-      <div className="flex items-center gap-x-2 border">
+      <div className="flex items-center gap-x-2">
         <TitleText text="M" />
         <TitleText text="Light" />
       </div>
-      <canvas onClick={handleDownloadImage} ref={printRef} width={width} height={height} id='animation' className="" />
+      <div className="relative col-span-2 flex justify-center items-center">
+        <canvas className='absolute top-0 right-0 p-10' onClick={handleDownloadImage} ref={printRef} width={width} height={height} id='animation' />
+      </div>
     </div>
   )
 }

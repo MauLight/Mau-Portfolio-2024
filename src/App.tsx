@@ -10,7 +10,7 @@ const App = () => {
   const { x, y } = useFollowPointer(ref)
 
   return (
-    <div className="w-screen flex flex-col items-center justify-center border">
+    <div className="relative w-screen flex flex-col items-center justify-center border">
       <Topbar />
       <Layout />
       <img src={bg} className='w-screen h-screen fixed top-0 left-0 object-cover opacity-100 -z-10' />
