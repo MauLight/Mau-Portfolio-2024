@@ -5,6 +5,7 @@ import { Agent } from '@/utils/classes'
 import { fadeIn, randRange } from '@/utils/functions'
 import { format } from 'date-fns'
 import { motion } from 'framer-motion'
+import QRCode from 'react-qr-code'
 //import { degToRad, randRange } from '@/utils/functions'
 
 const Home = () => {
@@ -68,7 +69,6 @@ const Home = () => {
   }
 
   useEffect(() => {
-    console.log('agents', agents)
     const canvas = document.querySelector('canvas') as HTMLCanvasElement
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
 
@@ -128,7 +128,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen h-full grid grid-cols-3">
-      <div className="flex flex-col justify-center pb-[100px]">
+      <div className="flex flex-col justify-center pb-[50px]">
         <motion.div
           variants={fadeIn('right', 0.4)}
           initial={'hidden'}
@@ -138,18 +138,46 @@ const Home = () => {
           <TitleText text="M" />
           <TitleText text="Light" />
         </motion.div>
-        <div className="border-b-2 border-gray-500"></div>
-      </div>
-      <div className="relative col-span-2 flex flex-col justify-center items-end">
         <motion.p
           variants={fadeIn('left', 0.4)}
           initial={'hidden'}
           whileInView={'show'}
           viewport={{ once: false, amount: 0.1 }}
           className='font-body text-[18px] text-[#10100e]'>{format(new Date(), 'PPPP')}</motion.p>
-        <div className="w-full border-b-2 border-gray-500"></div>
+      </div>
+      <div className="relative col-span-2 flex flex-col justify-center items-end">
         <canvas className='absolute top-0 right-0 p-10' onClick={handleDownloadImage} ref={printRef} width={width} height={height} id='animation' />
       </div>
+      <motion.div
+        variants={fadeIn('top', 1.5)}
+        initial={'hidden'}
+        whileInView={'show'}
+        viewport={{ once: false, amount: 0.1 }}
+        className="fixed left-0 bottom-0 h-[200px] w-screen flex flex-col items-center justify-center">
+        <div className="w-[1440px] h-[100px] grid grid-cols-3">
+          <div className="flex justify-center items-center">
+          </div>
+          <div className="relative flex">
+            <div className="absolute -bottom-[65px] flex justify-start items-end w-full h-[100px] z-50">
+              {/* <p className='w-[300px] font-body text-[20px] text-balance text-[#10100e] tracking-tight'>M.Light is a digital artist specialized in <span className='font-heading'>web development</span>, <span className='font-heading'>video & photography</span>, and <span className='font-heading'>storytelling.</span></p> */}
+            </div>
+          </div>
+          <div className="flex items-center justify-end">
+          </div>
+        </div>
+        <div className="w-[1440px] grid grid-cols-3">
+          <div className="flex justify-start items-end pb-5">
+            <p className='font-body text-[18px] text-[#fdeeff]'>If you can imagine it, you can make it real.</p>
+          </div>
+          <div className="flex"></div>
+          <div className="flex flex-col items-end gap-y-2 pb-5">
+            <div className="flex h-[100px] border items-start">
+              <QRCode className='w-[100px] h-[100px] border border-gray-200 opacity-80' value='https://www.maulight.com' />
+            </div>
+            <p className='font-body text-[18px] text-[#10100e]'>© 2024 MLight</p>
+          </div>
+        </div>
+      </motion.div>
     </div>
   )
 }

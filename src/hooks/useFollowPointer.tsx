@@ -10,6 +10,10 @@ export const useFollowPointer = ( ref: RefObject<HTMLElement> ) => {
   const y = useSpring(yPoint, spring)
 
   useEffect(() => {
+    console.log(yPoint)
+  }, [yPoint])
+
+  useEffect(() => {
     if (!ref.current) return
     const handlePointerMove = ({ clientX, clientY } : MouseEvent) => {
       const element = ref.current!

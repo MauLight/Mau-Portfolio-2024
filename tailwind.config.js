@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        background: '#fdeeff'
+      },
       fontFamily: {
         'light': ['FUTURA_LIGHT', 'sans-serif'],
         'body': ['FUTURA_BOOK', 'sans-serif'],
