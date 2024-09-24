@@ -49,7 +49,7 @@ const Topbar = () => {
               <h1 className='font-body text-[16px]'>Galleries</h1>
               <div className="flex flex-col">
                 <Link to={'/photo/humans'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className='pl-5 font-light text-gray-600 text-[14px]'>Humans</Link>
-                <Link to={'/photo/dramatic'} className='pl-5 font-light text-gray-600 text-[14px]'>Dramatic</Link>
+                <Link to={'/photo/distortion'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className='pl-5 font-light text-gray-600 text-[14px]'>Distortion</Link>
               </div>
             </div>
             <div id='video' className="col-span-1 flex flex-col border-r"></div>

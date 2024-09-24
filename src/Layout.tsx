@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router'
 
 const Home = lazy( async () => await import ('@/components/Home/Home') )
 const Humans = lazy( async () => await import ('@/components/Photo/Galleries/Humans') )
+const Distortion = lazy( async () => await import ('@/components/Photo/Galleries/Distortion') )
 
 
 
@@ -13,6 +14,7 @@ const Layout = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/photo/humans' element={<Humans />} />
+          <Route path='/photo/distortion' element={<Distortion />} />
         </Routes>
       </Suspense>
     </div>
