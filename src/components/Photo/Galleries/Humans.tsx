@@ -295,7 +295,7 @@ const ImageHolder = ({ image, size, pos, footer } : { image: string, size: strin
 
 const Humans = () => {
   return (
-    <div className="bg-red-600 w-full min-h-screen pt-[60px]">
+    <div className="bg-[#fff0e2] w-full min-h-screen pt-[60px]">
       <div className="flex flex-col gap-y-20">
         <div className="flex flex-col py-20 gap-y-20">
           <TitleText text1='Humanity is a prison,' text2='but the door was open.' />
@@ -366,7 +366,6 @@ const Humans = () => {
           <ImageHolder footer={'Don\'t look at me'} pos='center' image={human18} size='w-full' />
           <ImageHolder footer={'Don\'t look at me!'} pos='center' image={human41} size='w-full' />
           <ImageHolder footer='Thank you.' pos='center' image={human39} size='w-full' />
-
         </div>
       </div>
     </div>

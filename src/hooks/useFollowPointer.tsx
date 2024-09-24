@@ -19,7 +19,7 @@ export const useFollowPointer = ( ref: RefObject<HTMLElement> ) => {
       const element = ref.current!
       frame.read(() => {
         xPoint.set(clientX - element.offsetLeft - 10),
-        yPoint.set(clientY - element.offsetTop)
+        yPoint.set(clientY - element.offsetTop + 20)
       })
     }
 
