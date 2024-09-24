@@ -1,6 +1,6 @@
-// @ts-expect-error: Unreachable code error
-import random from 'canvas-sketch-util/random'
-// @ts-expect-error: Unreachable code error
+import { CodeBlock, nord } from 'react-code-blocks'
+
+const text = `import random from 'canvas-sketch-util/random'
 import math from 'canvas-sketch-util/math'
 import { useEffect, useState, type ReactElement } from 'react'
 
@@ -127,6 +127,15 @@ export const TechAuth = (): ReactElement => {
           <canvas className='absolute top-1/5 left-1/5' width={width} height={height} id='animation' />
         </div>
       </div>
+    </div>
+  )
+}
+`
+
+export const EcommerceAuthCode = () => {
+  return (
+    <div className="w-full h-full flex justify-center overflow-hidden">
+      <CodeBlock theme={nord} customStyle={{ borderRadius: '20px', fontFamily: 'IBM Plex Mono', fontWeight: '300', fontSize: '12px' }} text={text} language='jsx' showLineNumbers={true} />
     </div>
   )
 }
