@@ -1,132 +1,62 @@
 import { CodeBlock, nord } from 'react-code-blocks'
 
-const text = `import random from 'canvas-sketch-util/random'
-import math from 'canvas-sketch-util/math'
-import { useEffect, useState, type ReactElement } from 'react'
+const text = `import { type ReactElement } from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { schemaEcommerce } from '@/utils/auth'
 
-export const TechAuth = (): ReactElement => {
-  const [width] = useState(920)
-  const [height] = useState(850)
+export const EcommerceAuth = ():ReactElement => {
+  const { register, reset, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: {
+      email: ''
+    },
+    resolver: yupResolver(schemaEcommerce)
+  })
 
-  useEffect(() => {
-    const canvas = document.querySelector('canvas') as HTMLCanvasElement
-    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
-
-    let num = 0
-    let frame = 0
-
-    const render = () => {
-      ctx.clearRect(0, 0, width, height)
-
-
-      const cols = 35
-      const rows = 28
-      const numCells = cols * rows
-
-      const gridW = width * 0.9
-      const gridH = height * 0.9
-      const cellW = gridW / cols
-      const cellH = gridH / rows
-      const margX = (width - gridW) * 0.5
-      const margY = (height - gridH) * 0.5
-
-      for (let i = 0; i < numCells; i++) {
-        const col = i % cols
-        const row = Math.floor(i / cols)
-
-        const x = col * cellW
-        const y = row * cellH
-        const w = cellW * 0.9
-        //const h = cellH * 0.9
-
-        const n = random.noise2D(x + frame * 5, y, 0.0015)
-        const angle = n * Math.PI * 0.9
-        const scale = math.mapRange(n, -1, 1, 1, 30)
-
-        ctx.save()
-        ctx.translate(x, y)
-        ctx.translate(margX, margY)
-        ctx.translate(cellW * 0.5, cellH * 0.5)
-        ctx.rotate(angle)
-
-        ctx.lineWidth = scale
-        ctx.strokeStyle = '#6366f1'
-
-        ctx.beginPath()
-        ctx.moveTo(w * -0.5, 0)
-        ctx.lineTo(w * 0.5, 0)
-        ctx.stroke()
-
-        ctx.restore()
-
-        num++
-
-        if (num % 960 === 0) {
-          frame++
-        }
-      }
-
-    }
-    const loop = () => {
-      render()
-      requestAnimationFrame(loop)
-    }
-    loop()
-    return () => ctx.clearRect(0, 0, width, height)
-  }, [height, width])
+  const handleLogin = (): void => {
+    reset()
+  }
 
   return (
-    <div className="w-full h-full flex justify-center">
-      <div className="w-full grid grid-cols-3 pl-10 bg-gray-800">
-        <div className="col-span-1 flex justify-center items-center">
-          <div className="w-full min-h-[400px] flex flex-col gap-y-5">
-            <h1 className='text-[22px] font-body text-indigo-400'>Sign in to TechApp</h1>
-            <div className="grid grid-cols-4 gap-x-2">
-              <button className="h-10 col-span-1 flex items-center justify-center gap-x-1 border bg-[#ffffff]">
-                <i className="fa-brands fa-github"></i>
-                <span className='text-gray-600 font-light text-[14px]'>Github</span>
-              </button>
-              <button className="h-10 col-span-1 flex items-center justify-center gap-x-1 border bg-[#ffffff]">
-                <i className="fa-brands fa-gitlab"></i>
-                <span className='text-gray-600 font-light text-[14px]'>Gitlab</span>
-              </button>
-              <button className="h-10 col-span-1 flex items-center justify-center gap-x-1 border bg-[#ffffff]">
-                <i className="fa-brands fa-bitbucket"></i>
-                <span className='text-gray-600 font-light text-[14px]'>Bitbucket</span>
-              </button>
-              <button className="h-10 col-span-1 flex items-center justify-center gap-x-1 border bg-[#ffffff]">
-                <i className="fa-brands fa-google"></i>
-                <span className='text-gray-600 font-light text-[14px]'>Google</span>
-              </button>
+    <div className="w-full h-full flex justify-center items-center animated-background bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+          <div className="w-[400px] min-h-[500px] bg-[#ffffff] flex flex-col gap-y-8 rounded-[15px] p-10">
+            <div className="flex items-center gap-x-1">
+              <i className="fa-solid fa-lg fa-bag-shopping"></i>
+              <h1 className='font-body text-[20px]'>eCommerce</h1>
             </div>
-            <p className='text-light text-gray-200 text-center'>or</p>
-            <div className="flex flex-col gap-y-4">
-              <div className="flex flex-col gap-y-1">
-                <label htmlFor='email' className='text-[14px] font-light text-gray-200'>Email</label>
-                <input id='email' placeholder='your@email.com' type='text' className='h-10 border border-gray-200 px-3 text-[15px] font-light ring-0 focus:ring-0 focus:outline-none' />
-              </div>
-              <div className="flex flex-col gap-y-1">
-                <label htmlFor='password' className='text-[14px] font-light text-gray-200'>Password</label>
-                <input id='password' placeholder='correct horse battery staple' type='password' className='h-10 border border-gray-200 px-3 text-[15px] font-light ring-0 focus:ring-0 focus:outline-none' />
-              </div>
+            <div className="flex flex-col">
+              <h1 className='font-heading leading-tight text-[28px] animated-background bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 inline-block text-transparent bg-clip-text'>Log in</h1>
+              <p className='leading-tight font-light text-[16px] text-gray-600'>Continue to eCommerce</p>
             </div>
-            <button className='h-[60px] w-20 px-2 border bg-[#ffffff] mt-1'>Sign in</button>
-            <div className="flex flex-col gap-y-1 pt-2">
-              <div className="flex gap-x-1">
-                <p className='font-light text text-gray-300'>Need an account?</p>
-                <a href="#" className='text-indigo-400 font-light underline'>Sign up</a>
+            <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-y-4">
+              <div className="flex flex-col gap-y-1">
+                <label className='font-light text-[14px]' htmlFor="email">Email</label>
+                <input {...register('email')} type="text" className={\`h-10 rounded-[8px] font-body border px-5 ring-0 focus:ring-0 focus:outline-none \${errors.email !== undefined ? 'ring-1 ring-red-500' : ''}\`} />
               </div>
-              <div className="flex gap-x-1">
-                <p className='font-light text text-gray-300'>Forgot your password?</p>
-                <a href="#" className='text-indigo-400 font-light underline'>Reset it</a>
+              <button type='submit' className='h-10 text-[#ffffff] border rounded-[8px] animated-background bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'> Continue with email</button>
+              <div className="flex justify-center items-center">
+                {
+                  errors.email !== undefined && errors.email.message !== undefined ? <small className='text-red-500'>{errors.email.message[0].toUpperCase() + errors.email.message.slice(1)}</small> : null
+                }
               </div>
+            </form>
+            <div className="flex justify-center items-center pt-2 px-5">
+              <div className="w-full border-b border-gray-300"></div>
+              <p className='text-[12px] font-body text-gray-500 px-5 uppercase'>or</p>
+              <div className="w-full border-b border-gray-300"></div>
+            </div>
+            <div className="w-full grid grid-cols-3 gap-x-2">
+              <button className='h-12 w-full border rounded-[5px] bg-gray-50 hover:bg-gray-100 flex justify-center items-center gap-x-1'>
+                <i className="fa-brands fa-xl fa-apple"></i>
+              </button>
+              <button className='h-12 w-full border rounded-[5px] bg-gray-50 hover:bg-gray-100 flex justify-center items-center gap-x-1'>
+                <i className="fa-brands fa-lg fa-facebook"></i>
+              </button>
+              <button className='h-12 w-full border rounded-[5px] bg-gray-50 hover:bg-gray-100 flex justify-center items-center gap-x-1'>
+                <i className="fa-brands fa-lg fa-google"></i>
+              </button>
             </div>
           </div>
-        </div>
-        <div className="relative col-span-2 flex justify-start items-center rounded-r-[20px] overflow-hidden">
-          <canvas className='absolute top-1/5 left-1/5' width={width} height={height} id='animation' />
-        </div>
-      </div>
     </div>
   )
 }
