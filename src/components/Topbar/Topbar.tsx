@@ -24,7 +24,7 @@ const Topbar = () => {
       </Link>
       <div className="col-span-3 flex justify-between items-center">
         <FlipLink href='#' fontColor='text-[#231c1e]' textSize='text-lg'>About</FlipLink>
-        <FlipLink href='#' fontColor='text-[#231c1e]' textSize='text-lg'>dev</FlipLink>
+        <FlipLink onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) } } href='#' fontColor='text-[#231c1e]' textSize='text-lg'>dev</FlipLink>
         <FlipLink onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) } } href='#' fontColor='text-[#231c1e]' textSize='text-lg'>photo</FlipLink>
         <FlipLink href='#' fontColor='text-[#231c1e]' textSize='text-lg'>video</FlipLink>
         <FlipLink href='#' fontColor='text-[#231c1e]' textSize='text-lg'>fiction</FlipLink>
@@ -53,6 +53,7 @@ const Topbar = () => {
                   <h1 className='font-body text-[16px]'>Libraries</h1>
                   <div className="flex flex-col">
                     <Link to={'/dev/auth'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className='pl-5 font-light text-gray-600 text-[14px]'>Auth</Link>
+                    <Link to={'/dev/app'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className='pl-5 font-light text-gray-600 text-[14px]'>Apps</Link>
                     <Link to={'/photo/distortion'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className='pl-5 font-light text-gray-600 text-[14px]'>Components</Link>
                   </div>
                 </div>
