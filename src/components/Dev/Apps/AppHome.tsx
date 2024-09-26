@@ -1,5 +1,5 @@
 import { useState, type ReactElement } from 'react'
-import { SocialApp } from './SocialApp'
+import { SocialApp } from './Social/SocialApp'
 
 
 const AppHome = (): ReactElement => {
