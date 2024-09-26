@@ -17,6 +17,11 @@
   src: url("./fonts/FuturaCyrillicDemi.ttf");
 }
 
+@font-face {
+  font-family: "FUTURA_MEDIUM";
+  src: url("./fonts/FuturaCyrillicMedium.ttf");
+}
+
 .boxLayout {
   @apply max-w-md mx-auto;
 }
@@ -63,4 +68,8 @@ input:-webkit-autofill:active {
 
 .scroll_section {
   will-change: transform;
+}
+
+textarea {
+  field-sizing: content;
 }

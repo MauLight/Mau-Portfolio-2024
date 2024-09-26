@@ -23,7 +23,7 @@ const App = () => {
       <Topbar />
       <Layout />
       {
-        pathname.length === 1 ? (
+        pathname === '/' ? (
           <img src={bg} className='w-screen h-screen fixed top-0 left-0 object-cover opacity-100 -z-10' />
         )
           :
@@ -31,9 +31,13 @@ const App = () => {
             <div className={`fixed top-0 left-0 ${updateBgColor()} w-screen h-screen -z-10`}></div>
           )
       }
-      <motion.div ref={ref} className='absolute w-[200px] z-0 h-[200px] rounded-full overflow-hidden border' style={{ x, y }}>
-        <video src={video} autoPlay loop muted className='w-full h-full object-cover' />
-      </motion.div>
+      {
+        pathname === '/' && (
+          <motion.div ref={ref} className='absolute w-[200px] z-0 h-[200px] rounded-full overflow-hidden border' style={{ x, y }}>
+            <video src={video} autoPlay loop muted className='w-full h-full object-cover' />
+          </motion.div>
+        )
+      }
     </div>
   )
 }
