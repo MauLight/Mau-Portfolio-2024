@@ -1,8 +1,10 @@
 import { ReactElement, useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { ReactTyped } from 'react-typed'
 import Markdown from 'markdown-to-jsx'
 import { Screenplay } from './Screenplay'
+import { fadeIn } from '@/utils/functions'
 
 const APIKey = import.meta.env.VITE_GEMINI_API_KEY
 
@@ -31,12 +33,12 @@ const Welcome = ({ generation, handleOnComplete } : WelcomeProps) => {
           <>
             {
               ready ? (
-                <Markdown className='font-mono'
+                <Markdown className='font-mono text-[14px]'
                 >{generation}</Markdown>
               )
                 :
                 (
-                  <ReactTyped startWhenVisible onComplete={handleOnWelcomeComplete} className='font-body' strings={[String(generation)]} typeSpeed={20} />
+                  <ReactTyped startWhenVisible onComplete={handleOnWelcomeComplete} className='font-mono text-[14px]' strings={[String(generation)]} typeSpeed={20} />
                 )
             }
           </>
@@ -67,10 +69,9 @@ export const Creator = ({ prompt } : { prompt: string }): ReactElement => {
   }
 
   const handlePlaceholder = (): string => {
-    console.log(stream)
     if (stream !== null) ''
     if (stream !== null && stream[stream.length - 1].type === 'welcome') {
-      return 'Type /screenplay to start writing. Type /creator to enter Creator Mode. Type /chat to open the Chat. Type /help to see all commands.'
+      return 'Type /screenplay to start writing. Type /help to see all the commands.'
     }
     return ''
   }
@@ -131,7 +132,12 @@ export const Creator = ({ prompt } : { prompt: string }): ReactElement => {
         }
         {
           wasGenerated && (
-            <input value={inputValue} onChange={({ target }) => { setInputValue(target.value) }} onKeyDown={handleEnterInput} placeholder={handlePlaceholder()} type="text" className='w-full h-10 px-2 rounded-[5px] bg-[#f3f3f3] ring-0 focus:ring-0 focus:outline-none text-[14px] font-mono' />
+            <motion.input
+              variants={fadeIn('top', 0.8)}
+              initial={'hidden'}
+              whileInView={'show'}
+              viewport={{ once: false, amount: 0.1 }}
+              value={inputValue} onChange={({ target }) => { setInputValue(target.value) }} onKeyDown={handleEnterInput} placeholder={handlePlaceholder()} type="text" className='w-full h-10 px-2 rounded-[5px] bg-[#f3f3f3] ring-0 focus:ring-0 focus:outline-none text-[14px] font-mono' />
           )
         }
       </div>
