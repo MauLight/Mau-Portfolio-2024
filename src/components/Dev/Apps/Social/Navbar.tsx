@@ -2,8 +2,9 @@ import { useState, type SetStateAction } from 'react'
 
 
 export const Navbar = ({ setStep } : { setStep: React.Dispatch<SetStateAction<number>> }) => {
-  const [expand, setExpand] = useState<boolean>(false)
+  const [expand, setExpand] = useState<boolean>(true)
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSteps = (step: number): void => {
     setStep(step)
   }
@@ -13,7 +14,7 @@ export const Navbar = ({ setStep } : { setStep: React.Dispatch<SetStateAction<nu
   }
 
   return (
-    <div className={`absolute bottom-5 left-0 ${expand ? 'w-full' : 'w-[223px]'} h-[60px] flex justify-center transition-all duration-200`}>
+    <div className={`absolute bottom-5 left-0 ${expand ? 'w-full' : 'w-[223px]'} h-[60px] flex justify-center transition-all duration-200 z-20`}>
       <div className="relative rounded-[8px] overflow-hidden flex mx-20">
         <div className="flex gap-x-2 w-full h-full z-10 p-2">
           <div onClick={handleNavWidth} className='min-w-[48px] h-full flex justify-center items-center rounded-[5px] bg-[#282826]'>

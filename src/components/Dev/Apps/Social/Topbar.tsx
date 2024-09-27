@@ -16,7 +16,7 @@ export const Topbar = ({ prompt, setPrompt, setStep } : TopbarProps): ReactEleme
     }
   }
   return (
-    <div className="absolute top-0 left-0 w-full h-[60px] flex items-center justify-between px-20 bg-[#fdfdfd]">
+    <div className="absolute top-0 left-0 w-full h-[60px] flex items-center justify-between px-20 bg-[#fdfdfd] z-20">
       <div onClick={() => { setStep(1) }} className='min-w-[40px] h-[40px] flex justify-center items-center rounded-[5px] bg-[#282826]'>
         <i className="fa-solid fa-xl fa-hurricane text-[#ffffff]"></i>
       </div>

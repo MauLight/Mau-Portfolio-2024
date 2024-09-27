@@ -133,7 +133,7 @@ const Home = () => {
           variants={fadeIn('right', 0.4)}
           initial={'hidden'}
           whileInView={'show'}
-          viewport={{ once: false, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="flex items-center gap-x-2">
           <TitleText text="M" />
           <TitleText text="Light" />
