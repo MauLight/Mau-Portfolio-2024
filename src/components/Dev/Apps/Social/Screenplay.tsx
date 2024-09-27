@@ -2,15 +2,7 @@ import { ReactElement, SetStateAction, useEffect, useState, KeyboardEvent } from
 
 interface ScreenplayStreamElement {id: number, type: string, component: ReactElement}
 
-const Description = ({ text, id, onSubmit } : {text: string, id: string, onSubmit: (key: string) => void}): ReactElement => {
-/*
-slugline = 0
-action = 1
-character = 2
-dialogue = 3
-transition = 4
-*/
-
+const Description = ({ text, id, onSubmit, isDialogue } : {text: string, id: string, onSubmit: (key: string, isCharacter?: boolean) => void, isDialogue?: boolean}): ReactElement => {
   const [value, setValue] = useState<string>(text)
   const [style, setStyle] = useState<string>('')
   const [isCharacter, setIsCharacter] = useState<boolean>(false)
@@ -21,12 +13,12 @@ transition = 4
   const slugline = 'uppercase w-full h-auto bg-gray-50 font-mono font-semibold text-left text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
   const action = 'w-full bg-gray-50 font-mono text-left text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
   const character = 'bg-gray-50 font-mono text-center uppercase text-[14px] ring-0 focus:ring-0 focus:outline-none resize-none'
-  const dialogue = 'w-[350px] h-auto bg-gray-50 font-mono text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none border'
+  const dialogue = 'w-[350px] h-auto bg-gray-50 font-mono text-[14px] text-center text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
   const transition = 'w-full h-auto bg-gray-50 font-mono text-right text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
 
   const streamType = () => {
-    if (isCharacter) {
-      console.log('dialogue!')
+    if (isDialogue) {
+      console.log('isDialogue:', isDialogue)
       setStyle(dialogue)
       setIsCharacter(false)
     }
@@ -34,7 +26,7 @@ transition = 4
       if (value === value.toUpperCase() && !(value.toUpperCase() === 'INT' || value.toUpperCase() === 'EXT') && value.slice(-1) === ':') {
         setStyle(transition)
       }
-      if (value === value.toUpperCase() && !(value.toUpperCase() === 'INT' || value.toUpperCase() === 'EXT') && value.slice(-1) !== ':') {
+      if (value.length > 4 && value === value.toUpperCase() && !(value.slice(0, 4).toUpperCase() === 'INT.' || value.slice(0, 4).toUpperCase() === 'EXT.') && value.slice(-1) !== ':') {
         setIsCharacter(true)
         setStyle(character)
       }
@@ -47,7 +39,11 @@ transition = 4
   }
 
   const onSubmitText = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (value.length > 0 && e.key === 'Enter' && isCharacter) {
+      e.preventDefault()
+      onSubmit('enter', isCharacter)
+    } if (value.length > 0 && e.key === 'Enter' && !isCharacter) {
+      console.log('is this triggered?', value, value.length)
       e.preventDefault()
       onSubmit('enter')
     } if (e.key === 'Backspace' && value.length === 0) {
@@ -61,15 +57,19 @@ transition = 4
   }, [value])
 
   return (
-    <div key={id} className={isCharacter ? 'w-full flex justify-center' : 'w-full flex justify-start'}>
+    <div key={id} className={isCharacter || isDialogue ? 'w-full flex justify-center' : 'w-full flex justify-start'}>
       <textarea autoFocus value={value} onChange={handleChange} onKeyDown={onSubmitText} className={style} />
     </div>
   )
 }
 
 export const Screenplay = () => {
-  const onSubmit = (key: string) => {
-    if (key === 'enter') {
+  const onSubmit = (key: string, isCharacter?: boolean) => {
+    if (key === 'enter' && isCharacter) {
+      setType('dialogue')
+      setAddOne(true)
+    } else if (key === 'enter' && !isCharacter) {
+      setType('description')
       setAddOne(true)
     }
     if (key === 'backspace') {
@@ -78,6 +78,7 @@ export const Screenplay = () => {
   }
 
   const [stream, setStream] = useState<ScreenplayStreamElement[]>([])
+  const [type, setType] = useState<string>('')
   const [addOne, setAddOne] = useState<boolean>(false)
   const [removeOne, setRemoveOne] = useState<boolean>(false)
 
@@ -95,9 +96,14 @@ export const Screenplay = () => {
   }, [])
 
   useEffect(() => {
-    if (addOne) {
-      setStream([...stream, { id: stream.length, type: 'description', component: <Description onSubmit={onSubmit} text='' id={`id-${stream.length}`} /> }])
+    if (addOne && type === 'dialogue') {
+      setStream([...stream, { id: stream.length, type, component: <Description isDialogue={true} onSubmit={onSubmit} text='' id={`id-${stream.length}`} /> }])
       setAddOne(false)
+    }
+    if (addOne && type === 'description') {
+      setStream([...stream, { id: stream.length, type, component: <Description onSubmit={onSubmit} text='' id={`id-${stream.length}`} /> }])
+      setAddOne(false)
+      setType('description')
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addOne])
@@ -112,7 +118,7 @@ export const Screenplay = () => {
   }, [removeOne])
 
   return (
-    <div className='w-full min-h-full flex flex-col gap-y-3 p-2 rounded-[5px] bg-gray-50'>
+    <div onClick={() => { console.log(type) }} className='w-full min-h-full flex flex-col gap-y-3 p-2 rounded-[5px] bg-gray-50'>
       {
         stream.map((elem, i) => (
           <div key={i} className='w-full h-auto'>
