@@ -1,8 +1,8 @@
 import { ReactElement, SetStateAction, useEffect, useState, KeyboardEvent } from 'react'
 
-interface ScreenplayStreamElement {id: number, type: string, component: ReactElement}
+interface ScreenplayStreamElement {id: string, type: string, component: ReactElement}
 
-const Description = ({ text, id, onSubmit, isDialogue } : {text: string, id: string, onSubmit: (key: string, isCharacter?: boolean) => void, isDialogue?: boolean}): ReactElement => {
+const Description = ({ text, id, onSubmit, isDialogue, setFocused } : {text: string, id: string, onSubmit: (key: string, isCharacter?: boolean) => void, isDialogue?: boolean, setFocused: (btn: string, elem: string) => void}): ReactElement => {
   const [value, setValue] = useState<string>(text)
   const [style, setStyle] = useState<string>('')
   const [isCharacter, setIsCharacter] = useState<boolean>(false)
@@ -12,19 +12,19 @@ const Description = ({ text, id, onSubmit, isDialogue } : {text: string, id: str
 
   const slugline = 'uppercase w-full h-auto bg-gray-50 font-mono font-semibold text-left text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
   const action = 'w-full bg-gray-50 font-mono text-left text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
-  const character = 'bg-gray-50 font-mono text-center uppercase text-[14px] ring-0 focus:ring-0 focus:outline-none resize-none'
+  const character = 'bg-gray-100 font-mono text-center uppercase text-[14px] ring-0 focus:ring-0 focus:outline-none resize-none mt-5'
   const dialogue = 'w-[350px] h-auto bg-gray-50 font-mono text-[14px] text-center text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
   const transition = 'w-full h-auto bg-gray-50 font-mono text-right text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
 
   const streamType = () => {
     if (isDialogue) {
-      console.log('isDialogue:', isDialogue)
       setStyle(dialogue)
       setIsCharacter(false)
     }
     if (value.length > 2) {
       if (value === value.toUpperCase() && !(value.toUpperCase() === 'INT' || value.toUpperCase() === 'EXT') && value.slice(-1) === ':') {
         setStyle(transition)
+        setIsCharacter(false)
       }
       if (value.length > 4 && value === value.toUpperCase() && !(value.slice(0, 4).toUpperCase() === 'INT.' || value.slice(0, 4).toUpperCase() === 'EXT.') && value.slice(-1) !== ':') {
         setIsCharacter(true)
@@ -32,6 +32,7 @@ const Description = ({ text, id, onSubmit, isDialogue } : {text: string, id: str
       }
       if (value.slice(0, 4).toUpperCase() === 'INT.' || value.slice(0, 4).toUpperCase() === 'EXT.') {
         setStyle(slugline)
+        setIsCharacter(false)
       }
     } else {
       setStyle(action)
@@ -39,11 +40,18 @@ const Description = ({ text, id, onSubmit, isDialogue } : {text: string, id: str
   }
 
   const onSubmitText = (e: KeyboardEvent) => {
+    if (e.key === 'ArrowUp') {
+      setFocused('up', id)
+    }
+
+    if (e.key === 'ArrowDown') {
+      setFocused('down', id)
+    }
+
     if (value.length > 0 && e.key === 'Enter' && isCharacter) {
       e.preventDefault()
       onSubmit('enter', isCharacter)
     } if (value.length > 0 && e.key === 'Enter' && !isCharacter) {
-      console.log('is this triggered?', value, value.length)
       e.preventDefault()
       onSubmit('enter')
     } if (e.key === 'Backspace' && value.length === 0) {
@@ -57,8 +65,8 @@ const Description = ({ text, id, onSubmit, isDialogue } : {text: string, id: str
   }, [value])
 
   return (
-    <div key={id} className={isCharacter || isDialogue ? 'w-full flex justify-center' : 'w-full flex justify-start'}>
-      <textarea autoFocus value={value} onChange={handleChange} onKeyDown={onSubmitText} className={style} />
+    <div key={`key-${id}`} className={isCharacter ? 'w-full flex justify-center' : isDialogue ? 'flex justify-center' : 'w-full flex justify-start'}>
+      <textarea id={id} autoFocus value={value} onChange={handleChange} onKeyDown={onSubmitText} className={style} />
     </div>
   )
 }
@@ -82,11 +90,29 @@ export const Screenplay = () => {
   const [addOne, setAddOne] = useState<boolean>(false)
   const [removeOne, setRemoveOne] = useState<boolean>(false)
 
+  const setFocused = (btn: string, elem: string) => {
+    if (btn === 'up') {
+      const digit = Number(elem.split('-')[1])
+      const prevElement = document.getElementById(`id-${digit - 1}`)
+      if (prevElement !== null) {
+        prevElement.focus()
+      }
+    }
+
+    if (btn === 'down') {
+      const digit = Number(elem.split('-')[1])
+      const nextElement = document.getElementById(`id-${digit + 1}`)
+      if (nextElement !== null) {
+        nextElement.focus()
+      }
+    }
+  }
+
   const screenplayStream = [
     {
-      id: 0,
+      id: 'id-0',
       type: 'description',
-      component: <Description onSubmit={onSubmit} text='INT. LIVING ROOM - DAY' id={'id-0'} />,
+      component: <Description setFocused={setFocused} onSubmit={onSubmit} text='INT. LIVING ROOM - DAY' id={'id-0'} />,
     },
   ]
 
@@ -97,11 +123,11 @@ export const Screenplay = () => {
 
   useEffect(() => {
     if (addOne && type === 'dialogue') {
-      setStream([...stream, { id: stream.length, type, component: <Description isDialogue={true} onSubmit={onSubmit} text='' id={`id-${stream.length}`} /> }])
+      setStream([...stream, { id: 'id-' + stream.length, type, component: <Description setFocused={setFocused} isDialogue={true} onSubmit={onSubmit} text='' id={`id-${stream.length}`} /> }])
       setAddOne(false)
     }
     if (addOne && type === 'description') {
-      setStream([...stream, { id: stream.length, type, component: <Description onSubmit={onSubmit} text='' id={`id-${stream.length}`} /> }])
+      setStream([...stream, { id: 'id-' + stream.length, type, component: <Description setFocused={setFocused} onSubmit={onSubmit} text='' id={`id-${stream.length}`} /> }])
       setAddOne(false)
       setType('description')
     }
@@ -118,7 +144,7 @@ export const Screenplay = () => {
   }, [removeOne])
 
   return (
-    <div onClick={() => { console.log(type) }} className='w-full min-h-full flex flex-col gap-y-3 p-2 rounded-[5px] bg-gray-50'>
+    <div className='w-full min-h-full flex flex-col gap-y-3 p-2 rounded-[5px] bg-gray-50'>
       {
         stream.map((elem, i) => (
           <div key={i} className='w-full h-auto'>
