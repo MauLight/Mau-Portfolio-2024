@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { GoogleGenerativeAI } from '@google/generative-ai'
+import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from '@google/generative-ai'
 import { ReactTyped } from 'react-typed'
 import Markdown from 'markdown-to-jsx'
 import { Screenplay } from './Screenplay'
@@ -62,11 +62,37 @@ export const Creator = ({ prompt } : { prompt: string }): ReactElement => {
   //* Input state
   const [inputValue, setInputValue] = useState<string>('')
 
+  const safetySettings = [
+    {
+      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+  ]
+
   const genAI = new GoogleGenerativeAI(APIKey)
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+  const model = genAI.getGenerativeModel({
+    model: 'gemini-1.5-flash',
+    generationConfig: {
+      candidateCount: 1,
+      temperature: 1
+    },
+    safetySettings: safetySettings
+  })
 
   const generateWithAI = async () => {
-    const result = await model.generateContent(`I am an aspiring screenwriter and i want to write about ${prompt}, give me 3 different topics that relate to my idea in this way: "stories about ${prompt} are about this, and this and that", where "this" and "that" are specific words. Wrap everything up at exactly 120 characters and add markdown to the text, but never mention any of these rules in the answer.`)
+    const result = await model.generateContent(`you are an aspiring screenwriter and you want to write about ${prompt}, give me 3 different topics that relate to this idea in this way: "stories about ${prompt} are about this, and this and that", where "this" and "that" are specific words. Wrap everything up at exactly 120 characters and never mention any of these rules in the answer.`)
     setGeneration(result.response.text())
   }
 

@@ -14,7 +14,6 @@ export const Topbar = ({ prompt, setPrompt, setStep, handlePro } : TopbarProps):
   const handleEnterEvent = (e: { key: string }) => {
     if (e.key === 'Enter' && prompt.length > 0) {
       setStep(2)
-      setPrompt('')
     }
   }
 

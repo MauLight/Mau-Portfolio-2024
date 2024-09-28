@@ -8,9 +8,10 @@ title: string
 description: string
 cta: string
 size?: string
+clicked: boolean
 }
 
-export const PriceCard = ({ price, saved, percentage, title, description, cta, size } : PriceCardProps): ReactElement => {
+export const PriceCard = ({ price, saved, percentage, title, description, cta, size, clicked } : PriceCardProps): ReactElement => {
   return (
     <div className={`w-full ${size === 'sm'  ? 'h-full bg-[#40403e]' : size === 'en' ? 'h-full' : 'h-4/5 bg-[#282826] '} flex flex-col justify-between items-start p-5 rounded-[15px]`}>
       <div className={`border border-indigo-500 px-1 rounded-[5px] ${size ? 'opacity-0' : ''}`}>
@@ -22,7 +23,7 @@ export const PriceCard = ({ price, saved, percentage, title, description, cta, s
           <p className={`font-body text-[16px] ${size === 'en' ? 'text-gray-600' : 'text-gray-300'}`}>{size === 'en' ? 'user/month' : '/ month'}</p>
         </div>
         <div className="w-full flex justify-end items-end gap-x-1">
-          <p className={`font-body text-[12px] ${size === 'en' ? 'text-gray-600' : 'text-gray-300'}`}>*Billed anually</p>
+          <p className={`font-body text-[12px] ${size === 'en' ? 'text-gray-600' : 'text-gray-300'}`}>{clicked ? '*Billed anually' : '*Billed monthly'}</p>
         </div>
         <div className="w-full flex justify-between items-end gap-x-1 pt-1">
           <div className="flex items-end gap-x-2">

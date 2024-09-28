@@ -1,12 +1,13 @@
 import { useState, type SetStateAction } from 'react'
 
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const Navbar = ({ setStep } : { setStep: React.Dispatch<SetStateAction<number>> }) => {
   const [expand, setExpand] = useState<boolean>(true)
+  const [expandSearch, setExpandSearch] = useState<boolean>(false)
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleSteps = (step: number): void => {
-    setStep(step)
+  const handleSearch = () => {
+    !expandSearch && setExpandSearch(true)
   }
 
   const handleNavWidth = () => {
@@ -21,8 +22,14 @@ export const Navbar = ({ setStep } : { setStep: React.Dispatch<SetStateAction<nu
             <i className={`fa-solid fa-xl fa-hurricane text-[#ffffff] hover:text-indigo-500 ${expand ? 'rotate-45' : ''} transition-all duration-500`}></i>
           </div>
           <div className="flex gap-x-2 bg-[#40403e] py-1 px-2 rounded-[5px]">
-            <div className='h-full flex justify-center items-center px-3 rounded-[5px] border border-[#585856] hover:border-[#888887] transition-color duration-200 cursor-pointer'>
-              <p className='font-body text-[16px] text-[#ffffff]'>Search</p>
+            <div onBlur={() => { setExpandSearch(false) }} onClick={handleSearch} className={`${expandSearch ? 'w-[200px]' : ''} h-full flex justify-center items-center px-3 rounded-[5px] border border-[#585856] hover:border-[#888887] cursor-pointer transition-all duration-400`}>
+              {
+                expandSearch ? (
+                  <input type="text" placeholder='Search' className='w-full h-full bg-[#40403e] ring-0 focus:ring-0 focus:outline-none text-[16px] font-body text-[#ffffff]' />
+                ) : (
+                  <p className='font-body text-[16px] text-[#ffffff]'>Search</p>
+                )
+              }
             </div>
             <div className='h-full flex justify-center items-center px-3 rounded-[5px] border border-[#585856] hover:border-[#888887] transition-color duration-200 cursor-pointer'>
               <p className='font-body text-[16px] text-[#ffffff]'>Projects</p>
