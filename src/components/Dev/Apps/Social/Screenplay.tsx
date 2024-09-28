@@ -12,7 +12,7 @@ const Description = ({ text, id, onSubmit, isDialogue, setFocused } : {text: str
 
   const slugline = 'uppercase bg-transparent w-full h-10 font-mono font-semibold text-left text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
   const action = 'h-10 w-full bg-transparent font-mono text-left text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
-  const character = 'h-10 font-mono bg-transparent text-center uppercase text-[14px] ring-0 focus:ring-0 focus:outline-none resize-none'
+  const character = 'h-8 font-mono bg-transparent text-center uppercase text-[14px] ring-0 focus:ring-0 focus:outline-none resize-none'
   const dialogue = 'h-10 w-[350px] bg-transparent font-mono text-[14px] text-center text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
   const transition = 'h-10 w-full bg-transparent font-mono text-right text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
 
