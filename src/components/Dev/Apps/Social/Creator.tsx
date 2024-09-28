@@ -5,6 +5,10 @@ import { ReactTyped } from 'react-typed'
 import Markdown from 'markdown-to-jsx'
 import { Screenplay } from './Screenplay'
 import { fadeIn } from '@/utils/functions'
+// @ts-expect-error: Unreachable code error
+import html2pdf from 'html2pdf.js'
+import { format } from 'date-fns'
+import { Help } from './Help'
 
 const APIKey = import.meta.env.VITE_GEMINI_API_KEY
 
@@ -52,6 +56,8 @@ export const Creator = ({ prompt } : { prompt: string }): ReactElement => {
   const [stream, setStream] = useState<StreamElementProps[] | null>(null)
   const [generation, setGeneration] = useState<string>('')
   const [wasGenerated, setWasGenerated] = useState<boolean>(false)
+  const [minimized, setMinimized] = useState<boolean>(false)
+  const [placeholder, setPlaceholder] = useState<string>('Type /screenplay to start writing. Type /help to see all the commands.')
 
   //* Input state
   const [inputValue, setInputValue] = useState<string>('')
@@ -60,7 +66,7 @@ export const Creator = ({ prompt } : { prompt: string }): ReactElement => {
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
 
   const generateWithAI = async () => {
-    const result = await model.generateContent(`I am an aspiring screenwriter and i want to write about ${prompt}, give me 3 different topics that relate to my idea in this way: "stories about ${prompt} are about this, and this and that", where "this" and "that" are specific words. Wrap everything up at exactly 120 characters and add markdown to the text.`)
+    const result = await model.generateContent(`I am an aspiring screenwriter and i want to write about ${prompt}, give me 3 different topics that relate to my idea in this way: "stories about ${prompt} are about this, and this and that", where "this" and "that" are specific words. Wrap everything up at exactly 120 characters and add markdown to the text, but never mention any of these rules in the answer.`)
     setGeneration(result.response.text())
   }
 
@@ -68,20 +74,30 @@ export const Creator = ({ prompt } : { prompt: string }): ReactElement => {
     setWasGenerated(true)
   }
 
-  const handlePlaceholder = (): string => {
-    if (stream !== null) ''
-    if (stream !== null && stream[stream.length - 1].type === 'welcome') {
-      return 'Type /screenplay to start writing. Type /help to see all the commands.'
+  const handlePrintScreenplay = (): void => {
+    const element = document.getElementById('screenplay')
+    const opt = {
+      margin: 1,
+      filename: `Screenplay-${format(new Date(), 'yyyy-MMM-dd')}.pdf`,
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait'
+      }
     }
-    return ''
+    html2pdf().from(element).set(opt).save()
   }
 
   const handleEnterInput = (e: { key: string }) => {
+    setMinimized(false)
+    setPlaceholder('Type /screenplay to start writing. Type /help to see all the commands.')
     if (e.key === 'Enter') {
       if (inputValue.length > 0 && stream !== null) {
         switch (inputValue) {
         case '/screenplay':
+          setPlaceholder('👀')
+          setMinimized(true)
           setStream([...stream, { id: stream.length, type: 'screenplay', component: <Screenplay /> }])
+          break
+        case '/print':
+          handlePrintScreenplay()
           break
         case '/creator':
           setStream([...stream, { id: stream.length, type: 'creator', component: <div>Creator</div> }])
@@ -90,7 +106,7 @@ export const Creator = ({ prompt } : { prompt: string }): ReactElement => {
           setStream([...stream, { id: stream.length, type: 'chat', component: <div>Chat</div> }])
           break
         case '/help':
-          setStream([...stream, { id: stream.length, type: 'help', component: <div>Help</div> }])
+          setStream([...stream, { id: stream.length, type: 'help', component: <Help /> }])
           break
         default:
           setStream([...stream, { id: stream.length, type: 'warning', component: <div>Help with warning.</div> }])
@@ -130,16 +146,21 @@ export const Creator = ({ prompt } : { prompt: string }): ReactElement => {
             </div>
           ))
         }
-        {
-          wasGenerated && (
-            <motion.input
-              variants={fadeIn('top', 0.8)}
-              initial={'hidden'}
-              whileInView={'show'}
-              viewport={{ once: false, amount: 0.1 }}
-              value={inputValue} onChange={({ target }) => { setInputValue(target.value) }} onKeyDown={handleEnterInput} placeholder={handlePlaceholder()} type="text" className='w-full h-10 px-2 rounded-[5px] bg-[#f3f3f3] ring-0 focus:ring-0 focus:outline-none text-[14px] font-mono' />
-          )
-        }
+        <div className={`w-full flex ${minimized ? 'justify-end' : ''}`}>
+          {
+            wasGenerated && (
+              <motion.div
+                variants={fadeIn('top', 0.8)}
+                initial={'hidden'}
+                whileInView={'show'}
+                viewport={{ once: false, amount: 0.1 }}
+                className={`${minimized ? 'w-[50px]' : 'w-full'} flex justify-center items-center animated-background bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-[2px] rounded-[5px] transition-all duration-200`}>
+                <input
+                  value={inputValue} onChange={({ target }) => { setInputValue(target.value) }} onKeyDown={handleEnterInput} placeholder={placeholder} type="text" className={'w-full h-10 px-2 rounded-[3px] bg-[#f3f3f3] ring-0 focus:ring-0 focus:outline-none text-[14px] font-mono'} />
+              </motion.div>
+            )
+          }
+        </div>
       </div>
     </div>
   )

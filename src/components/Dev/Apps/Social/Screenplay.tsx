@@ -10,11 +10,11 @@ const Description = ({ text, id, onSubmit, isDialogue, setFocused } : {text: str
     setValue(e.target.value)
   }
 
-  const slugline = 'uppercase w-full h-auto bg-gray-50 font-mono font-semibold text-left text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
-  const action = 'w-full bg-gray-50 font-mono text-left text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
-  const character = 'bg-gray-100 font-mono text-center uppercase text-[14px] ring-0 focus:ring-0 focus:outline-none resize-none mt-5'
-  const dialogue = 'w-[350px] h-auto bg-gray-50 font-mono text-[14px] text-center text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
-  const transition = 'w-full h-auto bg-gray-50 font-mono text-right text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
+  const slugline = 'uppercase bg-transparent w-full h-10 font-mono font-semibold text-left text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
+  const action = 'h-10 w-full bg-transparent font-mono text-left text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
+  const character = 'h-10 font-mono bg-transparent text-center uppercase text-[14px] ring-0 focus:ring-0 focus:outline-none resize-none'
+  const dialogue = 'h-10 w-[350px] bg-transparent font-mono text-[14px] text-center text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
+  const transition = 'h-10 w-full bg-transparent font-mono text-right text-[14px] text-balance ring-0 focus:ring-0 focus:outline-none resize-none'
 
   const streamType = () => {
     if (isDialogue) {
@@ -26,7 +26,7 @@ const Description = ({ text, id, onSubmit, isDialogue, setFocused } : {text: str
         setStyle(transition)
         setIsCharacter(false)
       }
-      if (value.length > 4 && value === value.toUpperCase() && !(value.slice(0, 4).toUpperCase() === 'INT.' || value.slice(0, 4).toUpperCase() === 'EXT.') && value.slice(-1) !== ':') {
+      if (value.length > 2 && value === value.toUpperCase() && !(value.slice(0, 4).toUpperCase() === 'INT.' || value.slice(0, 4).toUpperCase() === 'EXT.') && value.slice(-1) !== ':') {
         setIsCharacter(true)
         setStyle(character)
       }
@@ -144,10 +144,10 @@ export const Screenplay = () => {
   }, [removeOne])
 
   return (
-    <div className='w-full min-h-full flex flex-col gap-y-3 p-2 rounded-[5px] bg-gray-50'>
+    <div id='screenplay' className='w-full min-h-full flex flex-col px-2 rounded-[5px] bg-gray-50'>
       {
         stream.map((elem, i) => (
-          <div key={i} className='w-full h-auto'>
+          <div key={i} className='w-full'>
             {elem.component}
           </div>
         ))

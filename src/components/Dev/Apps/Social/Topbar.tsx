@@ -13,6 +13,7 @@ export const Topbar = ({ prompt, setPrompt, setStep } : TopbarProps): ReactEleme
   const handleEnterEvent = (e: { key: string }) => {
     if (e.key === 'Enter' && prompt.length > 0) {
       setStep(2)
+      setPrompt('')
     }
   }
   return (
