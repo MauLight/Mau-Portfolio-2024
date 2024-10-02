@@ -71,7 +71,7 @@ const Topbar = () => {
                   <div className="flex flex-col">
                     <Link to={'/video/viral'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className={`pl-5 font-light ${pathname.includes('video') ? 'text-[#d0d6d0]' : 'text-gray-600'} text-[14px]`}>Viral</Link>
                     <Link to={'/video/motion'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className={`pl-5 font-light ${pathname.includes('video') ? 'text-[#d0d6d0]' : 'text-gray-600'} text-[14px]`}>Motion</Link>
-                    <Link to={'/video/Shortfilms'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className={`pl-5 font-light ${pathname.includes('video') ? 'text-[#d0d6d0]' : 'text-gray-600'} text-[14px]`}>Shortfilms</Link>
+                    <Link to={'/video/shortfilms'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className={`pl-5 font-light ${pathname.includes('video') ? 'text-[#d0d6d0]' : 'text-gray-600'} text-[14px]`}>Shortfilms</Link>
                   </div>
                 </div>
                 <div id='fiction' className="col-span-1 flex flex-col"></div>

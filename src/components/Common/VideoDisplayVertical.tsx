@@ -12,6 +12,7 @@ interface VideoDisplayProps {
 export const VideoDisplayVertical = ({ title, description, video, bgColor } : VideoDisplayProps): ReactElement => {
   const [currentVideo, setCurrentVideo] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
+
   const handleSlider = (direction: number) => {
     setCurrentVideo((prev) => {
       if (direction === 1) {
@@ -55,7 +56,7 @@ export const VideoDisplayVertical = ({ title, description, video, bgColor } : Vi
               initial={'hidden'}
               whileInView={'show'}
               viewport={{ once: false, amount: 0.1 }}
-              src={video[currentVideo]} autoPlay loop muted className='absolute w-full top-currentVideo left-currentVideo object-cover z-0 opacity-40' />
+              src={video[currentVideo]} autoPlay loop muted className='absolute w-full top-currentVideo left-currentVideo object-cover z-0 opacity-40 grayscale' />
           )
         }
         <div className={`absolute left-0 opacity-80 w-full h-full z-0 flex justify-center items-center animated-background ${bgColor ? bgColor : 'bg-[#ffffff]'} transition-color duration-500`}></div>

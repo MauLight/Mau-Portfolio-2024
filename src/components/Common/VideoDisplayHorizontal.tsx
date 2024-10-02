@@ -23,7 +23,7 @@ export const VideoDisplayHorizontal = ({ video, bgColor } : VideoDisplayProps): 
           whileInView={'show'}
           viewport={{ once: false, amount: 0.1 }}
           className='font-light text-3xl text-[2e302e] z-10'>21.8K views</motion.p>
-        <video src={video} autoPlay loop muted className='absolute w-full top-0 left-0 object-cover z-0 opacity-30' />
+        <video src={video} autoPlay loop muted className='absolute w-full top-0 left-0 object-cover z-0 opacity-30 grayscale' />
         <div className={`absolute left-0 opacity-80 w-full h-full flex justify-center items-center animated-background ${bgColor ? bgColor : 'bg-[#ffffff]'}`}></div>
       </div>
       <motion.video
