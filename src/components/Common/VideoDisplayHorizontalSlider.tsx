@@ -64,7 +64,7 @@ export const VideoDisplayHorizontalSlider = ({ video, bgColor } : VideoDisplaySl
               className='font-light text-3xl text-[2e302e] z-10'>{video[currentVideo].description}</motion.p>
           )
         }
-        <video src={video[currentVideo].src} autoPlay muted className='absolute w-full top-0 left-0 object-cover z-0 opacity-40 grayscale' />
+        <video src={video[currentVideo].src} autoPlay muted loop className='absolute w-full top-0 left-0 object-cover z-0 opacity-40 grayscale' />
         <div className={`absolute left-0 opacity-80 w-full h-full flex justify-center items-center animated-background ${bgColor ? bgColor : 'bg-[#ffffff]'}`}></div>
       </motion.div>
       <div className={`absolute w-1/2 h-1/2 flex justify-center items-center gap-x-10 top-[220px] ${hide ? 'right-[20vw]' : 'right-0'} object-cover z-10 rounded-[10px] transition-all duration-500`}>

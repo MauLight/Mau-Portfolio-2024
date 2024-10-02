@@ -82,10 +82,10 @@ export const VideoDisplayVertical = ({ title, description, video, bgColor } : Vi
               initial={'hidden'}
               whileInView={'show'}
               viewport={{ once: false, amount: 0.1 }}
-              src={video[currentVideo]} autoPlay muted className='absolute h-2/3 mx-auto top-[100px] object-cover z-10 rounded-[10px]' />
+              src={video[currentVideo]} autoPlay muted className='absolute w-[24%] h-2/3 top-[100px] object-cover z-10 rounded-[10px]' />
           )
         }
-        <div className={'absolute w-[370px] h-2/3 mx-auto top-[100px] object-cover rounded-[10px] bg-[#10100f]'}></div>
+        <div className={'absolute w-[24%] h-2/3 mx-auto top-[100px] object-cover rounded-[10px] bg-[#10100f]'}></div>
       </div>
     </div>
   )

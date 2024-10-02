@@ -4,9 +4,24 @@ import despedida from '@/assets/video/despedida.mp4'
 import retorno from '@/assets/video/retorno.mp4'
 import halcyon from '@/assets/video/halcyon.mp4'
 import stardust from '@/assets/video/stardust.mp4'
+import stardustII from '@/assets/video/stardust2.mp4'
+import pig from '@/assets/video/pig.mp4'
+import end from '@/assets/video/end.mp4'
+import jackal from '@/assets/video/jackal.mp4'
+
 import { VideoDisplayHorizontalSlider } from '@/components/Common/VideoDisplayHorizontalSlider'
 
 const videos = [
+  {
+    title: 'End of Innocence',
+    src: end,
+    description: 'A woman traverses the empty spaces of a home that hides the secrets that took her innocence away.'
+  },
+  {
+    title: 'Jackal',
+    src: jackal,
+    description: 'Some words about the video'
+  },
   {
     title: 'Entity',
     src: entity,
@@ -30,6 +45,16 @@ const videos = [
   {
     title: 'Stardust',
     src: stardust,
+    description: 'Some words about the video'
+  },
+  {
+    title: 'Stardust II',
+    src: stardustII,
+    description: 'Some words about the video'
+  },
+  {
+    title: 'Pig',
+    src: pig,
     description: 'Some words about the video'
   },
 ]
