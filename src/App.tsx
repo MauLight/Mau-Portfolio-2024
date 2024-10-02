@@ -13,9 +13,9 @@ const App = () => {
   //const { x, y } = useFollowPointer(ref)
 
   const updateBgColor = () => {
-    console.log(pathname)
     if (pathname.includes('humans')) return 'bg-[#fff0e2]'
     if (pathname.includes('distortion')) return 'bg-red-600'
+    if (pathname.includes('video')) return 'bg-[#10100e]'
   }
 
   return (

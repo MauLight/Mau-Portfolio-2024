@@ -26,7 +26,7 @@ const Topbar = () => {
         <FlipLink href='#' fontColor='text-[#231c1e]' textSize='text-lg'>About</FlipLink>
         <FlipLink onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) } } href='#' fontColor='text-[#231c1e]' textSize='text-lg'>dev</FlipLink>
         <FlipLink onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) } } href='#' fontColor='text-[#231c1e]' textSize='text-lg'>photo</FlipLink>
-        <FlipLink href='#' fontColor='text-[#231c1e]' textSize='text-lg'>video</FlipLink>
+        <FlipLink onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) } } href='#' fontColor='text-[#231c1e]' textSize='text-lg'>video</FlipLink>
         <FlipLink href='#' fontColor='text-[#231c1e]' textSize='text-lg'>fiction</FlipLink>
         <FlipLink href='#' fontColor='text-[#231c1e]' textSize='text-lg'>Contact</FlipLink>
       </div>
@@ -66,7 +66,14 @@ const Topbar = () => {
                   </div>
                 </div>
 
-                <div id='video' className="col-span-1 flex flex-col border-r"></div>
+                <div id='video' className="col-span-1 flex flex-col border-r pt-[70px] px-8 gap-y-2">
+                  <h1 className='font-body text-[16px]'>Galleries</h1>
+                  <div className="flex flex-col">
+                    <Link to={'/video/viral'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className='pl-5 font-light text-gray-600 text-[14px]'>Viral</Link>
+                    <Link to={'/video/motion'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className='pl-5 font-light text-gray-600 text-[14px]'>Motion</Link>
+                    <Link to={'/video/Shortfilms'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className='pl-5 font-light text-gray-600 text-[14px]'>Shortfilms</Link>
+                  </div>
+                </div>
                 <div id='fiction' className="col-span-1 flex flex-col border-r"></div>
                 <div id='contact' className="col-span-1 flex flex-col border-r"></div>
               </div>
