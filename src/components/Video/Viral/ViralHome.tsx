@@ -10,7 +10,7 @@ import { VideoDisplayVertical } from '@/components/Common/VideoDisplayVertical'
 const ViralHome = (): ReactElement => {
   return (
     <div className='w-full min-h-screen flex flex-col justify-center items-center gap-y-32 bg-[#10100e]'>
-      <VideoDisplayHorizontal video={AMV} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
+      <VideoDisplayHorizontal title='Shonen Extravaganza AMV' description='21.8K views' video={AMV} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
       <VideoDisplayVertical title='Ctlst Halloween Campaign' description='200% follower increase' video={[Horror, Horror2, Horror3, Horror4]} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
     </div>
   )
