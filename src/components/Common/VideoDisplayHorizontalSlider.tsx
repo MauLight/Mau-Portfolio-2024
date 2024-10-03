@@ -61,7 +61,7 @@ export const VideoDisplayHorizontalSlider = ({ video, bgColor } : VideoDisplaySl
               initial={'hidden'}
               whileInView={'show'}
               viewport={{ once: false, amount: 0.1 }}
-              className='font-light text-3xl text-[2e302e] z-10'>{video[currentVideo].description}</motion.p>
+              className='w-1/3 font-light text-3xl text-[2e302e] z-10 text-balance'>{video[currentVideo].description}</motion.p>
           )
         }
         <video src={video[currentVideo].src} autoPlay muted loop className='absolute w-full top-0 left-0 object-cover z-0 opacity-40 grayscale' />
@@ -87,7 +87,7 @@ export const VideoDisplayHorizontalSlider = ({ video, bgColor } : VideoDisplaySl
               initial={'hidden'}
               whileInView={'show'}
               viewport={{ once: false, amount: 0.1 }}
-              src={video[currentVideo].src} autoPlay loop muted className='w-full object-cover z-10 rounded-[10px]' />
+              src={video[currentVideo].src} autoPlay muted className='w-full object-cover z-10 rounded-[10px]' />
           )
         }
         {
