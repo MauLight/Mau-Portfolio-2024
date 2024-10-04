@@ -3,24 +3,25 @@ import { motion } from 'framer-motion'
 import { fadeIn } from '@/utils/functions'
 
 interface VideoDisplayProps {
-    video: string[]
+    mp4: string[]
+    webM: string[]
     bgColor: string
     title: string
     description: string
 }
 
-export const VideoDisplayVertical = ({ title, description, video, bgColor } : VideoDisplayProps): ReactElement => {
+export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor } : VideoDisplayProps): ReactElement => {
   const [currentVideo, setCurrentVideo] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
 
   const handleSlider = (direction: number) => {
     setCurrentVideo((prev) => {
       if (direction === 1) {
-        if (prev === 0) return video.length - 1
+        if (prev === 0) return webM.length - 1
         return prev - 1
       }
       if (direction === 2) {
-        if (prev === video.length - 1) return 0
+        if (prev === webM.length - 1) return 0
         return prev + 1
       }
       return prev
@@ -56,7 +57,10 @@ export const VideoDisplayVertical = ({ title, description, video, bgColor } : Vi
               initial={'hidden'}
               whileInView={'show'}
               viewport={{ once: false, amount: 0.1 }}
-              src={video[currentVideo]} autoPlay loop muted className='absolute w-full top-currentVideo left-currentVideo object-cover z-0 opacity-40 grayscale' />
+              autoPlay loop muted className='absolute w-full top-currentVideo left-currentVideo object-cover z-0 opacity-40 grayscale'>
+              <source src={webM[currentVideo]} type='video/webm' />
+              <source src={mp4[currentVideo]} type='video/mp4' />
+            </motion.video>
           )
         }
         <div className={`absolute left-0 opacity-80 w-full h-full z-0 flex justify-center items-center animated-background ${bgColor ? bgColor : 'bg-[#ffffff]'} transition-color duration-500`}></div>
@@ -77,12 +81,14 @@ export const VideoDisplayVertical = ({ title, description, video, bgColor } : Vi
         {
           isVisible && (
             <motion.video
-              onEnded={() => { handleSlider(2) }}
-              variants={fadeIn('bottom', 0.2)}
+              variants={fadeIn('top', 1)}
               initial={'hidden'}
               whileInView={'show'}
               viewport={{ once: false, amount: 0.1 }}
-              src={video[currentVideo]} autoPlay muted className='absolute w-[24%] h-2/3 top-[100px] object-cover z-10 rounded-[10px]' />
+              autoPlay loop muted className='absolute w-[24%] h-2/3 top-[100px] object-cover z-10 rounded-[10px]'>
+              <source src={webM[currentVideo]} type='video/webm' />
+              <source src={mp4[currentVideo]} type='video/mp4' />
+            </motion.video>
           )
         }
         <div className={'absolute w-[24%] h-2/3 mx-auto top-[100px] object-cover rounded-[10px] bg-[#10100f]'}></div>

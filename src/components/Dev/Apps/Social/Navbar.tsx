@@ -1,8 +1,8 @@
-import { useState, type SetStateAction } from 'react'
+import { useState } from 'react'
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const Navbar = ({ setStep } : { setStep: React.Dispatch<SetStateAction<number>> }) => {
+export const Navbar = () => {
   const [expand, setExpand] = useState<boolean>(true)
   const [expandSearch, setExpandSearch] = useState<boolean>(false)
 

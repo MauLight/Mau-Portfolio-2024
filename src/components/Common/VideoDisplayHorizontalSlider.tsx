@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { ReactElement, useEffect, useState } from 'react'
 
 interface VideoDisplaySliderProps {
-    video: { src: string, title: string, description: string }[]
+    video: { mp4: string, webM: string, title: string, description: string }[]
     bgColor: string
 }
 
@@ -64,7 +64,10 @@ export const VideoDisplayHorizontalSlider = ({ video, bgColor } : VideoDisplaySl
               className='w-1/3 font-light text-3xl text-[2e302e] z-10 text-balance'>{video[currentVideo].description}</motion.p>
           )
         }
-        <video src={video[currentVideo].src} autoPlay muted loop className='absolute w-full top-0 left-0 object-cover z-0 opacity-40 grayscale' />
+        <video autoPlay muted loop className='absolute w-full top-0 left-0 object-cover z-0 opacity-40 grayscale'>
+          <source src={video[currentVideo].webM} type='video/webm' />
+          <source src={video[currentVideo].mp4} type='video/mp4' />
+        </video>
         <div className={`absolute left-0 opacity-80 w-full h-full flex justify-center items-center animated-background ${bgColor ? bgColor : 'bg-[#ffffff]'}`}></div>
       </motion.div>
       <div className={`absolute w-1/2 h-1/2 flex justify-center items-center gap-x-10 top-[220px] ${hide ? 'right-[20vw]' : 'right-0'} object-cover z-10 rounded-[10px] transition-all duration-500`}>
@@ -87,7 +90,10 @@ export const VideoDisplayHorizontalSlider = ({ video, bgColor } : VideoDisplaySl
               initial={'hidden'}
               whileInView={'show'}
               viewport={{ once: false, amount: 0.1 }}
-              src={video[currentVideo].src} autoPlay muted className='w-full object-cover z-10 rounded-[10px]' />
+              autoPlay muted className='w-full object-cover z-10 rounded-[10px]'>
+              <source src={video[currentVideo].webM} type='video/webm' />
+              <source src={video[currentVideo].mp4} type='video/mp4' />
+            </motion.video>
           )
         }
         {

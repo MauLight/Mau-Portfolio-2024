@@ -5,11 +5,12 @@ import { fadeIn } from '@/utils/functions'
 interface VideoDisplayProps {
     title: string
     description: string
-    video: string
+    mp4: string
+    webM: string
     bgColor: string
 }
 
-export const VideoDisplayHorizontal = ({ title, description, video, bgColor } : VideoDisplayProps): ReactElement => {
+export const VideoDisplayHorizontal = ({ title, description, mp4, webM, bgColor } : VideoDisplayProps): ReactElement => {
   return (
     <div className="relative flex justify-center items-center w-full h-screen pt-[200px]">
       <div className="absolute w-screen flex flex-col justify-center items-start px-20 gap-y-5 bg-[#e7eee7] h-[450px] overflow-hidden">
@@ -25,7 +26,10 @@ export const VideoDisplayHorizontal = ({ title, description, video, bgColor } : 
           whileInView={'show'}
           viewport={{ once: false, amount: 0.1 }}
           className='font-light text-3xl text-[2e302e] z-10'>{description}</motion.p>
-        <video src={video} autoPlay loop muted className='absolute w-full top-0 left-0 object-cover z-0 opacity-30 grayscale' />
+        <video autoPlay loop muted className='absolute w-full top-0 left-0 object-cover z-0 opacity-30 grayscale'>
+          <source src={webM} type='video/webm' />
+          <source src={mp4} type='video/mp4' />
+        </video>
         <div className={`absolute left-0 opacity-80 w-full h-full flex justify-center items-center animated-background ${bgColor ? bgColor : 'bg-[#ffffff]'}`}></div>
       </div>
       <motion.video
@@ -33,7 +37,10 @@ export const VideoDisplayHorizontal = ({ title, description, video, bgColor } : 
         initial={'hidden'}
         whileInView={'show'}
         viewport={{ once: false, amount: 0.1 }}
-        src={video} autoPlay loop muted className='absolute w-1/2 right-0 top-[220px] object-cover z-10 rounded-[10px]' />
+        autoPlay loop muted className='absolute w-1/2 right-0 top-[220px] object-cover z-10 rounded-[10px]'>
+        <source src={webM} type='video/webm' />
+        <source src={mp4} type='video/mp4' />
+      </motion.video>
     </div>
   )
 }

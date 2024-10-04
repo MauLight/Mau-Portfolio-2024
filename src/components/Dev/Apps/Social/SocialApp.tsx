@@ -40,7 +40,7 @@ export const SocialApp = (): ReactElement => {
         }
       </div>
       {/* navbar */}
-      <Navbar setStep={setStep} />
+      <Navbar />
     </div>
   )
 }
