@@ -1,5 +1,6 @@
 import { useState, type ReactElement } from 'react'
 import { SocialApp } from './Social/SocialApp'
+import { EcommerceHome } from './Ecommerce/EcommerceHome'
 
 
 const AppHome = (): ReactElement => {
@@ -31,7 +32,7 @@ const AppHome = (): ReactElement => {
         </div>
         <div className="w-full h-[700px] border rounded-[20px] overflow-hidden">
           {
-            authTwoDisplay.preview ? <div>hey</div> : null
+            authTwoDisplay.preview ? <EcommerceHome /> : null
           }
           {
             authTwoDisplay.code ? <div>hey</div> : null
