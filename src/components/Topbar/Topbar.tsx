@@ -18,7 +18,7 @@ const Topbar = () => {
       initial={'hidden'}
       whileInView={'show'}
       viewport={{ once: false, amount: 0.1 }}
-      className={`fixed z-30 top-0 w-full max-w-[1440px] grid grid-cols-5 pt-2 px-1 ${pathname !== '/' ? 'bg-blue-0 rounded-md bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-0' : ''}`}>
+      className={`fixed top-0 w-full max-w-[1440px] grid grid-cols-5 pt-2 px-1 z-50 ${pathname !== '/' ? 'bg-blue-0 rounded-md bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-0' : ''}`}>
       <Link to={'/'} className="flex justify-start items-center">
         <img src='https://i.postimg.cc/rsbQbsy2/icon.png' className='w-9 h-9' />
       </Link>
@@ -42,7 +42,7 @@ const Topbar = () => {
           initial={isUpperMenuOpen ? 'show' : 'hidden'}
           whileInView={'show'}
           viewport={{ once: false, amount: 0.1 }}
-          className={`w-screen h-[300px] ${pathname.includes('video') ? 'bg-[#10100e] border-b' : 'bg-[#ffffff]'} ${isUpperMenuOpen ? 'fixed' : 'hidden'} top-0 left-0 z-20`}
+          className={`w-screen h-[300px] ${pathname.includes('video') ? 'bg-[#10100e] border-b' : 'bg-[#ffffff]'} ${isUpperMenuOpen ? 'fixed' : 'hidden'} top-0 left-0 z-30 border-b`}
         >
           <div className="w-full h-full flex justify-center">
             <div className="h-full w-[1440px] flex justify-center">
@@ -84,7 +84,7 @@ const Topbar = () => {
     }
     {
       isUpperMenuOpen && (
-        <div onClick={() => { setUpperMenuOpen(false) }} className="fixed top-0 left-0 w-screen h-screen"></div>
+        <div onClick={() => { setUpperMenuOpen(false) }} className="fixed top-0 left-0 w-screen h-screen z-30"></div>
       )
     }
     </>
