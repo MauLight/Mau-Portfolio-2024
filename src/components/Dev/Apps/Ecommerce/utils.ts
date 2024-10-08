@@ -6,6 +6,7 @@ import banner1 from '@/assets/apps/banner_1.png'
 
 export const products = [
   {
+    quantity: 1,
     id: 'a1',
     image: mock4,
     title: 'Radiant Skyline',
@@ -13,6 +14,7 @@ export const products = [
     discount: 1440
   },
   {
+    quantity: 1,
     id: 'b2',
     image: mock2,
     title: 'Face of the deep',
@@ -20,6 +22,7 @@ export const products = [
     discount: 1680
   },
   {
+    quantity: 1,
     id: 'c3',
     image: mock3,
     title: 'A vintage sunset',
@@ -30,6 +33,7 @@ export const products = [
 
 export const bannerItems = [
   {
+    quantity: 1,
     id: 'ban1',
     image: banner1,
     title: 'Into the unknown',

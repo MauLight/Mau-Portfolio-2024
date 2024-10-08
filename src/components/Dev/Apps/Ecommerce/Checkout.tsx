@@ -2,21 +2,22 @@ import { Dispatch, SetStateAction, type ReactElement } from 'react'
 import { CheckoutCard } from './CheckoutCard'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { CheckSummary } from './CheckSummary'
+import { ProductProps } from './types'
 
 interface CheckoutProps {
-    cart: { id: string, price: number, title: string, discount: number, image: string }[]
+    cart: ProductProps[]
     setStep: Dispatch<SetStateAction<number>>
+    handleAddQuantity: (id: string) => void
+    handleMinusQuantity: (id: string) => void
     handleRemoveProduct: (id: string) => void
 }
 
-export const Checkout = ({ cart, setStep, handleRemoveProduct } : CheckoutProps): ReactElement => {
+export const Checkout = ({ cart, setStep, handleAddQuantity, handleMinusQuantity, handleRemoveProduct } : CheckoutProps): ReactElement => {
 
   const numberOfProducts = cart.length
   const total = cart.reduce((acc, item) => acc + item.price, 0)
   const vat = ((total/100) * 19)
   const totalWithVat = total + vat
-
-  console.log(vat)
 
   return (
     <div className="w-full h-full min-h-[700px] flex flex-col justify-center gap-y-10 px-5 overflow-y-scroll">
@@ -36,7 +37,7 @@ export const Checkout = ({ cart, setStep, handleRemoveProduct } : CheckoutProps)
         <div className="col-span-3">
           {
             cart.map((product, i) => (
-              <CheckoutCard handleRemoveProduct={handleRemoveProduct} product={product} key={i} />
+              <CheckoutCard handleMinusQuantity={handleMinusQuantity} handleAddQuantity={handleAddQuantity} handleRemoveProduct={handleRemoveProduct} product={product} key={i} />
             ))
           }
         </div>

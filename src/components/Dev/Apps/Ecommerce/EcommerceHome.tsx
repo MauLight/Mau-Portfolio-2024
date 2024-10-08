@@ -11,13 +11,33 @@ export const EcommerceHome = (): ReactElement => {
   const [step, setStep] = useState<number>(1)
   const [cart, setCart] = useState<ProductProps[]>([])
 
-  const handleClick = (product: ProductProps): void => {
+  const handleAddProduct = (product: ProductProps): void => {
     setCart([...cart, product])
     if (step === 1) setStep(2)
   }
 
   const handleRemoveProduct = (id: string): void => {
     setCart(cart.filter((product) => product.id !== id))
+  }
+
+  const handleAddQuantity = (id: string): void => {
+    const newCart = cart.map((product) => {
+      if (product.id === id) {
+        return { ...product, quantity: product.quantity + 1 }
+      }
+      return product
+    })
+    setCart(newCart)
+  }
+
+  const handleMinusQuantity = (id: string): void => {
+    const newCart = cart.map((product) => {
+      if (product.id === id && product.quantity > 1) {
+        return { ...product, quantity: product.quantity - 1 }
+      }
+      return product
+    })
+    setCart(newCart)
   }
 
   return (
@@ -29,7 +49,7 @@ export const EcommerceHome = (): ReactElement => {
             <TopBar />
             <div className="w-full h-full overflow-scroll scrollbar-hide flex flex-col">
               {/* banner */}
-              <Banner product={bannerItems[0]} handleClick={handleClick} />
+              <Banner product={bannerItems[0]} handleAddProduct={handleAddProduct} />
               <BannerCollection />
               {/* <div className="w-full grid grid-cols-4">
           <CardGroupTop images={[cat_3, cat_2, cat_4]} />
@@ -40,7 +60,7 @@ export const EcommerceHome = (): ReactElement => {
               <div className="grid grid-cols-3">
                 {
                   products.length > 0 && products.map((product, i) => (
-                    <EcommerceCard key={i} product={product} handleClick={handleClick} />
+                    <EcommerceCard key={i} product={product} handleAddProduct={handleAddProduct} />
                   ))
                 }
               </div>
@@ -50,7 +70,7 @@ export const EcommerceHome = (): ReactElement => {
         )
           :
           (
-            <Checkout handleRemoveProduct={handleRemoveProduct} cart={cart} setStep={setStep} />
+            <Checkout handleMinusQuantity={handleMinusQuantity} handleAddQuantity={handleAddQuantity} handleRemoveProduct={handleRemoveProduct} cart={cart} setStep={setStep} />
           )
       }
     </>

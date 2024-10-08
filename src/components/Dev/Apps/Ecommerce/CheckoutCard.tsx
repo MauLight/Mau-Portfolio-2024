@@ -1,16 +1,15 @@
-import { useState, type ReactElement } from 'react'
+import { type ReactElement } from 'react'
+import { ProductProps } from './types'
 
 interface CheckoutCardProps {
-    product: { id: string, price: number, title: string, discount: number, image: string }
+    product: ProductProps
     handleRemoveProduct: (id: string) => void
+    handleAddQuantity: (id: string) => void
+    handleMinusQuantity: (id: string) => void
 }
 
-export const CheckoutCard = ({ product, handleRemoveProduct } : CheckoutCardProps): ReactElement => {
-  const [quantity, setQuantity] = useState(1)
-  const handleClick = (step: number) => {
-    step === 1 && setQuantity(quantity + 1)
-    step === 2 && quantity > 1 && setQuantity(quantity - 1)
-  }
+export const CheckoutCard = ({ product, handleAddQuantity, handleMinusQuantity, handleRemoveProduct } : CheckoutCardProps): ReactElement => {
+
   return (
     <div className="grid grid-cols-5 border-b border-[#10100e] pb-3 h-[220px]">
       <div className="col-span-1 border">
@@ -27,10 +26,10 @@ export const CheckoutCard = ({ product, handleRemoveProduct } : CheckoutCardProp
           </div>
           <div className="flex flex-col">
             <h1 className='text-xl aktivLight text-[#10100e] uppercase'>Qty</h1>
-            <div className='flex items-center justify-between border border-[#10100e] w-[80px] h-10 px-2'>{quantity}
+            <div className='flex items-center justify-between border border-[#10100e] w-[80px] h-10 px-2'>{product.quantity}
               <div className="h-full flex flex-col py-3 justify-between">
-                <i onClick={() => { handleClick(1) }} className="fa-solid fa-sm fa-plus hover:text-indigo-500"></i>
-                <i onClick={() => { handleClick(2) }} className="fa-solid fa-sm fa-minus hover:text-indigo-500"></i>
+                <i onClick={() => { handleAddQuantity(product.id) }} className="fa-solid fa-sm fa-plus hover:text-indigo-500"></i>
+                <i onClick={() => { handleMinusQuantity(product.id) }} className="fa-solid fa-sm fa-minus hover:text-indigo-500"></i>
               </div>
             </div>
           </div>

@@ -2,10 +2,10 @@ import { type ReactElement } from 'react'
 import { ProductProps } from '../Dev/Apps/Ecommerce/types'
 interface EcommerceCardProps {
     product: ProductProps
-    handleClick: (product: ProductProps) => void
+    handleAddProduct: (product: ProductProps) => void
 }
 
-export const EcommerceCard = ({ product, handleClick }: EcommerceCardProps): ReactElement => {
+export const EcommerceCard = ({ product, handleAddProduct }: EcommerceCardProps): ReactElement => {
   return (
     <div className="group relative h-[700px] col-span-1 flex justify-center overflow-hidden">
       <img src={product.image} alt="mock1" className="w-full h-full object-cover" />
@@ -19,7 +19,7 @@ export const EcommerceCard = ({ product, handleClick }: EcommerceCardProps): Rea
             <p className='text-[12px] uppercase neue antialiazed text-gray-100 line-through'>{`${product.discount}$`}</p>
           </div>
         </div>
-        <div onClick={() => { handleClick(product) }} className='h-[50px] w-[50px] antialiased rounded-full bg-gray-900 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 flex justify-center items-center pb-1 cursor-pointer'>
+        <div onClick={() => { handleAddProduct(product) }} className='h-[50px] w-[50px] antialiased rounded-full bg-gray-900 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 flex justify-center items-center pb-1 cursor-pointer'>
           <i className="fa-solid fa-bag-shopping text-[#ffffff]"></i>
         </div>
       </div>
