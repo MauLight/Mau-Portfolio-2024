@@ -4,17 +4,15 @@ import { TopBar } from './TopBar'
 import { Banner } from './Banner'
 import { BannerCollection } from './BannerCollection'
 import { Checkout } from './Checkout'
-import { items } from './utils'
+import { bannerItems, products } from './utils'
+import { ProductProps } from './types'
 
 export const EcommerceHome = (): ReactElement => {
   const [step, setStep] = useState<number>(1)
-  const [cart, setCart] = useState<{ id: number, title: string, price: number, discount: number, image: string }[]>([])
-  const [id, setId] = useState<number>(0)
+  const [cart, setCart] = useState<ProductProps[]>([])
 
-  const handleClick = (item: { title: string, price: number, discount: number, image: string }): void => {
-    const itemToAdd = { id: id, ...item }
-    setCart([...cart, itemToAdd])
-    setId(id + 1)
+  const handleClick = (product: ProductProps): void => {
+    setCart([...cart, product])
     if (step === 1) setStep(2)
   }
 
@@ -27,7 +25,7 @@ export const EcommerceHome = (): ReactElement => {
             <TopBar />
             <div className="w-full h-full overflow-scroll scrollbar-hide flex flex-col">
               {/* banner */}
-              <Banner title='Into the Unknown' price={1400} discount={1680} handleClick={handleClick} />
+              <Banner product={bannerItems[0]} handleClick={handleClick} />
               <BannerCollection />
               {/* <div className="w-full grid grid-cols-4">
           <CardGroupTop images={[cat_3, cat_2, cat_4]} />
@@ -37,8 +35,8 @@ export const EcommerceHome = (): ReactElement => {
         </div> */}
               <div className="grid grid-cols-3">
                 {
-                  items.map((item, i) => (
-                    <EcommerceCard title={item.title} price={item.price} discount={item.discount} image={item.image} key={i} handleClick={handleClick} />
+                  products.length > 0 && products.map((product, i) => (
+                    <EcommerceCard key={i} product={product} handleClick={handleClick} />
                   ))
                 }
               </div>

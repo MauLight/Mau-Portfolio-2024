@@ -1,10 +1,10 @@
-import mock2 from '@/assets/apps/mock_2.png'
-import mock3 from '@/assets/apps/mock_3.png'
-import mock4 from '@/assets/apps/mock_4.png'
+import mock2 from '@/assets/apps/mock_2.webp'
+import mock3 from '@/assets/apps/mock_3.webp'
+import mock4 from '@/assets/apps/mock_4.webp'
 
-import banner1 from '@/assets/apps/banner_2.png'
+import banner1 from '@/assets/apps/banner_1.png'
 
-export const items = [
+export const products = [
   {
     id: 'a1',
     image: mock4,

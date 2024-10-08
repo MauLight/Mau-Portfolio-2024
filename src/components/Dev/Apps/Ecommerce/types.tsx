@@ -1,6 +1,6 @@
+export interface ProductProps { id: string, title: string, price: number, discount: number, image: string }
+
 export interface BannerProps {
-    title: string
-    price: number
-    discount: number
-    handleClick: (item: { id: string, title: string, price: number, discount: number, image: string }) => void
+    product: ProductProps
+    handleClick: (product: ProductProps) => void
 }

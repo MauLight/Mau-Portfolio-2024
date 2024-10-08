@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "id": "a1",
+      "image": "https://res.cloudinary.com/dthh02add/image/upload/v1728345356/mock_4_zhhf7e.png",
+      "title": "Radiant Skyline",
+      "price": 1200,
+      "discount": 1440
+    },
+    {
+      "id": "b2",
+      "image": "https://res.cloudinary.com/dthh02add/image/upload/v1728345355/mock_3_utogms.png",
+      "title": "Face of the deep",
+      "price": 1400,
+      "discount": 1680
+    },
+    {
+      "id": "c3",
+      "image": "https://res.cloudinary.com/dthh02add/image/upload/v1728345355/mock_2_ittgyl.png",
+      "title": "A vintage sunset",
+      "price": 1180,
+      "discount": 1416
+    }
+  ],
+  "bannerItems": [
+    {
+      "id": "ban1",
+      "image": "https://res.cloudinary.com/dthh02add/image/upload/v1728345563/banner_1_bc4g2m.png",
+      "title": "Into the unknown",
+      "price": 1400,
+      "discount": 1680
+    }
+  ]
+}

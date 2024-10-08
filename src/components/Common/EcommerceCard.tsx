@@ -1,28 +1,25 @@
 import { type ReactElement } from 'react'
+import { ProductProps } from '../Dev/Apps/Ecommerce/types'
 interface EcommerceCardProps {
-    image: string
-    title: string
-    price: number
-    discount: number
-    handleClick: (item: { title: string, price: number, discount: number, image: string }) => void
+    product: ProductProps
+    handleClick: (product: ProductProps) => void
 }
 
-export const EcommerceCard = ({ image, title, price, discount, handleClick }: EcommerceCardProps): ReactElement => {
-  const item = { title, price, discount, image }
+export const EcommerceCard = ({ product, handleClick }: EcommerceCardProps): ReactElement => {
   return (
     <div className="group relative h-[700px] col-span-1 flex justify-center overflow-hidden">
-      <img src={image} alt="mock1" className="w-full h-full object-cover" />
+      <img src={product.image} alt="mock1" className="w-full h-full object-cover" />
 
 
       <div className="w-full absolute bottom-5 flex justify-between px-5 z-10 transition-all duration-300">
         <div className="flex flex-col">
-          <h1 className='text-[22px] uppercase neue antialiazed text-[#ffffff] leading-tight'>{title}</h1>
+          <h1 className='text-[22px] uppercase neue antialiazed text-[#ffffff] leading-tight'>{product.title}</h1>
           <div className="flex gap-x-2">
-            <p className='text-[16px] uppercase neue antialiazed text-[#ffffff]'>{`${price}$`}</p>
-            <p className='text-[12px] uppercase neue antialiazed text-gray-100 line-through'>{`${discount}$`}</p>
+            <p className='text-[16px] uppercase neue antialiazed text-[#ffffff]'>{`${product.price}$`}</p>
+            <p className='text-[12px] uppercase neue antialiazed text-gray-100 line-through'>{`${product.discount}$`}</p>
           </div>
         </div>
-        <div onClick={() => { handleClick(item) }} className='h-[50px] w-[50px] antialiased rounded-full bg-gray-900 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 flex justify-center items-center pb-1 cursor-pointer'>
+        <div onClick={() => { handleClick(product) }} className='h-[50px] w-[50px] antialiased rounded-full bg-gray-900 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 flex justify-center items-center pb-1 cursor-pointer'>
           <i className="fa-solid fa-bag-shopping text-[#ffffff]"></i>
         </div>
       </div>

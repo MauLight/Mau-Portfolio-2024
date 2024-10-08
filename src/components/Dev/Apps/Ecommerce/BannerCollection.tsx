@@ -1,5 +1,5 @@
 import { type ReactElement } from 'react'
-import banner1 from '@/assets/apps/surreal_1.png'
+import banner1 from '@/assets/apps/surreal_1.webp'
 
 export const BannerCollection = (): ReactElement => {
   return (
