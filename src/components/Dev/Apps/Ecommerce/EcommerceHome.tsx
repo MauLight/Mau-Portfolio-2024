@@ -43,10 +43,10 @@ export const EcommerceHome = (): ReactElement => {
   return (
     <>
       {
-        step === 1 ? (
+        step === 1 && (
           <div className='relative w-full h-full flex flex-col justify-center items-center overflow-y-scroll'>
             {/* topbar */}
-            <TopBar />
+            <TopBar setStep={setStep} cart={cart} />
             <div className="w-full h-full overflow-scroll scrollbar-hide flex flex-col">
               {/* banner */}
               <Banner product={bannerItems[0]} handleAddProduct={handleAddProduct} />
@@ -68,10 +68,11 @@ export const EcommerceHome = (): ReactElement => {
             </div>
           </div>
         )
-          :
-          (
-            <Checkout handleMinusQuantity={handleMinusQuantity} handleAddQuantity={handleAddQuantity} handleRemoveProduct={handleRemoveProduct} cart={cart} setStep={setStep} />
-          )
+      }
+      {
+        step === 2 && (
+          <Checkout cart={cart} setStep={setStep} handleAddQuantity={handleAddQuantity} handleMinusQuantity={handleMinusQuantity} handleRemoveProduct={handleRemoveProduct} />
+        )
       }
     </>
   )

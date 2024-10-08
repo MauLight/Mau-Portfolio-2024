@@ -127,7 +127,7 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen h-full grid grid-cols-3">
+    <div className="h-screen overflow-hidden grid grid-cols-3">
       <div className="flex flex-col justify-center pb-[50px]">
         <motion.div
           variants={fadeIn('right', 0.4)}

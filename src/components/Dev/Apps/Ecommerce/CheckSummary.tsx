@@ -1,15 +1,16 @@
-import { type ReactElement } from 'react'
+import { Dispatch, SetStateAction, type ReactElement } from 'react'
 
 interface CheckSummaryProps {
     numberOfProducts: number
     total: number
     taxes: number
     totalWithTaxes: number
+    setReadyToPay: Dispatch<SetStateAction<boolean>>
 }
 
-export const CheckSummary = ({ numberOfProducts, total, taxes, totalWithTaxes } : CheckSummaryProps): ReactElement => {
+export const CheckSummary = ({ numberOfProducts, total, taxes, totalWithTaxes, setReadyToPay } : CheckSummaryProps): ReactElement => {
   return (
-    <div className="col-span-1 flex flex-col">
+    <div className="sticky top-0 right-0 flex flex-col">
       <h1 className='text-xl aktiv text-[#10100e] uppercase border-b border-[#10100e]'>Summary</h1>
       <div className="w-full flex flex-col pt-2 pb-3 border-[#10100e] border-b">
         <div className="w-full flex justify-between">
@@ -30,7 +31,18 @@ export const CheckSummary = ({ numberOfProducts, total, taxes, totalWithTaxes } 
           <h1 className='text-lg aktivLight text-gray-700 uppercase leading-none'>{`Includes ${taxes} VAT`}</h1>
         </div>
       </div>
-      <button className='h-10 bg-[#10100e] px-2 uppercase text-[#ffffff] mt-3'>Checkout</button>
+      <button onClick={() => { setReadyToPay(true) }} className='h-10 bg-[#10100e] hover:bg-indigo-500 active:bg-[#10100e] px-2 uppercase text-[#ffffff] mt-3 transition-all duration-200'>Checkout</button>
+      <div className="w-full border-t border-[#10100e] mt-10">
+        <h1 className='text-lg aktivLight text-[#10100e] uppercase'>Accepted payment methods</h1>
+        <div className="w-full h-10 flex items-center justify-between">
+          <i className="fa-brands fa-xl fa-cc-visa text-[#10100e]"></i>
+          <i className="fa-brands fa-xl fa-cc-mastercard text-[#10100e]"></i>
+          <i className="fa-brands fa-xl fa-cc-apple-pay text-[#10100e]"></i>
+          <i className="fa-brands fa-xl fa-google-pay text-[#10100e]"></i>
+          <i className="fa-brands fa-xl fa-cc-paypal text-[#10100e]"></i>
+          <i className="fa-brands fa-xl fa-cc-stripe text-[#10100e]"></i>
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,5 +1,7 @@
 import { type ReactElement } from 'react'
 import { BannerProps } from './types'
+import { motion } from 'framer-motion'
+import { fadeIn } from '@/utils/functions'
 
 
 export const Banner = ({ product, handleAddProduct } : BannerProps): ReactElement => {
@@ -8,8 +10,13 @@ export const Banner = ({ product, handleAddProduct } : BannerProps): ReactElemen
     <div className="w-full min-h-[1000px] flex flex-col">
       <div className="relative w-full h-full flex justify-center items-center bg-[#fdfdfd]">
         <div className="h-full flex flex-col justify-start items-center pt-[250px]">
-          <h1 className='aktiv text-[240px] leading-none uppercase animated-background bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 inline-block text-transparent bg-clip-text z-10'>Emotions</h1>
-          <div className="w-full flex justify-between mt-2 px-5">
+          <motion.h1
+            variants={fadeIn('top', 0.2)}
+            initial={'hidden'}
+            whileInView={'show'}
+            className='aktiv text-[240px] leading-none uppercase animated-background bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 inline-block text-transparent bg-clip-text z-10'>Emotions</motion.h1>
+          <div
+            className="w-full flex justify-between mt-2 px-5">
             <p className='text-[16px] neue text-[#ffffff] z-10 uppercase'>Captured</p>
             <p className='text-[16px] neue text-[#ffffff] z-10 uppercase'>In</p>
             <p className='text-[16px] neue text-[#ffffff] z-10 uppercase'>Time</p>
