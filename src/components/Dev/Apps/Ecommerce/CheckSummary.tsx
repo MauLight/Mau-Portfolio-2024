@@ -9,6 +9,10 @@ interface CheckSummaryProps {
 }
 
 export const CheckSummary = ({ numberOfProducts, total, taxes, totalWithTaxes, setReadyToPay } : CheckSummaryProps): ReactElement => {
+  const handleCheckout = () => {
+    totalWithTaxes !== 0 && setReadyToPay(true)
+  }
+
   return (
     <div className="sticky top-0 right-0 flex flex-col">
       <h1 className='text-xl aktiv text-[#10100e] uppercase border-b border-[#10100e]'>Summary</h1>
@@ -31,7 +35,7 @@ export const CheckSummary = ({ numberOfProducts, total, taxes, totalWithTaxes, s
           <h1 className='text-lg aktivLight text-gray-700 uppercase leading-none'>{`Includes ${taxes} VAT`}</h1>
         </div>
       </div>
-      <button onClick={() => { setReadyToPay(true) }} className='h-10 bg-[#10100e] hover:bg-indigo-500 active:bg-[#10100e] px-2 uppercase text-[#ffffff] mt-3 transition-all duration-200'>Checkout</button>
+      <button disabled={totalWithTaxes === 0} onClick={handleCheckout} className={`h-10 px-2 uppercase text-[#ffffff] mt-3 transition-all duration-200 ${totalWithTaxes === 0 ? 'cursor-not-allowed bg-gray-600' : 'bg-[#10100e] hover:bg-indigo-500 active:bg-[#10100e]'}`}>Checkout</button>
       <div className="w-full border-t border-[#10100e] mt-10">
         <h1 className='text-lg aktivLight text-[#10100e] uppercase'>Accepted payment methods</h1>
         <div className="w-full h-10 flex items-center justify-between">

@@ -12,6 +12,19 @@ export const EcommerceHome = (): ReactElement => {
   const [cart, setCart] = useState<ProductProps[]>([])
 
   const handleAddProduct = (product: ProductProps): void => {
+    const productId = product.id
+    const productExists = cart.find((product) => product.id === productId)
+    if (productExists) {
+      const newCart = cart.map((product) => {
+        if (product.id === productId) {
+          return { ...product, quantity: product.quantity + 1 }
+        }
+        return product
+      })
+      setCart(newCart)
+      if (step === 1) setStep(2)
+      return
+    }
     setCart([...cart, product])
     if (step === 1) setStep(2)
   }
@@ -71,7 +84,7 @@ export const EcommerceHome = (): ReactElement => {
       }
       {
         step === 2 && (
-          <Checkout cart={cart} setStep={setStep} handleAddQuantity={handleAddQuantity} handleMinusQuantity={handleMinusQuantity} handleRemoveProduct={handleRemoveProduct} />
+          <Checkout cart={cart} setCart={setCart} setStep={setStep} handleAddQuantity={handleAddQuantity} handleMinusQuantity={handleMinusQuantity} handleRemoveProduct={handleRemoveProduct} />
         )
       }
     </>

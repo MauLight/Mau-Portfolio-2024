@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactElement } from 'react'
+import { useState, type ReactElement } from 'react'
 import { Navbar } from './Navbar'
 import { Topbar } from './Topbar'
 import { Creator } from './Creator'
@@ -13,10 +13,6 @@ export const SocialApp = (): ReactElement => {
     if (step === 3) setStep(1)
     else setStep(3)
   }
-
-  useEffect(() => {
-    console.log(prompt)
-  }, [prompt])
 
   return (
     <div className='w-full h-full bg-[#fdfdfd] relative flex justify-center items-center px-20'>

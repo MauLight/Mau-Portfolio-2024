@@ -88,7 +88,6 @@ const Home = () => {
           ctx.moveTo(agent.pos.x, agent.pos.y)
           ctx.lineTo(other.pos.x, other.pos.y)
           ctx.stroke()
-          //console.log('other', other.x)
         }
       }
 

@@ -27,7 +27,6 @@ export const VideoDisplayHorizontalSlider = ({ video, bgColor } : VideoDisplaySl
   }
 
   const handleHide = (): void => {
-    console.log('clicked')
     setHide(!hide)
   }
 
