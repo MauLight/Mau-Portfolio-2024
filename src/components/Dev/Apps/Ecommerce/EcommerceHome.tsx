@@ -16,6 +16,10 @@ export const EcommerceHome = (): ReactElement => {
     if (step === 1) setStep(2)
   }
 
+  const handleRemoveProduct = (id: string): void => {
+    setCart(cart.filter((product) => product.id !== id))
+  }
+
   return (
     <>
       {
@@ -46,7 +50,7 @@ export const EcommerceHome = (): ReactElement => {
         )
           :
           (
-            <Checkout cart={cart} setStep={setStep} />
+            <Checkout handleRemoveProduct={handleRemoveProduct} cart={cart} setStep={setStep} />
           )
       }
     </>

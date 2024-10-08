@@ -4,11 +4,12 @@ import { XMarkIcon } from '@heroicons/react/20/solid'
 import { CheckSummary } from './CheckSummary'
 
 interface CheckoutProps {
-    cart: { price: number, title: string, discount: number, image: string }[]
+    cart: { id: string, price: number, title: string, discount: number, image: string }[]
     setStep: Dispatch<SetStateAction<number>>
+    handleRemoveProduct: (id: string) => void
 }
 
-export const Checkout = ({ cart, setStep } : CheckoutProps): ReactElement => {
+export const Checkout = ({ cart, setStep, handleRemoveProduct } : CheckoutProps): ReactElement => {
 
   const numberOfProducts = cart.length
   const total = cart.reduce((acc, item) => acc + item.price, 0)
@@ -18,7 +19,7 @@ export const Checkout = ({ cart, setStep } : CheckoutProps): ReactElement => {
   console.log(vat)
 
   return (
-    <div className="w-full h-full min-h-[700px] flex flex-col justify-center gap-y-10 px-5">
+    <div className="w-full h-full min-h-[700px] flex flex-col justify-center gap-y-10 px-5 overflow-y-scroll">
       <div className="flex flex-col gap-y-5">
         <div className="flex justify-between items-start">
           <h1 className='uppercase aktiv text-9xl text-[#10100e]'>your cart</h1>
@@ -31,11 +32,11 @@ export const Checkout = ({ cart, setStep } : CheckoutProps): ReactElement => {
       </div>
 
       {/* CheckoutCard */}
-      <div className="grid grid-cols-4 gap-x-5">
+      <div className="grid grid-cols-4 gap-x-5 overflow-y-auto">
         <div className="col-span-3">
           {
-            cart.map((item, i) => (
-              <CheckoutCard item={item} key={i} />
+            cart.map((product, i) => (
+              <CheckoutCard handleRemoveProduct={handleRemoveProduct} product={product} key={i} />
             ))
           }
         </div>
