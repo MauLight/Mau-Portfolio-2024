@@ -32,9 +32,9 @@ export const Banner = ({ product, handleAddProduct } : BannerProps): ReactElemen
               <p className='text-[10px] uppercase neue antialiazed text-gray-100 line-through'>{`${product.discount}$`}</p>
             </div>
           </div>
-          <div onClick={() => {handleAddProduct(product)}} className='h-[50px] w-[50px] rounded-full bg-gray-900 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 flex justify-center items-center pb-1 z-30 cursor-pointer'>
+          <button onClick={() => {handleAddProduct(product)}} className='h-[50px] w-[50px] rounded-full bg-gray-900 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 flex justify-center items-center pb-1 z-30 cursor-pointer'>
             <i className="fa-solid fa-bag-shopping text-[#ffffff]"></i>
-          </div>
+          </button>
         </div>
       </div>
     </div>
