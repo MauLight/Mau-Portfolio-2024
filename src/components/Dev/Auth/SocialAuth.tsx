@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from '@/utils/auth'
-import mock1 from '@/assets/auth/iphone_mockup.png'
+import mock1 from '@/assets/auth/iphone_mockup.webp'
 import { ClockLoader } from 'react-spinners'
 
 export const SocialAuth = (): ReactElement => {
