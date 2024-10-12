@@ -38,7 +38,7 @@ export const VideoDisplayHorizontal = ({ title, description, mp4, webM, bgColor 
           initial={'hidden'}
           whileInView={'show'}
           viewport={{ once: false, amount: 0.1 }}
-          autoPlay loop muted className='shrink-0 w-[700px] right-0 top-[220px] object-cover z-10 rounded-[20px]'>
+          autoPlay loop muted className='shrink-0 w-[700px] right-0 top-[220px] object-cover z-10 rounded-[20px] border-t border-x border-gray-600 shadow-sm shadow-gray-900'>
           <source src={webM} type='video/webm' />
           <source src={mp4} type='video/mp4' />
         </motion.video>
