@@ -27,7 +27,7 @@ export const EcommerceAuth = ():ReactElement => {
   }, [currStep])
 
   return (
-    <div className="w-full h-full flex justify-center items-center animated-background bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+    <div className="w-full h-full flex justify-center items-center max-sm:px-5 animated-background bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
       {
         currStep === 1 ? (
           <div className="w-[400px] min-h-[500px] bg-[#ffffff] flex flex-col gap-y-8 rounded-[15px] p-10">

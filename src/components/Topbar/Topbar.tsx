@@ -19,7 +19,7 @@ const Topbar = () => {
       initial={'hidden'}
       whileInView={'show'}
       viewport={{ once: false, amount: 0.1 }}
-      className={`fixed top-0 w-screen flex justify-between sm:grid sm:grid-cols-5 pt-2 px-1 z-50 ${pathname !== '/' ? 'bg-blue-0 rounded-md bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-0' : ''}`}>
+      className={`fixed top-0 w-full max-w-[1440px] flex justify-between sm:grid sm:grid-cols-5 pt-2 px-1 z-50 ${pathname !== '/' ? 'bg-blue-0 rounded-md bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-0' : ''}`}>
       <Link to={'/'} className="flex justify-start items-center">
         <img alt='logo' src='https://i.postimg.cc/rsbQbsy2/icon.png' className='w-9 h-9' />
       </Link>

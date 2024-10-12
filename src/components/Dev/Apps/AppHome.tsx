@@ -1,5 +1,5 @@
 import { useState, type ReactElement } from 'react'
-import { SocialApp } from './Social/SocialApp'
+import { SocialApp } from './Social/ScreenApp'
 import { EcommerceHome } from './Ecommerce/EcommerceHome'
 
 

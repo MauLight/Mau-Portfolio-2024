@@ -33,9 +33,9 @@ export const SocialAuth = (): ReactElement => {
       {
         currStep === 1 ? (
           <div className="w-full h-full flex justify-center overflow-hidden">
-            <div className="w-4/5 grid grid-cols-2">
-              <div className="col-span-1 h-[700px] flex items-center justify-end px-10">
-                <img src={mock1} className='h-2/3 object-cover' />
+            <div className="w-4/5 flex justify-center lg:grid lg:grid-cols-2">
+              <div className="col-span-1 h-[700px] hidden lg:flex items-center justify-end px-10">
+                <img alt='phone' src={mock1} className='h-2/3 object-cover' />
               </div>
               <div className="h-full col-span-1 flex flex-col items-start justify-center px-10 gap-y-3">
                 <div className="min-h-[400px] w-[300px] flex flex-col border border-gray-300 pt-12 gap-y-5 px-7 pb-2">
