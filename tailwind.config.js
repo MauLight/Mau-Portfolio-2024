@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        '2xl': '1440px'
+      },
       colors: {
         background: '#fdeeff'
       },

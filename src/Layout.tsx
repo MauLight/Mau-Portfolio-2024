@@ -14,7 +14,7 @@ const MotionHome = lazy( async () => await import('@/components/Video/Motion/Mot
 
 const Layout = () => {
   return (
-    <div className='w-full max-w-[1440px] h-full overflow-hidden'>
+    <div className='w-full max-w-[1440px] h-full'>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path='/' element={<Home />} />

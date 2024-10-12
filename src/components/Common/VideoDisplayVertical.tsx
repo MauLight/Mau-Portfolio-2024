@@ -8,9 +8,10 @@ interface VideoDisplayProps {
     bgColor: string
     title: string
     description: string
+    frame: string
 }
 
-export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor } : VideoDisplayProps): ReactElement => {
+export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor, frame } : VideoDisplayProps): ReactElement => {
   const [currentVideo, setCurrentVideo] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -57,7 +58,7 @@ export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor } 
               initial={'hidden'}
               whileInView={'show'}
               viewport={{ once: false, amount: 0.1 }}
-              autoPlay loop muted className='absolute w-full top-currentVideo left-currentVideo object-cover z-0 opacity-40 grayscale'>
+              autoPlay loop muted className='absolute w-full object-cover z-0 opacity-0 hidden grayscale'>
               <source src={webM[currentVideo]} type='video/webm' />
               <source src={mp4[currentVideo]} type='video/mp4' />
             </motion.video>
@@ -65,7 +66,7 @@ export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor } 
         }
         <div className={`absolute left-0 opacity-80 w-full h-full z-0 flex justify-center items-center animated-background ${bgColor ? bgColor : 'bg-[#ffffff]'} transition-color duration-500`}></div>
       </div>
-      <div className="w-full flex justify-center items-center gap-x-[450px] h-full">
+      <div className={`relative w-full shrink-0 flex justify-center items-center gap-x-[${frame}] h-full pb-32`}>
         <motion.i
           variants={fadeIn('left', 1)}
           initial={'hidden'}
@@ -85,13 +86,13 @@ export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor } 
               initial={'hidden'}
               whileInView={'show'}
               viewport={{ once: false, amount: 0.1 }}
-              autoPlay loop muted className='absolute w-[24%] h-2/3 top-[100px] object-cover z-10 rounded-[10px]'>
+              autoPlay loop muted className='absolute shrink-0 h-2/3 bottom-[250px] object-cover z-10 rounded-[20px]'>
               <source src={webM[currentVideo]} type='video/webm' />
               <source src={mp4[currentVideo]} type='video/mp4' />
             </motion.video>
           )
         }
-        <div className={'absolute w-[24%] h-2/3 mx-auto top-[100px] object-cover rounded-[10px] bg-[#10100f]'}></div>
+        <div className={'absolute shrink-0 h-2/3 mx-auto bottom-[250px] object-cover rounded-[20px] bg-[#10100f]'}></div>
       </div>
     </div>
   )

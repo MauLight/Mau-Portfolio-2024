@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useFollowPointer } from './hooks/useFollowPointer'
 import { useRef } from 'react'
 import Topbar from './components/Topbar/Topbar'
-import video from '@/assets/end of time.mp4'
+import video from '@/assets/end of time.webm'
 import { useLocation } from 'react-router'
 
 const App = () => {
