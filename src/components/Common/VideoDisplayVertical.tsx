@@ -67,7 +67,7 @@ export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor, f
         }
         <div className={`absolute left-0 opacity-80 w-full h-full z-0 flex justify-center items-center animated-background ${bgColor ? bgColor : 'bg-[#ffffff]'} transition-color duration-500`}></div>
       </div>
-      <div className={`relative w-full shrink-0 flex justify-center items-center gap-x-[${frame}] h-full pb-32`}>
+      <div className={`relative w-full shrink-0 flex justify-center items-center ${frame} h-full pb-32`}>
         <motion.i
           variants={fadeIn('left', 1)}
           initial={'hidden'}
