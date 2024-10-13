@@ -12,10 +12,10 @@ import { VideoDisplayHorizontal } from '@/components/Common/VideoDisplayHorizont
 const MotionHome = (): ReactElement => {
   return (
     <div className='w-full min-h-screen flex flex-col justify-center items-center bg-[#10100e] gap-y-32'>
-      <VideoDisplayHorizontal title='' description='' mp4={cascade} webM={cascadeWeb} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
-      <VideoDisplayHorizontal title='' description='' mp4={kinetic} webM={kineticWeb} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
-      <VideoDisplayHorizontal title='' description='' mp4={echo} webM={echoWeb} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
-      <VideoDisplayHorizontal title='' description='' mp4={ctlst} webM={ctlstWeb} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
+      <VideoDisplayHorizontal title='' description='' mp4={[cascade]} webM={[cascadeWeb]} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
+      <VideoDisplayHorizontal title='' description='' mp4={[kinetic]} webM={[kineticWeb]} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
+      <VideoDisplayHorizontal title='' description='' mp4={[echo]} webM={[echoWeb]} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
+      <VideoDisplayHorizontal title='' description='' mp4={[ctlst]} webM={[ctlstWeb]} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
     </div>
   )
 }

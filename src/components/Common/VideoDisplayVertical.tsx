@@ -14,6 +14,7 @@ interface VideoDisplayProps {
 export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor, frame } : VideoDisplayProps): ReactElement => {
   const [currentVideo, setCurrentVideo] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
+  const [volume, setVolume] = useState(false)
 
   const handleSlider = (direction: number) => {
     setCurrentVideo((prev) => {
@@ -81,15 +82,35 @@ export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor, f
           onClick={() => { handleSlider(2) }} className="fa-solid fa-chevron-right text-[#e7eee7] z-10 fa-xl cursor-pointer"></motion.i>
         {
           isVisible && (
-            <motion.video
-              variants={fadeIn('top', 1)}
-              initial={'hidden'}
-              whileInView={'show'}
-              viewport={{ once: false, amount: 0.1 }}
-              autoPlay loop muted className='absolute shrink-0 h-2/3 bottom-[250px] object-cover z-10 rounded-[20px] border-t border-x border-gray-600 shadow-sm shadow-gray-900'>
-              <source src={webM[currentVideo]} type='video/webm' />
-              <source src={mp4[currentVideo]} type='video/mp4' />
-            </motion.video>
+            <div className='absolute bottom-[150px] shrink-0 h-2/3'>
+              <motion.video
+                variants={fadeIn('top', 1)}
+                initial={'hidden'}
+                whileInView={'show'}
+                viewport={{ once: false, amount: 0.1 }}
+                onEnded={() => { setVolume(false) ; handleSlider(2) }}
+                autoPlay muted={!volume} className='shrink-0 h-5/6 object-cover z-10 rounded-[20px] border-t border-x border-gray-600 shadow-sm shadow-gray-900'>
+                <source src={webM[currentVideo]} type='video/webm' />
+                <source src={mp4[currentVideo]} type='video/mp4' />
+              </motion.video>
+              <motion.button
+                variants={fadeIn('left', 1)}
+                initial={'hidden'}
+                whileInView={'show'}
+                viewport={{ once: false, amount: 0.1 }}
+                onClick={() => { setVolume(!volume) }}
+                className='absolute bottom-[120px] right-[15px] w-[40px] h-[40px] rounded-full bg-[#10100e] z-50 bg-blue-0 bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-0'>
+                {
+                  volume ? (
+                    <i className="fa-solid fa-volume-high text-[#ffffff]"></i>
+                  )
+                    :
+                    (
+                      <i className="fa-solid fa-volume-mute text-[#ffffff]"></i>
+                    )
+                }
+              </motion.button>
+            </div>
           )
         }
         <div className={'absolute shrink-0 h-2/3 mx-auto bottom-[250px] object-cover rounded-[20px] bg-[#10100f]'}></div>

@@ -9,6 +9,7 @@ const AppHome = lazy( async () => await import('@/components/Dev/Apps/AppHome'))
 const ViralHome = lazy( async () => await import('@/components/Video/Viral/ViralHome'))
 const ShortFilmsHome = lazy( async () => await import('@/components/Video/Shortfilms/ShortFilmsHome'))
 const MotionHome = lazy( async () => await import('@/components/Video/Motion/MotionHome'))
+const About = lazy( async () => await import('@/components/About/About'))
 
 
 
@@ -25,6 +26,7 @@ const Layout = () => {
           <Route path='/video/viral' element={<ViralHome />} />
           <Route path='/video/shortfilms' element={<ShortFilmsHome />} />
           <Route path='/video/motion' element={<MotionHome />} />
+          <Route path='/about' element={<About />} />
         </Routes>
       </Suspense>
     </div>
