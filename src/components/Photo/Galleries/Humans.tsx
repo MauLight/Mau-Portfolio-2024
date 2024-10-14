@@ -298,7 +298,7 @@ const Humans = () => {
     <div className="bg-[#fff0e2] w-full min-h-screen pt-[60px]">
       <div className="flex flex-col gap-y-20">
         <div className="flex flex-col py-20 gap-y-20">
-          <TitleText text1='Humanity is a prison,' text2='but the door was open.' />
+          <TitleText text1='Humanity is a prison,' text2='but the door is open.' />
           <img alt='' src={humans.find((pic) => pic.id === 'a20')?.image} className="w-full h-[600px] object-cover" />
         </div>
         <div>
