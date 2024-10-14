@@ -6,6 +6,7 @@ import { useRef } from 'react'
 import Topbar from './components/Topbar/Topbar'
 import video from '@/assets/end of time.webm'
 import { useLocation } from 'react-router'
+import { Loader } from './components/Common/Loader'
 
 const App = () => {
   const ref = useRef(null)
@@ -19,6 +20,8 @@ const App = () => {
     if (pathname.includes('video')) return 'bg-[#10100e]'
   }
 
+
+
   return (
     <div className="w-screen flex flex-col items-center justify-center">
       <Topbar />
@@ -31,6 +34,7 @@ const App = () => {
           </motion.div>
         )
       }
+      <Loader />
     </div>
   )
 }

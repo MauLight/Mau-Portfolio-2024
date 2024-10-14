@@ -79,7 +79,7 @@ const Home = () => {
   }
 
   return (
-    <div className="h-screen overflow-hidden flex justify-between">
+    <div className="h-screen relative overflow-hidden flex justify-between">
       <div className="max-[1440px]:col-span-2 flex flex-col justify-center pb-[50px]">
         <motion.div
           variants={fadeIn('right', 0.4)}
