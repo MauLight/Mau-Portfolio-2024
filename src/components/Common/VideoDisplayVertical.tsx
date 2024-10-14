@@ -45,13 +45,13 @@ export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor, f
           initial={'hidden'}
           whileInView={'show'}
           viewport={{ once: false, amount: 0.1 }}
-          className='font-body text-6xl text-[#171817] z-10'>{title}</motion.h1>
+          className='font-body text-2xl sm:text-6xl text-[#171817] z-10'>{title}</motion.h1>
         <motion.p
           variants={fadeIn('left', 0.4)}
           initial={'hidden'}
           whileInView={'show'}
           viewport={{ once: false, amount: 0.1 }}
-          className='font-light text-3xl text-[2e302e] z-10 pb-[70px]'>{description}</motion.p>
+          className='font-light text-lg sm:text-3xl text-[2e302e] z-10 pb-[70px]'>{description}</motion.p>
         {
           isVisible && (
             <motion.video
@@ -89,7 +89,7 @@ export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor, f
                 whileInView={'show'}
                 viewport={{ once: false, amount: 0.1 }}
                 onEnded={() => { setVolume(false) ; handleSlider(2) }}
-                autoPlay muted={!volume} className='shrink-0 h-5/6 object-cover z-10 rounded-[20px] border-t border-x border-gray-600 shadow-sm shadow-gray-900'>
+                autoPlay muted={!volume} className='shrink-0 h-full sm:h-5/6 object-cover z-10 rounded-[20px] border-t border-x border-gray-600 shadow-sm shadow-gray-900'>
                 <source src={webM[currentVideo]} type='video/webm' />
                 <source src={mp4[currentVideo]} type='video/mp4' />
               </motion.video>

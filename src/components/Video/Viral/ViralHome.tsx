@@ -22,8 +22,8 @@ const ViralHome = (): ReactElement => {
   return (
     <div className='w-full min-h-screen flex flex-col justify-center items-center gap-y-44 bg-[#10100e]'>
       <VideoDisplayHorizontal title='Shonen Extravaganza AMV' description='21.8K views' mp4={[AMV]} webM={[AMVweb2, AMVweb]} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
-      <VideoDisplayVertical frame='gap-x-[450px]' title='Ctlst Halloween Campaign' description='200% follower increase' mp4={[Horror, Horror2, Horror3, Horror4]} webM={[HorrorWeb, Horror2Web, Horror3Web, Horror4Web]} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
-      <VideoDisplayVertical frame='gap-x-[750px]' title="Show, Don't Tell" description='New campaign' mp4={[]} webM={[motivation1, motivation2, motivation3, motivation4]} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
+      <VideoDisplayVertical frame='gap-x-[280px]' title='Ctlst Halloween Campaign' description='200% follower increase' mp4={[Horror, Horror2, Horror3, Horror4]} webM={[HorrorWeb, Horror2Web, Horror3Web, Horror4Web]} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
+      <VideoDisplayVertical frame='gap-x-[280px] lg:gap-x-[750px]' title="Show, Don't Tell" description='New campaign' mp4={[]} webM={[motivation1, motivation2, motivation3, motivation4]} bgColor='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' />
     </div>
   )
 }

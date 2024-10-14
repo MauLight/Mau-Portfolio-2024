@@ -60,26 +60,26 @@ export const VideoDisplayHorizontal = ({ title, description, mp4, webM, bgColor 
       {
         isVisible && (
           <div className="absolute w-full top-[220px] z-10 right-0 2xl:right-10 flex flex-col items-center 2xl:items-end gap-y-6">
-            <div className="relative w-[700px]">
+            <div className="relative sm:w-[400px] lg:w-[700px]">
               <motion.i
                 variants={fadeIn('left', 1)}
                 initial={'hidden'}
                 whileInView={'show'}
                 viewport={{ once: false, amount: 0.1 }}
-                onClick={() => { handleSlider(1) }} className="absolute top-1/2 -left-12 fa-solid fa-chevron-left text-[#e7eee7] z-10 fa-xl cursor-pointer"></motion.i>
+                onClick={() => { handleSlider(1) }} className="absolute top-1/2 left-8 sm:-left-12 fa-solid fa-chevron-left text-[#e7eee7] z-10 fa-xl cursor-pointer"></motion.i>
               <motion.i
                 variants={fadeIn('right', 1)}
                 initial={'hidden'}
                 whileInView={'show'}
                 viewport={{ once: false, amount: 0.1 }}
-                onClick={() => { handleSlider(2) }} className="absolute top-1/2 -right-12 fa-solid fa-chevron-right text-[#e7eee7] z-10 fa-xl cursor-pointer"></motion.i>
+                onClick={() => { handleSlider(2) }} className="absolute top-1/2 right-8 sm:-right-12 fa-solid fa-chevron-right text-[#e7eee7] z-10 fa-xl cursor-pointer"></motion.i>
               <motion.video
                 variants={fadeIn('top', 1)}
                 initial={'hidden'}
                 whileInView={'show'}
                 viewport={{ once: false, amount: 0.1 }}
                 onEnded={() => {setVolume(false); handleSlider(2)}}
-                autoPlay muted={!volume} className='shrink-0 w-[700px] right-0 top-[220px] object-cover z-10 rounded-[20px] border-t border-x border-gray-600 shadow-sm shadow-gray-900'>
+                autoPlay muted={!volume} className='sm:shrink-0 w-full sm:w-[400px] lg:w-[700px] right-0 top-[220px] object-cover z-10 rounded-[20px] border-t border-x border-gray-600 shadow-sm shadow-gray-900'>
                 <source src={webM[currentVideo]} type='video/webm' />
                 <source src={mp4[currentVideo]} type='video/mp4' />
               </motion.video>
