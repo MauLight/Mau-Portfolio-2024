@@ -3,11 +3,11 @@ import { motion } from 'framer-motion'
 import { ReactElement, useEffect, useState } from 'react'
 
 interface VideoDisplaySliderProps {
-    video: { mp4: string, webM: string, title: string, description: string }[]
-    bgColor: string
+  video: { mp4: string, webM: string, title: string, description: string }[]
+  bgColor: string
 }
 
-export const VideoDisplayHorizontalSlider = ({ video, bgColor } : VideoDisplaySliderProps ): ReactElement => {
+export const VideoDisplayHorizontalSlider = ({ video, bgColor }: VideoDisplaySliderProps): ReactElement => {
   const [currentVideo, setCurrentVideo] = useState(0)
   const [isVisible, setIsVisible] = useState(true)
   const [hide, setHide] = useState(false)
@@ -36,6 +36,8 @@ export const VideoDisplayHorizontalSlider = ({ video, bgColor } : VideoDisplaySl
       setIsVisible(true)
     }, 100)
   }, [currentVideo])
+
+
   return (
     <div className="relative flex justify-center items-center w-full h-screen pt-[200px]">
       <motion.div
