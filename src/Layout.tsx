@@ -1,15 +1,16 @@
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router'
 
-const Home = lazy( async () => await import ('@/components/Home/Home') )
-const Humans = lazy( async () => await import ('@/components/Photo/Galleries/Humans') )
-const Distortion = lazy( async () => await import ('@/components/Photo/Galleries/Distortion') )
-const AuthHome = lazy( async () => await import ('@/components/Dev/Auth/AuthHome'))
-const AppHome = lazy( async () => await import('@/components/Dev/Apps/AppHome'))
-const ViralHome = lazy( async () => await import('@/components/Video/Viral/ViralHome'))
-const ShortFilmsHome = lazy( async () => await import('@/components/Video/Shortfilms/ShortFilmsHome'))
-const MotionHome = lazy( async () => await import('@/components/Video/Motion/MotionHome'))
-const About = lazy( async () => await import('@/components/About/About'))
+const Home = lazy(async () => await import('@/components/Home/Home'))
+const Humans = lazy(async () => await import('@/components/Photo/Galleries/Humans'))
+const Distortion = lazy(async () => await import('@/components/Photo/Galleries/Distortion'))
+const AuthHome = lazy(async () => await import('@/components/Dev/Auth/AuthHome'))
+const AppHome = lazy(async () => await import('@/components/Dev/Apps/AppHome'))
+const ViralHome = lazy(async () => await import('@/components/Video/Viral/ViralHome'))
+const ShortFilmsHome = lazy(async () => await import('@/components/Video/Shortfilms/ShortFilmsHome'))
+const MotionHome = lazy(async () => await import('@/components/Video/Motion/MotionHome'))
+const About = lazy(async () => await import('@/components/About/About'))
+const Contact = lazy(async () => await import('@/components/Contact/Contact'))
 
 
 
@@ -27,6 +28,7 @@ const Layout = () => {
           <Route path='/video/shortfilms' element={<ShortFilmsHome />} />
           <Route path='/video/motion' element={<MotionHome />} />
           <Route path='/about' element={<About />} />
+          <Route path='/contact' element={<Contact />} />
         </Routes>
       </Suspense>
     </div>
