@@ -2,6 +2,7 @@ import { useState, type ReactNode } from 'react'
 import axios from 'axios'
 import { TitleText } from '../Common/TitleText'
 import { useNavigate } from 'react-router'
+import Fallback from '../Common/Fallback'
 
 export default function Contact(): ReactNode {
 
@@ -9,15 +10,19 @@ export default function Contact(): ReactNode {
     const [name, setName] = useState<string>('')
     const [email, setEmail] = useState<string>('')
     const [message, setMessage] = useState<string>('')
+    const [loading, setLoading] = useState<boolean>(false)
     const [sent, setSent] = useState<boolean>(false)
 
 
     async function sendEmailToDev(e: React.FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault()
+        setLoading(true)
         try {
-            const response = axios.post('https://mau-portfolio-backend.onrender.com', { name, email, message })
+            const response = await axios.post('https://mau-portfolio-backend.onrender.com', { name, email, message })
             console.log(response, 'This is the response.')
             setSent(true)
+            setLoading(false)
+
             setTimeout(() => {
                 navigate('/')
             }, 3000)
@@ -31,12 +36,19 @@ export default function Contact(): ReactNode {
     return (
         <div className='w-full min-h-screen flex justify-center items-center'>
             {
-                sent ? (
+                loading && (
+                    <Fallback />
+                )
+            }
+            {
+                !loading && sent && (
                     <>
                         <TitleText text="Thanks!" />
                     </>
                 )
-                    :
+            }
+            {
+                !loading && !sent && (
                     (
                         <div className="grid grid-cols-2 gap-x-20">
                             <div className='w-[400px]'>
@@ -55,6 +67,7 @@ export default function Contact(): ReactNode {
                             </form>
                         </div>
                     )
+                )
             }
         </div>
     )
