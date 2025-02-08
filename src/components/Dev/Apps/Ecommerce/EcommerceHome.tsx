@@ -64,12 +64,6 @@ export const EcommerceHome = (): ReactElement => {
               {/* banner */}
               <Banner product={bannerItems[0]} handleAddProduct={handleAddProduct} />
               <BannerCollection />
-              {/* <div className="w-full grid grid-cols-4">
-          <CardGroupTop images={[cat_3, cat_2, cat_4]} />
-          <CardGroupBottom images={[cat_2, cat_3, cat_4]} />
-          <CardGroupTop images={[cat_3, cat_2, cat_4]} />
-          <CardGroupBottom images={[cat_2, cat_3, cat_4]} />
-        </div> */}
               <div className="grid grid-cols-3">
                 {
                   products.length > 0 && products.map((product, i) => (

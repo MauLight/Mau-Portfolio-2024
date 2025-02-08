@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { fadeIn } from '@/utils/functions'
 
 
-export const Banner = ({ product, handleAddProduct } : BannerProps): ReactElement => {
+export const Banner = ({ product, handleAddProduct }: BannerProps): ReactElement => {
 
   return (
     <div className="w-full min-h-[1000px] flex flex-col">
@@ -13,7 +13,7 @@ export const Banner = ({ product, handleAddProduct } : BannerProps): ReactElemen
           <motion.h1
             variants={fadeIn('top', 0.2)}
             initial={'hidden'}
-            whileInView={'show'}
+            animate={'show'}
             className='aktiv text-[240px] leading-none uppercase animated-background bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 inline-block text-transparent bg-clip-text z-10'>Emotions</motion.h1>
           <div
             className="w-full flex justify-between mt-2 px-5">
@@ -32,7 +32,7 @@ export const Banner = ({ product, handleAddProduct } : BannerProps): ReactElemen
               <p className='text-[10px] uppercase neue antialiazed text-gray-100 line-through'>{`${product.discount}$`}</p>
             </div>
           </div>
-          <button onClick={() => {handleAddProduct(product)}} className='h-[50px] w-[50px] rounded-full bg-gray-900 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 flex justify-center items-center pb-1 z-30 cursor-pointer'>
+          <button onClick={() => { handleAddProduct(product) }} className='h-[50px] w-[50px] rounded-full bg-gray-900 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 flex justify-center items-center pb-1 z-30 cursor-pointer'>
             <i className="fa-solid fa-bag-shopping text-[#ffffff]"></i>
           </button>
         </div>
