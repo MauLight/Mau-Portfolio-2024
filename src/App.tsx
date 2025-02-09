@@ -34,7 +34,11 @@ const App = () => {
           </motion.div>
         )
       }
-      <Loader />
+      {
+        !(pathname.length > 1) && (
+          <Loader />
+        )
+      }
     </div>
   )
 }

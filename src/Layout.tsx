@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router'
+import Fallback from './components/Common/Fallback'
 
 const Home = lazy(async () => await import('@/components/Home/Home'))
 const Humans = lazy(async () => await import('@/components/Photo/Galleries/Humans'))
@@ -17,7 +18,9 @@ const Contact = lazy(async () => await import('@/components/Contact/Contact'))
 const Layout = () => {
   return (
     <div className='w-full max-w-[1440px] h-full'>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div className='w-full min-h-screen flex justify-center items-center'>
+        <Fallback />
+      </div>}>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/photo/humans' element={<Humans />} />

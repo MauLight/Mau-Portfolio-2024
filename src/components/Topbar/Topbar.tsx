@@ -16,7 +16,7 @@ const Topbar = () => {
 
   return (
     <><motion.div
-      variants={fadeIn('top', 0.8)}
+      variants={fadeIn('top', pathname.includes('contact') ? 2 : 0.8)}
       initial={'hidden'}
       whileInView={'show'}
       viewport={{ once: false, amount: 0.1 }}
@@ -29,21 +29,21 @@ const Topbar = () => {
         <Hamburger toggled={isOpen} toggle={setOpen} color={pathname.includes('video') ? '#e7eee7' : '#231c1e'} />
       </div>
     </motion.div>
-    {
-      isUpperMenuOpen && (
-        <WideMenuOptions setUpperMenuOpen={setUpperMenuOpen} isUpperMenuOpen={isUpperMenuOpen} />
-      )
-    }
-    {
-      isUpperMenuOpen && (
-        <button onClick={() => { setUpperMenuOpen(false) }} className="fixed top-0 left-0 w-screen h-screen z-30"></button>
-      )
-    }
-    {
-      isOpen && (
-        <WideMenuOptionsVertical setUpperMenuOpen={setOpen} isUpperMenuOpen={isOpen} />
-      )
-    }
+      {
+        isUpperMenuOpen && (
+          <WideMenuOptions setUpperMenuOpen={setUpperMenuOpen} isUpperMenuOpen={isUpperMenuOpen} />
+        )
+      }
+      {
+        isUpperMenuOpen && (
+          <button onClick={() => { setUpperMenuOpen(false) }} className="fixed top-0 left-0 w-screen h-screen z-30"></button>
+        )
+      }
+      {
+        isOpen && (
+          <WideMenuOptionsVertical setUpperMenuOpen={setOpen} isUpperMenuOpen={isOpen} />
+        )
+      }
     </>
   )
 }

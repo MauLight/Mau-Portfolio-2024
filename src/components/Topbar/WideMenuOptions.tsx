@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { type ReactElement } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-export const WideMenuOptions = ({ isUpperMenuOpen, setUpperMenuOpen } : WideMenuProps): ReactElement => {
+export const WideMenuOptions = ({ isUpperMenuOpen, setUpperMenuOpen }: WideMenuProps): ReactElement => {
   const { pathname } = useLocation()
 
   return (
@@ -25,7 +25,6 @@ export const WideMenuOptions = ({ isUpperMenuOpen, setUpperMenuOpen } : WideMenu
               <div className="flex flex-col">
                 <Link to={'/dev/auth'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className={`pl-5 font-light ${pathname.includes('video') ? 'text-[#d0d6d0]' : 'text-gray-600'} text-[14px]`}>Auth</Link>
                 <Link to={'/dev/app'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className={`pl-5 font-light ${pathname.includes('video') ? 'text-[#d0d6d0]' : 'text-gray-600'} text-[14px]`}>Apps</Link>
-                <Link to={'/photo/distortion'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className={`pl-5 font-light ${pathname.includes('video') ? 'text-[#d0d6d0]' : 'text-gray-600'} text-[14px]`}>Components</Link>
               </div>
             </div>
 
@@ -40,12 +39,11 @@ export const WideMenuOptions = ({ isUpperMenuOpen, setUpperMenuOpen } : WideMenu
             <div id='video' className="col-span-1 flex flex-col pt-[70px] px-8 gap-y-2">
               <h1 className={`font-body text-[16px] ${pathname.includes('video') ? 'text-[#e7eee7]' : ''}`}>Galleries</h1>
               <div className="flex flex-col">
-                <Link to={'/video/viral'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen)}} className={`pl-5 font-light ${pathname.includes('video') ? 'text-[#d0d6d0]' : 'text-gray-600'} text-[14px]`}>Viral</Link>
+                <Link to={'/video/viral'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className={`pl-5 font-light ${pathname.includes('video') ? 'text-[#d0d6d0]' : 'text-gray-600'} text-[14px]`}>Viral</Link>
                 <Link to={'/video/motion'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className={`pl-5 font-light ${pathname.includes('video') ? 'text-[#d0d6d0]' : 'text-gray-600'} text-[14px]`}>Motion</Link>
                 <Link to={'/video/shortfilms'} onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} className={`pl-5 font-light ${pathname.includes('video') ? 'text-[#d0d6d0]' : 'text-gray-600'} text-[14px]`}>Shortfilms</Link>
               </div>
             </div>
-            <div id='fiction' className="col-span-1 flex flex-col"></div>
             <div id='contact' className="col-span-1 flex flex-col"></div>
           </div>
         </div>
