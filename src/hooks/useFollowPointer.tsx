@@ -3,7 +3,7 @@ import { useMotionValue, useSpring, frame } from 'framer-motion'
 
 const spring = { damping: 10, stiffness: 100, restDelta: 0.001 }
 
-export const useFollowPointer = ( ref: RefObject<HTMLElement> ) => {
+export const useFollowPointer = (ref: RefObject<HTMLElement>) => {
   const xPoint = useMotionValue(0)
   const yPoint = useMotionValue(0)
   const x = useSpring(xPoint, spring)
@@ -11,11 +11,11 @@ export const useFollowPointer = ( ref: RefObject<HTMLElement> ) => {
 
   useEffect(() => {
     if (!ref.current) return
-    const handlePointerMove = ({ clientX, clientY } : MouseEvent) => {
+    const handlePointerMove = ({ clientX, clientY }: MouseEvent) => {
       const element = ref.current!
       frame.read(() => {
-        xPoint.set(clientX - element.offsetLeft - 10),
-        yPoint.set(clientY - element.offsetTop + 20)
+        xPoint.set(clientX - element.offsetLeft),
+          yPoint.set(clientY - element.offsetTop)
       })
     }
 

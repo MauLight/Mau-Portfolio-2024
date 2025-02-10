@@ -7,8 +7,16 @@ import { format } from 'date-fns'
 import { motion } from 'framer-motion'
 import bg from '@/assets/bg_2.webp'
 import { Footer } from './Footer'
+import { useLocation } from 'react-router'
+import { useFollowPointer } from '@/hooks/useFollowPointer'
+import video from '@/assets/end of time.webm'
 
 const Home = () => {
+
+  const ref = useRef(null)
+  const { pathname } = useLocation()
+  const { x, y } = useFollowPointer(ref)
+
   const [width] = useState(850)
   const [height] = useState(850)
   const printRef = useRef(null)
@@ -79,7 +87,7 @@ const Home = () => {
   }
 
   return (
-    <div className="h-screen relative overflow-hidden flex justify-between">
+    <div className="h-screen relative flex justify-between">
       <div className="max-[1440px]:col-span-2 flex flex-col justify-center pb-[50px]">
         <motion.div
           variants={fadeIn('right', 0.4)}
@@ -103,6 +111,13 @@ const Home = () => {
       </div>
       <Footer />
       <img src={bg} alt='background' className='w-full h-full fixed top-0 left-0 object-cover opacity-100 -z-10' />
+      {
+        pathname === '/' && (
+          <motion.div ref={ref} className='absolute w-[200px] z-0 h-[200px] rounded-full overflow-hidden mix-blend-color-multiply' style={{ x, y }}>
+            <video src={video} autoPlay loop muted className='w-full h-full object-cover' />
+          </motion.div>
+        )
+      }
     </div>
   )
 }
