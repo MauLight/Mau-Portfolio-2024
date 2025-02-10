@@ -31,8 +31,9 @@ const templates = [
 export default function Wizard(): ReactNode {
 
 
-    const handleChooseTemplate = async (templateId: string): Promise<void> => {
-        console.log(templateId)
+    const handleChooseTemplate = async (templateId: number): Promise<void> => {
+        setChosenTemplate(templateId)
+        setStatus('chosen')
     }
 
     const [step, setStep] = useState<number>(1)
@@ -49,6 +50,9 @@ export default function Wizard(): ReactNode {
     const [typesOfSubscription, setTypesOfSubscription] = useState<string>('')
 
     const [stepTwoIsready, setStepTwoIsReady] = useState<boolean>(false)
+
+    const [status, setStatus] = useState<string>('')
+    const [chosenTemplate, setChosenTemplate] = useState<number | null>(null)
 
     function handleNextStep() {
         switch (step) {
@@ -412,22 +416,48 @@ export default function Wizard(): ReactNode {
                                 <div className="grid grid-cols-3 gap-5 mt-10">
                                     {
                                         templates.map((temp) => (
-                                            <div
+                                            <motion.div
+
+                                                className='relative'
+                                                animate={status}
                                                 key={temp.id}
                                             >
+                                                {
+                                                    chosenTemplate === temp.id && (
+                                                        <motion.div
+                                                            initial={{ scale: 1 }}
+                                                            variants={{
+                                                                chosen: {
+                                                                    scale: 1.05
+                                                                },
+                                                                hover: {
+                                                                    scale: 1
+                                                                }
+                                                            }}
+                                                            transition={{
+                                                                duration: 0.2,
+
+                                                                type: 'tween',
+                                                                ease: 'circOut'
+                                                            }}
+                                                            className="absolute inset-0 bg-indigo-500 rounded-[10px]">
+                                                        </motion.div>
+                                                    )
+                                                }
+
                                                 <motion.button
                                                     initial={{ scale: 1 }}
-                                                    whileHover={{ scale: 1.05 }}
+                                                    whileHover={{ scale: 1.02 }}
                                                     transition={{ duration: 0.5 }}
-                                                    onClick={() => { }}
+                                                    onClick={() => { handleChooseTemplate(temp.id) }}
                                                     className='group flex flex-col justify-center items-center gap-y-1 rounded-[10px] overflow-hidden'>
                                                     <div className={`relative w-full h-[380px] rounded-[10px] overflow-hidden `}>
-                                                        <img className={`h-full object-cover  group-hover:grayscale group-hover:scale-105 transition-all duration-200`} src={temp.img} alt="layout" />
-                                                        <div className='absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-30 bg-indigo-600 rounded-[10px] transition-all duration-200'></div>
+                                                        <img className={`h-full object-cover group-hover:scale-105 transition-all duration-200`} src={temp.img} alt="layout" />
+
                                                     </div>
-                                                    <p className={`capitalize group-hover:underline`}>{temp.title}</p>
+                                                    <p className={`capitalize z-10 ${chosenTemplate === temp.id ? 'text-[#fff]' : 'group-hover:text-indigo-500'}`}>{temp.title}</p>
                                                 </motion.button>
-                                            </div>
+                                            </motion.div>
                                         ))
                                     }
                                 </div>

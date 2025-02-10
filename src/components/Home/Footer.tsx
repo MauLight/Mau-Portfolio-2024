@@ -29,7 +29,7 @@ export const Footer = () => {
           <div className="flex h-[100px] border items-start">
             <QRCode className='w-[100px] h-[100px] border border-gray-200 opacity-80' value='https://drive.google.com/file/d/1X17JPFMm0A09eonmj0AqkqHmkHsiMU98/preview' />
           </div>
-          <p className='font-body text-[18px] text-[#10100e]'>© 2024 MLight</p>
+          <p className='font-body text-[18px] text-[#10100e]'>© 2025 MLight</p>
         </div>
       </div>
     </motion.div>
