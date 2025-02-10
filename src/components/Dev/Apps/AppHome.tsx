@@ -1,74 +1,72 @@
-import { useState, type ReactElement } from 'react'
+import { type ReactNode } from 'react'
 import { SocialApp } from './Social/ScreenApp'
 import { EcommerceHome } from './Ecommerce/EcommerceHome'
+import { motion } from 'framer-motion'
+import Wizard from './Onboarding/Wizard'
 
+const childVariants = {
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { type: 'spring', bounce: 0.2, visualDuration: 1 }
+  },
+  hidden: {
+    y: 10,
+    opacity: 0
+  }
+}
 
-const AppHome = (): ReactElement => {
-  const [authOneDisplay, setAuthOneDisplay] = useState({ preview: true, code: false })
-  const [authTwoDisplay, setAuthTwoDisplay] = useState({ preview: true, code: false })
-  // const [authThreeDisplay, setAuthThreeDisplay] = useState({ preview: true, code: false })
-  // const [authFourDisplay, setAuthFourDisplay] = useState({ preview: true, code: false })
+const AppHome = (): ReactNode => {
 
   return (
-    <div className='w-full min-h-screen flex flex-col justify-center items-center gap-y-20 pt-32 pb-20 px-10'>
-      <div className="w-full flex flex-col gap-y-1">
-        <div className="flex gap-x-2 justify-end px-5">
-          <button onClick={() => { setAuthOneDisplay({ preview: true, code: false })}} className={`text-[14px] font-light ${authOneDisplay.preview ? 'text-indigo-500' : 'text-gray-600'} py-2`}>Preview</button>
-          {/* <button onClick={() => { setAuthOneDisplay({ preview: false, code: true })}} className={`text-[14px] font-light ${authOneDisplay.code ? 'text-indigo-500' : 'text-gray-600'} py-2`}>Code</button> */}
-        </div>
-        <div className="w-full h-[700px] border rounded-[20px] overflow-hidden">
-          {
-            authOneDisplay.preview ? <SocialApp /> : null
-          }
-          {
-            authOneDisplay.code ? <div>hey</div> : null
-          }
-        </div>
-      </div>
-      <div className="w-full flex flex-col gap-y-1">
-        <div className="flex gap-x-2 justify-end px-5">
-          <button onClick={() => { setAuthTwoDisplay({ preview: true, code: false })}} className={`text-[14px] font-light ${authTwoDisplay.preview ? 'text-indigo-500' : 'text-gray-600'} py-2`}>Preview</button>
-          {/* <button onClick={() => { setAuthTwoDisplay({ preview: false, code: true })}} className={`text-[14px] font-light ${authTwoDisplay.code ? 'text-indigo-500' : 'text-gray-600'} py-2`}>Code</button> */}
-        </div>
-        <div className="w-full h-[700px] border rounded-[20px] overflow-hidden">
-          {
-            authTwoDisplay.preview ? <EcommerceHome /> : null
-          }
-          {
-            authTwoDisplay.code ? <div>hey</div> : null
-          }
-        </div>
-      </div>
-      {/* <div className="w-full flex flex-col gap-y-1">
-        <div className="flex gap-x-2 justify-end px-5">
-          <button onClick={() => { setAuthThreeDisplay({ preview: true, code: false })}} className={`text-[14px] font-light ${authThreeDisplay.preview ? 'text-indigo-500' : 'text-gray-600'} py-2`}>Preview</button>
-          <button onClick={() => { setAuthThreeDisplay({ preview: false, code: true })}} className={`text-[14px] font-light ${authThreeDisplay.code ? 'text-indigo-500' : 'text-gray-600'} py-2`}>Code</button>
-        </div>
-        <div className="w-full h-[700px] border rounded-[20px] overflow-hidden">
-          {
-            authThreeDisplay.preview ? <div>hey</div> : null
-          }
-          {
-            authThreeDisplay.code ? <div>hey</div> : null
-          }
-        </div>
-      </div> */}
-      {/* <div className="w-full flex flex-col gap-y-1">
-        <div className="flex gap-x-2 justify-end px-5">
-          <button onClick={() => { setAuthFourDisplay({ preview: true, code: false })}} className={`text-[14px] font-light ${authFourDisplay.preview ? 'text-indigo-500' : 'text-gray-600'} py-2`}>Preview</button>
-          <button onClick={() => { setAuthFourDisplay({ preview: false, code: true })}} className={`text-[14px] font-light ${authFourDisplay.code ? 'text-indigo-500' : 'text-gray-600'} py-2`}>Code</button>
-        </div>
-        <div className="w-full h-[700px] border rounded-[20px] overflow-hidden">
-          {
-            authFourDisplay.preview ? <div>hey</div>: null
-          }
-          {
-            authFourDisplay.code ? <div>hey</div> : null
-          }
-        </div>
-      </div> */}
-    </div>
+
+    <FadeinContainer>
+      <>
+        <motion.div key={1} variants={childVariants} className="w-full h-[700px] border rounded-[20px] overflow-hidden">
+          <Wizard />
+        </motion.div>
+
+        <motion.div key={2} variants={childVariants} className="w-full h-[700px] border rounded-[20px] overflow-hidden">
+          <SocialApp />
+        </motion.div>
+
+        <motion.div key={3} variants={childVariants} className="w-full h-[700px] border rounded-[20px] overflow-hidden">
+          <EcommerceHome />
+        </motion.div>
+      </>
+    </FadeinContainer>
+
+
   )
 }
 
 export default AppHome
+
+function FadeinContainer({ children }: { children: ReactNode }): ReactNode {
+
+  const containerVariants = {
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 1 }
+    },
+    hidden: {
+      y: 100,
+      opacity: 0,
+      transition: { staggerChildren: 1, staggerDirection: -1 }
+    }
+  }
+
+  return (
+    <motion.div
+      className='w-full min-h-screen flex flex-col justify-center items-center gap-y-20 pt-32 pb-20 px-10'
+      initial='hidden'
+      animate='visible'
+      variants={containerVariants}
+    >
+      {
+        children
+      }
+    </motion.div>
+  )
+}

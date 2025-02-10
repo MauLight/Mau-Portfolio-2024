@@ -1,6 +1,11 @@
-import { lazy, Suspense } from 'react'
-import { Route, Routes } from 'react-router'
+import { lazy, Suspense, useRef } from 'react'
+import { Route, Routes, useLocation } from 'react-router'
 import Fallback from './components/Common/Fallback'
+import { Loader } from './components/Common/Loader'
+
+import { motion } from 'framer-motion'
+import { useFollowPointer } from './hooks/useFollowPointer'
+import video from '@/assets/end of time.webm'
 
 const Home = lazy(async () => await import('@/components/Home/Home'))
 const Humans = lazy(async () => await import('@/components/Photo/Galleries/Humans'))
@@ -16,11 +21,22 @@ const Contact = lazy(async () => await import('@/components/Contact/Contact'))
 
 
 const Layout = () => {
+
+  const ref = useRef(null)
+  const { pathname } = useLocation()
+  const { x, y } = useFollowPointer(ref)
+
   return (
     <div className='w-full max-w-[1440px] h-full'>
       <Suspense fallback={<div className='w-full min-h-screen flex justify-center items-center'>
         <Fallback />
-      </div>}>
+      </div>
+      }>
+        {
+          !(pathname.length > 1) && (
+            <Loader />
+          )
+        }
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/photo/humans' element={<Humans />} />
@@ -33,6 +49,13 @@ const Layout = () => {
           <Route path='/about' element={<About />} />
           <Route path='/contact' element={<Contact />} />
         </Routes>
+        {
+          pathname === '/' && (
+            <motion.div ref={ref} className='absolute w-[200px] z-0 h-[200px] rounded-full overflow-hidden mix-blend-color-multiply' style={{ x, y }}>
+              <video src={video} autoPlay loop muted className='w-full h-full object-cover' />
+            </motion.div>
+          )
+        }
       </Suspense>
     </div>
   )

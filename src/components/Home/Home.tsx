@@ -22,7 +22,7 @@ const Home = () => {
   }
 
   useEffect(() => {
-    const canvas = document.querySelector('canvas') as HTMLCanvasElement
+    const canvas = document.getElementById('matrix') as HTMLCanvasElement
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
 
     const render = () => {
@@ -66,7 +66,7 @@ const Home = () => {
       const data = canvas.toDataURL('image/png')
       const link = document.createElement('a')
 
-      if ( typeof link.download === 'string') {
+      if (typeof link.download === 'string') {
         link.href = data
         link.download = 'image.jpg'
         document.body.appendChild(link)
@@ -95,10 +95,11 @@ const Home = () => {
           initial={'hidden'}
           whileInView={'show'}
           viewport={{ once: false, amount: 0.1 }}
-          className='font-body text-[18px] text-[#10100e]'>{format(new Date(), 'PPPP')}</motion.p>
+          className='font-body text-[18px] text-[#10100e]'>{format(new Date(), 'PPPP')}
+        </motion.p>
       </div>
       <div className="relative h-full max-[1440px]:w-[500px] flex flex-col justify-center items-end">
-        <canvas className='absolute top-0 right-0 p-10' onClick={handleDownloadImage} ref={printRef} width={width} height={height} id='animation' />
+        <canvas className='absolute top-0 right-0 p-10' onClick={handleDownloadImage} ref={printRef} width={width} height={height} id='matrix' />
       </div>
       <Footer />
       <img src={bg} alt='background' className='w-full h-full fixed top-0 left-0 object-cover opacity-100 -z-10' />
