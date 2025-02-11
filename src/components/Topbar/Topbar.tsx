@@ -16,7 +16,7 @@ const Topbar = () => {
 
   return (
     <><motion.div
-      variants={fadeIn('top', pathname.includes('contact') ? 2 : 0.8)}
+      variants={fadeIn('top', pathname.includes('contact') || pathname.length < 2 ? 2 : 0.8)}
       initial={'hidden'}
       whileInView={'show'}
       viewport={{ once: false, amount: 0.1 }}

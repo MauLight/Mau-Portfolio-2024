@@ -23,15 +23,15 @@ const Layout = () => {
 
   return (
     <div className='w-full max-w-[1440px] h-full'>
+      {
+        !(pathname.length > 1) && (
+          <Loader visible={loaderVisible} setVisible={setLoaderVisible} />
+        )
+      }
       <Suspense fallback={<div className='w-full min-h-screen flex justify-center items-center'>
         <Fallback />
       </div>
       }>
-        {
-          !(pathname.length > 1) && (
-            <Loader visible={loaderVisible} setVisible={setLoaderVisible} />
-          )
-        }
         {
           !loaderVisible && (
             <Routes>
