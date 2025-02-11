@@ -1,19 +1,36 @@
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { WhiteAgent as Agent } from '@/utils/classes'
 import { randRange } from '@/utils/functions'
 import { AnimatePresence, motion } from 'framer-motion'
 import video from '@/assets/video/loading.webm'
 import videoEye from '@/assets/video/loading2.webm'
 
+interface LoaderProps {
+  visible: boolean
+  setVisible: Dispatch<SetStateAction<boolean>>
+}
 
-export const Loader = () => {
-  const [visible, setVisible] = useState(true)
 
-  useEffect(() => {
+export const Loader = ({ visible, setVisible }: LoaderProps) => {
+
+  const [canvasReady, setCanvasReady] = useState<boolean>(false)
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const eyeRef = useRef(null)
+
+  function playEyeVideo() {
+    if (eyeRef.current) {
+      (eyeRef.current as HTMLVideoElement).play()
+    }
+  }
+
+  const handleCloseLoader = () => {
+    console.log('here')
+    playEyeVideo()
+    setCanvasReady(true)
     setTimeout(() => {
       setVisible(false)
-    }, 3000)
-  }, [])
+    }, 2000)
+  }
 
 
   const [width] = useState(2000)
@@ -21,8 +38,9 @@ export const Loader = () => {
   const agents: Agent[] = []
 
   useEffect(() => {
-    const canvas = document.getElementById('loader') as HTMLCanvasElement
-    if (canvas) {
+    const canvas = canvasRef.current
+    if (canvas && canvasReady) {
+      setCanvasReady(false)
       const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
 
       for (let i = 0; i < 400; i++) {
@@ -73,36 +91,37 @@ export const Loader = () => {
     }
   })
 
-
-
   return (
     <>
-      {
-        visible && (
-          <AnimatePresence>
+      <AnimatePresence>
+
+        {
+          visible && (
             <motion.div
               initial={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
               transition={{ duration: 2.5, ease: 'easeOut' }}
-              className={`absolute h-screen w-screen left-0 top-0 overflow-hidden flex flex-col justify-center items-center gap-y-2 ${!visible ? 'bg-transparent' : ''} z-50 transition-all duration-200`}>
-              <div className="absolute z-10 top-0 right-0 p-10 h-full max-[1440px]:w-[500px] flex flex-col justify-center items-end">
-                <canvas className='' width={width} height={height} id='loader' />
-              </div>
+              exit={{ opacity: 0 }}
+              className={`absolute h-screen w-screen left-0 top-0 overflow-hidden flex flex-col justify-center items-center gap-y-2 ${!visible ? 'bg-transparent' : 'bg-[#10100e]'}`}>
               <div className='absolute z-0 bg-[#10100e] w-screen h-screen opacity-70'></div>
+              <div
+                className="absolute z-10 top-0 left-0 p-10 h-full max-[1440px]:w-[500px] flex flex-col justify-center items-end">
+                <canvas ref={canvasRef} className='' width={width} height={height} id='loader' />
+              </div>
               <motion.video
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className='absolute w-screen h-screen object-cover' src={video} autoPlay loop muted />
+                onPlay={handleCloseLoader}
+                className='absolute w-screen h-screen object-cover' id='loader' src={video} autoPlay loop muted />
               <motion.video
+                ref={eyeRef}
                 initial={{ opacity: 1 }}
-                animate={{ opacity: 0 }}
                 transition={{ duration: 0.8 }}
-                className='w-screen h-screen object-cover' src={videoEye} autoPlay loop muted />
+                className='w-screen h-screen object-cover' src={videoEye} loop muted />
             </motion.div>
-          </AnimatePresence>
-        )
-      }
+          )
+        }
+      </AnimatePresence>
     </>
   )
 }

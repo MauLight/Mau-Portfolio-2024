@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 import Fallback from './components/Common/Fallback'
 import { Loader } from './components/Common/Loader'
@@ -20,6 +20,7 @@ const Contact = lazy(async () => await import('@/components/Contact/Contact'))
 const Layout = () => {
 
   const { pathname } = useLocation()
+  const [loaderVisible, setLoaderVisible] = useState(true)
 
   return (
     <div className='w-full max-w-[1440px] h-full'>
@@ -29,21 +30,25 @@ const Layout = () => {
       }>
         {
           !(pathname.length > 1) && (
-            <Loader />
+            <Loader visible={loaderVisible} setVisible={setLoaderVisible} />
           )
         }
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/photo/humans' element={<Humans />} />
-          <Route path='/photo/distortion' element={<Distortion />} />
-          <Route path='/dev/auth' element={<AuthHome />} />
-          <Route path='/dev/app' element={<AppHome />} />
-          <Route path='/video/viral' element={<ViralHome />} />
-          <Route path='/video/shortfilms' element={<ShortFilmsHome />} />
-          <Route path='/video/motion' element={<MotionHome />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/contact' element={<Contact />} />
-        </Routes>
+        {
+          !loaderVisible && (
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/photo/humans' element={<Humans />} />
+              <Route path='/photo/distortion' element={<Distortion />} />
+              <Route path='/dev/auth' element={<AuthHome />} />
+              <Route path='/dev/app' element={<AppHome />} />
+              <Route path='/video/viral' element={<ViralHome />} />
+              <Route path='/video/shortfilms' element={<ShortFilmsHome />} />
+              <Route path='/video/motion' element={<MotionHome />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/contact' element={<Contact />} />
+            </Routes>
+          )
+        }
       </Suspense>
     </div>
   )
