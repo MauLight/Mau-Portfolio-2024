@@ -24,7 +24,7 @@ export const Loader = ({ visible, setVisible }: LoaderProps) => {
   }
 
   const handleCloseLoader = () => {
-    console.log('here')
+
     playEyeVideo()
     setCanvasReady(true)
     setTimeout(() => {
@@ -112,12 +112,12 @@ export const Loader = ({ visible, setVisible }: LoaderProps) => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
                 onPlay={handleCloseLoader}
-                className='absolute w-screen h-screen object-cover' id='loader' src={video} autoPlay loop muted />
+                className='absolute w-screen h-screen object-cover' id='loader' src={video} autoPlay muted />
               <motion.video
                 ref={eyeRef}
                 initial={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className='w-screen h-screen object-cover' src={videoEye} loop muted />
+                className='w-screen h-screen object-cover' src={videoEye} muted />
             </motion.div>
           )
         }

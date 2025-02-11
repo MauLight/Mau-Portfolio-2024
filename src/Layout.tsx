@@ -2,9 +2,8 @@ import { lazy, Suspense, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 import Fallback from './components/Common/Fallback'
 import { Loader } from './components/Common/Loader'
+import Home from './components/Home/Home'
 
-
-const Home = lazy(async () => await import('@/components/Home/Home'))
 const Humans = lazy(async () => await import('@/components/Photo/Galleries/Humans'))
 const Distortion = lazy(async () => await import('@/components/Photo/Galleries/Distortion'))
 const AuthHome = lazy(async () => await import('@/components/Dev/Auth/AuthHome'))
