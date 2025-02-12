@@ -35,7 +35,7 @@ export default function Contact(): ReactNode {
         const { name, email, message } = getValues()
         try {
             setLoading(true)
-            const { data } = await axios.post('/.netlify/functions/send-contact', { name, email, message })
+            const { data } = await axios.post('https://symetria-contact.netlify.app/.netlify/functions/send-contact', { name, email, message })
 
             if (data.message) {
                 setSent(true)

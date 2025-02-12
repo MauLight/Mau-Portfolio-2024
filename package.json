@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && cp -R netlify/functions dist/functions",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -16,6 +16,7 @@
     "@headlessui/react": "^2.0.4",
     "@heroicons/react": "^2.1.5",
     "@hookform/resolvers": "^3.9.0",
+    "@netlify/functions": "^3.0.0",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "@xyflow/react": "^12.0.4",
     "axios": "^1.7.7",
@@ -47,10 +48,12 @@
     "react-spinners": "^0.14.1",
     "react-toastify": "^10.0.5",
     "react-typed": "^2.0.12",
+    "sanitize-html": "^2.14.0",
     "start": "^5.1.0",
     "tailwind-scrollbar-hide": "^1.1.7",
     "typewriter-effect": "^2.21.0",
     "uuid": "^10.0.0",
+    "validator": "^13.12.0",
     "vite-plugin-environment": "^1.1.3",
     "yup": "^1.4.0"
   },
@@ -63,7 +66,6 @@
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
-    "canvas-sketch-cli": "^1.0.4",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
