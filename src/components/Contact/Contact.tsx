@@ -22,8 +22,6 @@ export default function Contact(): ReactNode {
     const [loading, setLoading] = useState<boolean>(false)
     const [sent, setSent] = useState<boolean>(false)
 
-    console.log('hey there')
-
     const { register, reset, handleSubmit, getValues, formState: { errors, isValid } } = useForm({
         defaultValues: {
             email: ''
@@ -37,7 +35,7 @@ export default function Contact(): ReactNode {
         const { name, email, message } = getValues()
         try {
             setLoading(true)
-            const { data } = await axios.post('https://mau-portfolio-backend.onrender.com', { name, email, message })
+            const { data } = await axios.post('/.netlify/functions/send-contact', { name, email, message })
 
             if (data.message) {
                 setSent(true)
