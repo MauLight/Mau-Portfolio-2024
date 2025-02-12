@@ -7,12 +7,12 @@ export const WideMenu = ({ isUpperMenuOpen, setUpperMenuOpen }: WideMenuProps): 
   const { pathname } = useLocation()
   return (
     <div className="hidden col-span-3 sm:flex justify-between items-center">
-      <FlipLink onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} href='/about' fontColor={pathname.includes('video') ? 'text-[#e7eee7]' : 'text-[#231c1e]'} textSize='text-lg'>About</FlipLink>
+      <FlipLink onClick={() => { }} href='/about' fontColor={pathname.includes('video') ? 'text-[#e7eee7]' : 'text-[#231c1e]'} textSize='text-lg'>About</FlipLink>
       <FlipLink onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} href='#' fontColor={pathname.includes('video') ? 'text-[#e7eee7]' : 'text-[#231c1e]'} textSize='text-lg'>dev</FlipLink>
       <FlipLink onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} href='#' fontColor={pathname.includes('video') ? 'text-[#e7eee7]' : 'text-[#231c1e]'} textSize='text-lg'>photo</FlipLink>
       <FlipLink onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} href='#' fontColor={pathname.includes('video') ? 'text-[#e7eee7]' : 'text-[#231c1e]'} textSize='text-lg'>video</FlipLink>
       <FlipLink href='#' fontColor={pathname.includes('video') ? 'text-[#e7eee7]' : 'text-[#231c1e]'} textSize='text-lg'>_</FlipLink>
-      <FlipLink onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} href='/contact' fontColor={pathname.includes('video') ? 'text-[#e7eee7]' : 'text-[#231c1e]'} textSize='text-lg'>Contact</FlipLink>
+      <FlipLink onClick={() => { }} href='/contact' fontColor={pathname.includes('video') ? 'text-[#e7eee7]' : 'text-[#231c1e]'} textSize='text-lg'>Contact</FlipLink>
     </div>
   )
 }

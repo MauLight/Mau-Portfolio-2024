@@ -3,20 +3,19 @@ import { motion } from 'framer-motion'
 import { fadeIn } from '@/utils/functions'
 
 interface VideoDisplayProps {
-    title: string
-    description: string
-    mp4: string[]
-    webM: string[]
-    bgColor: string
+  title: string
+  description: string
+  mp4: string[]
+  webM: string[]
+  bgColor: string
 }
 
-export const VideoDisplayHorizontal = ({ title, description, mp4, webM, bgColor } : VideoDisplayProps): ReactElement => {
+export const VideoDisplayHorizontal = ({ title, description, mp4, webM, bgColor }: VideoDisplayProps): ReactElement => {
   const [currentVideo, setCurrentVideo] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
   const [volume, setVolume] = useState(false)
 
   const handleSlider = (direction: number) => {
-    console.log('direction activated', direction)
     setCurrentVideo((prev) => {
       if (direction === 1) {
         if (prev === 0) return webM.length - 1
@@ -78,7 +77,7 @@ export const VideoDisplayHorizontal = ({ title, description, mp4, webM, bgColor 
                 initial={'hidden'}
                 whileInView={'show'}
                 viewport={{ once: false, amount: 0.1 }}
-                onEnded={() => {setVolume(false); handleSlider(2)}}
+                onEnded={() => { setVolume(false); handleSlider(2) }}
                 autoPlay muted={!volume} className='sm:shrink-0 w-full sm:w-[400px] lg:w-[700px] right-0 top-[220px] object-cover z-10 rounded-[20px] border-t border-x border-gray-600 shadow-sm shadow-gray-900'>
                 <source src={webM[currentVideo]} type='video/webm' />
                 <source src={mp4[currentVideo]} type='video/mp4' />

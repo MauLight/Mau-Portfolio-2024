@@ -7,13 +7,19 @@ const App = () => {
   const { pathname } = useLocation()
 
   const updateBgColor = () => {
-    if (pathname.includes('humans')) return 'bg-[#fff0e2]'
-    if (pathname.includes('about')) return 'bg-[#f1eee5]'
-    if (pathname.includes('distortion')) return 'bg-red-600'
-    if (pathname.includes('video')) return 'bg-[#10100e]'
+    switch (true) {
+      case pathname.includes('humans'):
+        return 'bg-[#fff0e2]'
+      case pathname.includes('about'):
+        return 'bg-[#f1eee5]'
+      case pathname.includes('distortion'):
+        return 'bg-red-600'
+      case pathname.includes('video'):
+        return 'bg-[#10100e]'
+      default:
+        return 'hidden'
+    }
   }
-
-
 
   return (
     <div className="w-screen flex flex-col items-center justify-center">

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 import Fallback from './components/Common/Fallback'
 import { Loader } from './components/Common/Loader'
@@ -20,6 +20,12 @@ const Layout = () => {
 
   const { pathname } = useLocation()
   const [loaderVisible, setLoaderVisible] = useState(true)
+
+  useEffect(() => {
+    if (pathname.length > 1 && loaderVisible) {
+      setLoaderVisible(false)
+    }
+  }, [])
 
   return (
     <div className='w-full max-w-[1440px] h-full'>
