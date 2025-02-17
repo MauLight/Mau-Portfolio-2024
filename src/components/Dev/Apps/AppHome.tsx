@@ -3,6 +3,7 @@ import { SocialApp } from './Social/ScreenApp'
 import { EcommerceHome } from './Ecommerce/EcommerceHome'
 import { motion } from 'framer-motion'
 import Wizard from './Onboarding/Wizard'
+import IndividualProduct from './Products/IndividualProduct'
 
 const childVariants = {
   visible: {
@@ -22,15 +23,19 @@ const AppHome = (): ReactNode => {
 
     <FadeinContainer>
       <>
-        <motion.div key={1} variants={childVariants} className="w-full h-[700px] border rounded-[20px] overflow-hidden">
-          <Wizard />
+        <motion.div key={1} variants={childVariants} className="w-full h-auto border rounded-[20px] overflow-hidden">
+          <IndividualProduct />
         </motion.div>
 
         <motion.div key={2} variants={childVariants} className="w-full h-[700px] border rounded-[20px] overflow-hidden">
-          <SocialApp />
+          <Wizard />
         </motion.div>
 
         <motion.div key={3} variants={childVariants} className="w-full h-[700px] border rounded-[20px] overflow-hidden">
+          <SocialApp />
+        </motion.div>
+
+        <motion.div key={4} variants={childVariants} className="w-full h-[700px] border rounded-[20px] overflow-hidden">
           <EcommerceHome />
         </motion.div>
       </>
