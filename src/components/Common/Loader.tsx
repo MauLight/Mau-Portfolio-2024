@@ -4,6 +4,8 @@ import { randRange } from '@/utils/functions'
 import { AnimatePresence, motion } from 'framer-motion'
 import video from '@/assets/video/loading.webm'
 import videoEye from '@/assets/video/loading2.webm'
+import videoMp4 from '@/assets/video/loading.mp4'
+import videoEyeMp4 from '@/assets/video/loading2.mp4'
 
 interface LoaderProps {
   visible: boolean
@@ -112,12 +114,18 @@ export const Loader = ({ visible, setVisible }: LoaderProps) => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
                 onPlay={handleCloseLoader}
-                className='absolute w-screen h-screen object-cover' id='loader' src={video} autoPlay muted />
+                className='absolute w-screen h-screen object-cover' id='loader' autoPlay muted>
+                <source src={video} type="video/webm" />
+                <source src={videoMp4} type="video/mp4" />
+              </motion.video>
               <motion.video
                 ref={eyeRef}
                 initial={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className='w-screen h-screen object-cover' src={videoEye} muted />
+                className='w-screen h-screen object-cover' muted>
+                <source src={videoEye} type="video/webm" />
+                <source src={videoEyeMp4} type="video/mp4" />
+              </motion.video>
             </motion.div>
           )
         }

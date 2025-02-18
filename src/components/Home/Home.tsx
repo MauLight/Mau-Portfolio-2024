@@ -107,13 +107,13 @@ const Home = () => {
         </motion.p>
       </div>
       <div className="relative h-full max-[1440px]:w-[500px] flex flex-col justify-center items-end">
-        <canvas className='absolute top-0 right-0 p-10' onClick={handleDownloadImage} ref={printRef} width={width} height={height} id='matrix' />
+        <canvas className='absolute top-0 right-0' onClick={handleDownloadImage} ref={printRef} width={width} height={height} id='matrix' />
       </div>
       <Footer />
       <img src={bg} alt='background' className='w-full h-full fixed top-0 left-0 object-cover opacity-100 -z-10' />
       {
         pathname === '/' && (
-          <motion.div ref={ref} className='absolute w-[200px] z-0 h-[200px] rounded-full overflow-hidden mix-blend-color-multiply' style={{ x, y }}>
+          <motion.div ref={ref} className='absolute hidden sm:block w-[120px] z-0 h-[120px] rounded-full overflow-hidden mix-blend-color-multiply shadow-xl' style={{ x, y }}>
             <video src={video} autoPlay loop muted className='w-full h-full object-cover' />
           </motion.div>
         )
