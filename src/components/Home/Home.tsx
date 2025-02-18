@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { TitleText } from '../Common/TitleText'
 import html2canvas from 'html2canvas'
 import { Agent } from '@/utils/classes'
@@ -16,25 +16,32 @@ const Home = () => {
   const ref = useRef(null)
   const { pathname } = useLocation()
   const { x, y } = useFollowPointer(ref)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const parentRef = useRef<HTMLDivElement>(null)
+  const [size, setSize] = useState({ width: 850, height: 850 })
 
-  const [width] = useState(850)
-  const [height] = useState(850)
   const printRef = useRef(null)
 
-  const agents: Agent[] = []
+  const agents = useMemo(() => {
+    let generatedAgents: Agent[] = []
+    const iterations = size.width > 600 ? 160 : 30
 
-  for (let i = 0; i < 40; i++) {
-    const x = randRange(0, width)
-    const y = randRange(0, height)
-    agents.push(new Agent(x, y))
-  }
+    for (let i = 0; i < iterations; i++) {
+      const x = randRange(0, size.width)
+      const y = randRange(0, size.height)
+      generatedAgents.push(new Agent(x, y))
+    }
+
+    return generatedAgents
+
+  }, [size])
 
   useEffect(() => {
     const canvas = document.getElementById('matrix') as HTMLCanvasElement
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
 
     const render = () => {
-      ctx.clearRect(0, 0, width, height)
+      ctx.clearRect(0, 0, size.width, size.height)
 
       for (let i = 0; i < agents.length; i++) {
         const agent = agents[i]
@@ -55,7 +62,7 @@ const Home = () => {
       agents.forEach(agent => {
         agent.update()
         agent.draw(ctx)
-        agent.bounce(width, height)
+        agent.bounce(size.width, size.height)
       })
     }
 
@@ -64,7 +71,7 @@ const Home = () => {
       requestAnimationFrame(loop)
     }
     loop()
-    return () => ctx.clearRect(0, 0, width, height)
+    return () => ctx.clearRect(0, 0, size.width, size.height)
   })
 
   const handleDownloadImage = async () => {
@@ -86,9 +93,23 @@ const Home = () => {
     }
   }
 
+  useEffect(() => {
+    const updateSize = () => {
+      if (parentRef.current && canvasRef.current) {
+        const { offsetWidth: width, offsetHeight: height } = parentRef.current
+        setSize({ width, height })
+      }
+    }
+
+    updateSize()
+    window.addEventListener('resize', updateSize)
+    return () => window.removeEventListener('resize', updateSize);
+  }, [parentRef])
+
+
   return (
-    <div className="h-screen max-h-screen relative flex justify-between">
-      <div className="max-[1440px]:col-span-2 flex flex-col justify-center pb-[50px]">
+    <div className="h-screen relative flex justify-between">
+      <div className="flex flex-col justify-center pb-[50px]">
         <motion.div
           variants={fadeIn('right', 0.4)}
           initial={'hidden'}
@@ -106,8 +127,10 @@ const Home = () => {
           className='font-body text-[18px] text-[#10100e]'>{format(new Date(), 'PPPP')}
         </motion.p>
       </div>
-      <div className="relative h-full  flex flex-col justify-center items-end">
-        <canvas className='absolute top-0 right-0' onClick={handleDownloadImage} ref={printRef} width={width} height={height} id='matrix' />
+      <div ref={parentRef} className='max-sm:absolute h-screen w-full'>
+        <div className="relative h-full flex flex-col justify-center items-end">
+          <canvas ref={canvasRef} className='absolute top-0 right-0' onClick={handleDownloadImage} width={size.width} height={size.height} id='matrix' />
+        </div>
       </div>
       <Footer />
       <img src={bg} alt='background' className='w-full h-full fixed top-0 left-0 object-cover opacity-100 -z-10' />
