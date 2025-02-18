@@ -25,8 +25,8 @@ const currentTemplate = {
   card: {
     layout: 'grid grid-cols-1 sm:grid-cols-2 min-[1440px]:grid-cols-3',
     card: 'h-[700px] col-span-1 overflow-hidden',
-    image: 'h-full',
-    textLayout: 'w-full absolute bottom-5 flex justify-between px-5 z-10 transition-all duration-300 text-[1rem] min-[400px]:text-[22px] uppercase antialiazed text-[#ffffff] leading-tight',
+    image: 'h-[530px]',
+    textLayout: 'w-full h-[230px] absolute bottom-5 flex justify-between items-start px-5 z-10 transition-all duration-300 text-[1rem] min-[400px]:text-[22px] uppercase antialiazed text-[#ffffff] leading-tight',
     gradient: true
   }
 }
@@ -54,12 +54,12 @@ export const ProductCard = ({ product }: { product: ProductProps }): ReactElemen
     <section className={`group relative ${pathname === '/collection' ? 'h-[460px]' : currentTemplate.card ? currentTemplate.card.card : 'h-[700px] col-span-1 overflow-hidden'}`}>
 
       <div className={currentTemplate.card ? currentTemplate.card.image : 'h-full'}>
-        <img key={product.id} src={product.image} alt="product" className="w-full sm:h-full object-cover" />
+        <img key={product.id} src={product.image} alt="product" className="h-full object-cover" />
       </div>
 
       {
         isCollection && (
-          <div className={currentTemplate.card ? currentTemplate.card.textLayout : "w-full absolute bottom-5 flex justify-between px-5 z-10 transition-all duration-300 text-[1rem] min-[400px]:text-[22px] uppercase antialiazed text-[#ffffff] leading-tight"}>
+          <div className={currentTemplate.card ? currentTemplate.card.textLayout : "w-full px-5 z-10 transition-all duration-300 text-[1rem] min-[400px]:text-[22px] uppercase antialiazed text-[#ffffff] leading-tight"}>
             <Link to={`/product/${product.id}`} className="flex flex-col">
               <h1 aria-label={product.title} className=''>{product.title}</h1>
               <div className="flex gap-x-2">
@@ -92,10 +92,10 @@ export const ProductCard = ({ product }: { product: ProductProps }): ReactElemen
       }
       {
         currentTemplate.card && currentTemplate.card.gradient && (
-          <div className='w-full h-full absolute top-0 left-0 bg-gradient-to-t from-[#10100e] to-transparent opacity-30'></div>
+          <div className='w-full h-[530px] absolute top-0 left-0 bg-gradient-to-t from-[#10100e] to-transparent opacity-30'></div>
         )
       }
-      <Link to={`/product/${product.id}`} className="absolute top-0 left-0 w-full sm:h-full bg-[#10100e] opacity-0 group-hover:opacity-30 z-10 transition-all duration-200"></Link>
+      <Link to={`/product/${product.id}`} className="absolute top-0 left-0 w-full  bg-[#10100e] opacity-0 group-hover:opacity-30 z-10 transition-all duration-200"></Link>
     </section>
   )
 }

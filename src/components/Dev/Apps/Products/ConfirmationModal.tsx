@@ -77,7 +77,7 @@ export default function ConfirmationModal({
                                 }
                                 {
                                     !product.image && (
-                                        <p className='text-red-500 text-[0.8rem]'>A placeholder was added as image because you did not add a valid image url.</p>
+                                        <p className='text-red-500 text-[0.8rem]'>A placeholder was added ah-[530px]s image because you did not add a valid image url.</p>
                                     )
                                 }
                             </div>
