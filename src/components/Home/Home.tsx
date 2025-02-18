@@ -24,7 +24,7 @@ const Home = () => {
 
   const agents = useMemo(() => {
     let generatedAgents: Agent[] = []
-    const iterations = size.width > 600 ? 160 : 30
+    const iterations = size.width > 600 ? 80 : 30
 
     for (let i = 0; i < iterations; i++) {
       const x = randRange(0, size.width)

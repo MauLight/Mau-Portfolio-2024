@@ -34,7 +34,6 @@ export const Loader = ({ visible, setVisible }: LoaderProps) => {
     }, 2000)
   }
 
-
   const [width] = useState(2000)
   const [height] = useState(1400)
   const agents: Agent[] = []
@@ -93,6 +92,15 @@ export const Loader = ({ visible, setVisible }: LoaderProps) => {
     }
   })
 
+  const [supportsWebm, setSupportsWebm] = useState<boolean>(false)
+
+  useEffect(() => {
+    const videoElem = document.createElement('video')
+    if (videoElem.canPlayType('video/webm') !== '') {
+      setSupportsWebm(true)
+    }
+  }, [])
+
   return (
     <>
       <AnimatePresence>
@@ -110,21 +118,48 @@ export const Loader = ({ visible, setVisible }: LoaderProps) => {
                 <canvas ref={canvasRef} className='' width={width} height={height} id='loader' />
               </div>
               <motion.video
+                onCanPlay={handleCloseLoader}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
                 onPlay={handleCloseLoader}
                 className='absolute w-screen h-screen object-cover' id='loader' autoPlay muted>
-                <source src={video} type="video/webm" />
-                <source src={videoMp4} type="video/mp4" />
+                {
+                  supportsWebm ? (
+                    <>
+                      <source src={video} type="video/webm" />
+                      <source src={videoMp4} type="video/mp4" />
+                    </>
+                  )
+                    :
+                    (
+                      <>
+                        <source src={videoMp4} type="video/mp4" />
+                        <source src={video} type="video/webm" />
+                      </>
+                    )
+                }
               </motion.video>
               <motion.video
                 ref={eyeRef}
                 initial={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
                 className='w-screen h-screen object-cover' muted>
-                <source src={videoEye} type="video/webm" />
-                <source src={videoEyeMp4} type="video/mp4" />
+                {
+                  supportsWebm ? (
+                    <>
+                      <source src={videoEye} type="video/webm" />
+                      <source src={videoEyeMp4} type="video/mp4" />
+                    </>
+                  )
+                    :
+                    (
+                      <>
+                        <source src={videoEyeMp4} type="video/mp4" />
+                        <source src={videoEye} type="video/webm" />
+                      </>
+                    )
+                }
               </motion.video>
             </motion.div>
           )
