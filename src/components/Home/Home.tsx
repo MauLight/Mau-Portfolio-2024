@@ -106,7 +106,7 @@ const Home = () => {
           className='font-body text-[18px] text-[#10100e]'>{format(new Date(), 'PPPP')}
         </motion.p>
       </div>
-      <div className="relative h-full max-[1440px]:w-[500px] flex flex-col justify-center items-end">
+      <div className="relative h-full  flex flex-col justify-center items-end">
         <canvas className='absolute top-0 right-0' onClick={handleDownloadImage} ref={printRef} width={width} height={height} id='matrix' />
       </div>
       <Footer />
