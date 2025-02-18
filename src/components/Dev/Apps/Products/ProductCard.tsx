@@ -36,7 +36,7 @@ export const ProductCard = ({ product }: { product: ProductProps }): ReactElemen
   const { pathname } = useLocation()
   const isCollection = !pathname.includes('product')
 
-  const [wishListed, setWishListed] = useState<boolean>(false)
+  const [wishListed] = useState<boolean>(false)
 
   const handleWishList = async (id: string) => {
     console.log(id)

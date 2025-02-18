@@ -81,7 +81,7 @@ interface IndividualProductFormProps {
     wasSubmitted: boolean
 }
 
-const animatedGradient = 'animated-background bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'
+//const animatedGradient = 'animated-background bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'
 const animatedGradientText = 'inline-block text-transparent bg-clip-text animated-background bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'
 
 function IndividualProductForm({

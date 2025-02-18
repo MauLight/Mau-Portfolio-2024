@@ -82,7 +82,7 @@ function IndividualProduct(): ReactNode {
     //* Cloudinary state
     const [urlToCloudinary, setUrlToCloudinary] = useState<string>('')
     const [cloudinaryLoading, setCloudinaryLoading] = useState<boolean>(false)
-    const [cloudinaryError, setCloudinaryError] = useState<string | null>(null)
+    const [cloudinaryError] = useState<string | null>(null)
     const [urlToCloudinaryError, setUrlToCloudinaryError] = useState<boolean>(false)
     const [cloudinaryFileUpload, setCloudinaryFileUpload] = useState<string | null>(null)
     const [cloudinaryPublicId, setCloudinaryPublicId] = useState<string | null>(null)
