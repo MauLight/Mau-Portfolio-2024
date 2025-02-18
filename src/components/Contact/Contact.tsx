@@ -8,7 +8,20 @@ import * as yup from 'yup'
 import Fallback from '../Common/Fallback'
 import { yupResolver } from '@hookform/resolvers/yup'
 import video from '@/assets/video/contact.webm'
+import ErrorComponent from '../Common/ErrorComponent'
 
+const recaptchaSiteKey = import.meta.env.VITE_GRECAPTCHA
+
+interface GoogleReCaptcha {
+    execute: (siteKey: string, options: { action: string }) => Promise<string>
+    ready: (callback: () => void) => void
+}
+
+declare global {
+    interface Window {
+        grecaptcha: GoogleReCaptcha
+    }
+}
 
 const contactSchema = yup.object({
     name: yup.string().required(),
@@ -19,8 +32,11 @@ const contactSchema = yup.object({
 export default function Contact(): ReactNode {
 
     const navigate = useNavigate()
-    const [loading, setLoading] = useState<boolean>(false)
-    const [sent, setSent] = useState<boolean>(false)
+    const [{ isLoading, hasError, fulfilled }, setApiState] = useState<{ isLoading: boolean, hasError: boolean, fulfilled: boolean }>({
+        isLoading: false,
+        hasError: false,
+        fulfilled: false
+    })
 
     const { register, reset, handleSubmit, getValues, formState: { errors, isValid } } = useForm({
         defaultValues: {
@@ -30,25 +46,60 @@ export default function Contact(): ReactNode {
     })
 
 
-    async function sendEmailToDev(): Promise<void> {
+    async function sendEmailToDev(token: string): Promise<void> {
 
         const { name, email, message } = getValues()
         try {
-            setLoading(true)
-            const { data } = await axios.post('https://symetria-contact.netlify.app/.netlify/functions/send-contact', { name, email, message })
+
+            setApiState(prev => ({
+                ...prev,
+                isLoading: true
+            }))
+
+            const { data } = await axios.post('https://symetria-contact.netlify.app/.netlify/functions/send-contact', { name, email, message, token })
 
             if (data.message) {
-                setSent(true)
-                setLoading(false)
+
+                setApiState(prev => ({
+                    ...prev,
+                    isLoading: false,
+                    fulfilled: true
+                }))
+
                 reset()
                 setTimeout(() => {
                     navigate('/')
                 }, 4000)
+            } else {
+                setApiState(prev => ({
+                    ...prev,
+                    hasError: true
+                }))
             }
 
             return
         } catch (error) {
+
+            setApiState(prev => ({
+                ...prev,
+                hasError: true
+            }))
+
             console.log(error)
+        }
+    }
+
+    async function handleSubmitRecaptcha(): Promise<void> {
+        if (!window.grecaptcha) {
+            console.error('reCAPTCHA not available')
+            return
+        }
+
+        try {
+            const token = await window.grecaptcha.execute(recaptchaSiteKey, { action: 'contact_form' })
+            await sendEmailToDev(token)
+        } catch (error) {
+            console.error(error)
         }
     }
 
@@ -56,12 +107,17 @@ export default function Contact(): ReactNode {
         <>
             <div className='w-full min-h-screen flex justify-center items-center'>
                 {
-                    loading && (
+                    hasError && (
+                        <ErrorComponent />
+                    )
+                }
+                {
+                    !hasError && isLoading && (
                         <Fallback />
                     )
                 }
                 {
-                    !loading && sent && (
+                    !hasError && !isLoading && fulfilled && (
                         <AnimatePresence>
                             <motion.div
                                 initial={{ opacity: 0 }}
@@ -84,7 +140,7 @@ export default function Contact(): ReactNode {
                     )
                 }
                 {
-                    !loading && !sent && (
+                    !isLoading && !fulfilled && (
                         (
                             <section className="grid grid-cols-2 gap-x-20">
                                 <AnimatePresence>
@@ -106,7 +162,7 @@ export default function Contact(): ReactNode {
                                         exit={{ opacity: 0 }}
                                     >
                                         <form
-                                            onSubmit={handleSubmit(sendEmailToDev)}
+                                            onSubmit={handleSubmit(handleSubmitRecaptcha)}
                                             className="w-[200px] flex flex-col gap-y-2 pt-5 text-[0.9rem]"
                                         >
                                             <input {...register('name')} className={`w-full h-9 bg-gray-50 rounded-[3px] border ${errors.name ? 'border-red-500' : 'border-gray-300'} ring-0 focus:ring-0 focus:outline-none px-2 placeholder-sym_gray-500 transition-color duration-200`} placeholder='Name' />
