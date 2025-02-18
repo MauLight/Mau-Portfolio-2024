@@ -13,7 +13,7 @@ export const useFollowPointer = (ref: RefObject<HTMLElement>) => {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    if (!ref.current || pathname.length === 1) return
+    if (!ref.current || pathname.length > 1) return
     const handlePointerMove = ({ clientX, clientY }: MouseEvent) => {
       const element = ref.current!
       frame.read(() => {
@@ -24,6 +24,6 @@ export const useFollowPointer = (ref: RefObject<HTMLElement>) => {
 
     window.addEventListener('pointermove', handlePointerMove)
     return () => window.removeEventListener('pointermove', handlePointerMove)
-  }, [ref, xPoint, yPoint])
+  }, [ref, xPoint, yPoint, pathname])
   return { x, y }
 }
