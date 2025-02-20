@@ -76,10 +76,6 @@ export const Loader = ({ visible, setVisible }: LoaderProps) => {
           agent.bounce(width, height)
         })
 
-        // const x = randRange(0, width)
-        // const y = randRange(0, height)
-        // agents.push(new Agent(x, y))
-
         agents.pop()
       }
 
