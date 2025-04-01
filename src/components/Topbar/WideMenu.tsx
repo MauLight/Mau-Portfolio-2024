@@ -13,7 +13,7 @@ export const WideMenu = ({ isUpperMenuOpen, setUpperMenuOpen }: WideMenuProps): 
       <FlipLink onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} href='#' fontColor={pathname.includes('video') ? 'text-[#e7eee7]' : 'text-[#231c1e]'} textSize='text-lg'>dev</FlipLink>
       <FlipLink onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} href='#' fontColor={pathname.includes('video') ? 'text-[#e7eee7]' : 'text-[#231c1e]'} textSize='text-lg'>photo</FlipLink>
       <FlipLink onClick={() => { setUpperMenuOpen(!isUpperMenuOpen) }} href='#' fontColor={pathname.includes('video') ? 'text-[#e7eee7]' : 'text-[#231c1e]'} textSize='text-lg'>video</FlipLink>
-      <a href='https://symetria.lat' className={`${animatedGradientText} text-lg`}>SYMETRIA</a>
+      <a href='https://ctlst.cc' className={`${animatedGradientText} text-lg`}>CTLST</a>
       <FlipLink onClick={() => { }} href='/contact' fontColor={pathname.includes('video') ? 'text-[#e7eee7]' : 'text-[#231c1e]'} textSize='text-lg'>Contact</FlipLink>
     </div>
   )
