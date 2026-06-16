@@ -7,14 +7,21 @@ import { Link } from "react-router-dom";
 import { WideMenu } from "./WideMenu";
 import { WideMenuOptions } from "./WideMenuOptions";
 import { WideMenuOptionsVertical } from "./WideMenuOptionsVertical";
+import { useVideoFocus } from "@/context/VideoFocusContext";
 
 const Topbar = () => {
   const [isOpen, setOpen] = useState(false);
   const [isUpperMenuOpen, setUpperMenuOpen] = useState(false);
   const { pathname } = useLocation();
+  const { focused } = useVideoFocus();
 
   return (
-    <>
+    <motion.div
+      animate={{ opacity: focused ? 0 : 1 }}
+      transition={{ duration: 0.5 }}
+      style={{ pointerEvents: focused ? 'none' : 'auto' }}
+      className="w-full flex justify-center"
+    >
       <motion.div
         variants={fadeIn(
           "top",
@@ -66,7 +73,7 @@ const Topbar = () => {
           isUpperMenuOpen={isOpen}
         />
       )}
-    </>
+    </motion.div>
   );
 };
 

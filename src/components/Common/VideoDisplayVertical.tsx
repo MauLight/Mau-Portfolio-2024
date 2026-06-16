@@ -3,15 +3,14 @@ import { motion } from 'framer-motion'
 import { fadeIn } from '@/utils/functions'
 
 interface VideoDisplayProps {
-    mp4: string[]
-    webM: string[]
+    video: string[]
     bgColor: string
     title: string
     description: string
     frame: string
 }
 
-export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor, frame } : VideoDisplayProps): ReactElement => {
+export const VideoDisplayVertical = ({ title, description, video, bgColor, frame } : VideoDisplayProps): ReactElement => {
   const [currentVideo, setCurrentVideo] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
   const [volume, setVolume] = useState(false)
@@ -19,11 +18,11 @@ export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor, f
   const handleSlider = (direction: number) => {
     setCurrentVideo((prev) => {
       if (direction === 1) {
-        if (prev === 0) return webM.length - 1
+        if (prev === 0) return video.length - 1
         return prev - 1
       }
       if (direction === 2) {
-        if (prev === webM.length - 1) return 0
+        if (prev === video.length - 1) return 0
         return prev + 1
       }
       return prev
@@ -60,8 +59,7 @@ export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor, f
               whileInView={'show'}
               viewport={{ once: false, amount: 0.1 }}
               autoPlay loop muted className='absolute w-full object-cover z-0 opacity-0 hidden grayscale'>
-              <source src={webM[currentVideo]} type='video/webm' />
-              <source src={mp4[currentVideo]} type='video/mp4' />
+              <source src={video[currentVideo]} />
             </motion.video>
           )
         }
@@ -90,8 +88,7 @@ export const VideoDisplayVertical = ({ title, description, mp4, webM, bgColor, f
                 viewport={{ once: false, amount: 0.1 }}
                 onEnded={() => { setVolume(false) ; handleSlider(2) }}
                 autoPlay muted={!volume} className='shrink-0 h-full sm:h-5/6 object-cover z-10 rounded-[20px] border-t border-x border-gray-600 shadow-sm shadow-gray-900'>
-                <source src={webM[currentVideo]} type='video/webm' />
-                <source src={mp4[currentVideo]} type='video/mp4' />
+                <source src={video[currentVideo]} />
               </motion.video>
               <motion.button
                 variants={fadeIn('left', 1)}

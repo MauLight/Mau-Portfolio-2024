@@ -2,6 +2,7 @@
 import Layout from './Layout'
 import Topbar from './components/Topbar/Topbar'
 import { useLocation } from 'react-router'
+import { VideoFocusProvider } from './context/VideoFocusContext'
 
 const App = () => {
   const { pathname } = useLocation()
@@ -22,11 +23,13 @@ const App = () => {
   }
 
   return (
-    <div className="w-screen flex flex-col items-center justify-center">
-      <Topbar />
-      <Layout />
-      <div className={`fixed top-0 left-0 ${updateBgColor()} w-screen h-screen -z-10`}></div>
-    </div>
+    <VideoFocusProvider>
+      <div className="w-screen flex flex-col items-center justify-center">
+        <Topbar />
+        <Layout />
+        <div className={`fixed top-0 left-0 ${updateBgColor()} w-screen h-screen -z-10`}></div>
+      </div>
+    </VideoFocusProvider>
   )
 }
 

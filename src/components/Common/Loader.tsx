@@ -2,10 +2,8 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { WhiteAgent as Agent } from '@/utils/classes'
 import { randRange } from '@/utils/functions'
 import { AnimatePresence, motion } from 'framer-motion'
-import video from '@/assets/video/loading.webm'
-import videoEye from '@/assets/video/loading2.webm'
-import videoMp4 from '@/assets/video/loading.mp4'
-import videoEyeMp4 from '@/assets/video/loading2.mp4'
+
+const LOADER_VIDEO = 'https://res.cloudinary.com/dglhgnd47/video/upload/v1781590286/loading2_rrrehf.mp4'
 
 interface LoaderProps {
   visible: boolean
@@ -88,14 +86,6 @@ export const Loader = ({ visible, setVisible }: LoaderProps) => {
     }
   })
 
-  const [supportsWebm, setSupportsWebm] = useState<boolean>(false)
-
-  useEffect(() => {
-    const videoElem = document.createElement('video')
-    if (videoElem.canPlayType('video/webm') !== '') {
-      setSupportsWebm(true)
-    }
-  }, [])
 
   return (
     <>
@@ -120,42 +110,14 @@ export const Loader = ({ visible, setVisible }: LoaderProps) => {
                 transition={{ duration: 0.8 }}
                 onPlay={handleCloseLoader}
                 className='absolute w-screen h-screen object-cover' id='loader' autoPlay muted>
-                {
-                  supportsWebm ? (
-                    <>
-                      <source src={video} type="video/webm" />
-                      <source src={videoMp4} type="video/mp4" />
-                    </>
-                  )
-                    :
-                    (
-                      <>
-                        <source src={videoMp4} type="video/mp4" />
-                        <source src={video} type="video/webm" />
-                      </>
-                    )
-                }
+                <source src={LOADER_VIDEO} type="video/mp4" />
               </motion.video>
               <motion.video
                 ref={eyeRef}
                 initial={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
                 className='w-screen h-screen object-cover' muted>
-                {
-                  supportsWebm ? (
-                    <>
-                      <source src={videoEye} type="video/webm" />
-                      <source src={videoEyeMp4} type="video/mp4" />
-                    </>
-                  )
-                    :
-                    (
-                      <>
-                        <source src={videoEyeMp4} type="video/mp4" />
-                        <source src={videoEye} type="video/webm" />
-                      </>
-                    )
-                }
+                <source src={LOADER_VIDEO} type="video/mp4" />
               </motion.video>
             </motion.div>
           )
